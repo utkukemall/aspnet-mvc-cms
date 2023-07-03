@@ -1,6 +1,6 @@
 # Hastane Yönetim Sistemi
 
-##Yapılabilecekler
+## Yapılabilecekler
 * Hasta olmak
 * Doktor olmak
 * Site Yöneticisi olmak
