@@ -1,4 +1,5 @@
 # Hastane Yönetim Sistemi
+Hastane yönetmek için gerekli bir yönetim sistemi panelidir. İşleri kolaylaşmak için tasarlanmıştır.
 
 ## Yapılabilecekler
 * Hasta olmak
