@@ -10,6 +10,7 @@ namespace App.Web.Mvc.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            int ka = 31;
             _logger = logger;
         }
 
