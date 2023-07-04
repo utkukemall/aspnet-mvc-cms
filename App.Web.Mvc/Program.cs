@@ -16,8 +16,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// Ak_deneme
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
