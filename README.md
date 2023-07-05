@@ -1,5 +1,5 @@
 # Hastane Yönetim Sistemi
-Hastane yönetmek için gerekli bir yönetim sistemi panelidir. İşleri kolaylaşmak için tasarlanmıştır.
+Hastane yönetmek için gerekli bir yönetim sistemi panelidir. Hasta için randevu almak, doktor tanıtımı, servisler ve hizmetleriniz dökümanlarını etkili bir şekilde sunmanızı sağlar.
 
 ## Yapılabilecekler
 * Hasta olmak
