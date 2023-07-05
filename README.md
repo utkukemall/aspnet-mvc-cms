@@ -1,10 +1,13 @@
 # Hastane Yönetim Sistemi
-Hastane yönetmek için gerekli bir yönetim sistemi panelidir. Hasta için randevu almak, doktor tanıtımı, servisler ve hizmetleriniz dökümanlarını etkili bir şekilde sunmanızı sağlar.
+Hastane yönetmek için gerekli bir yönetim sistemi panelidir. Hastanenizi etkili bir sunumla tanıtmanızı amaçlar.
 
 ## Yapılabilecekler
-* Hasta olmak
-* Doktor olmak
-* Site Yöneticisi olmak
+* Hasta randevusu almak
+* Doktor tanıtımı
+* Servis - Poliklinik Tanıtımı
+* Hizmetlerin tanıtımı
+* İlgili dökümanların paylaşımı
+* Hastane ile iletişim
 
 
 ![Siliconmade](https://girisimsavascisi.org/wp-content/uploads/2022/06/WhatsApp-Image-2022-06-15-at-21.34.57.jpeg)
