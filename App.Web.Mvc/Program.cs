@@ -8,10 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSession();
 
-builder.Services.AddDbContext<AppDbContext>(options=>
-{
-    options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=AspNetMvcCms; Trusted_Connection=True");
-});
+builder.Services.AddDbContext<AppDbContext>();
 
 
 

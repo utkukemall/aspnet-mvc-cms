@@ -22,12 +22,12 @@ namespace App.Data
 
         public DbSet<User> Users { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			//optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=AspNetMvcCms; Trusted_Connection=True");
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		//{
+		//	//optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=AspNetMvcCms; Trusted_Connection=True");
 
-			base.OnConfiguring(optionsBuilder);
-		}
+		//	base.OnConfiguring(optionsBuilder);
+		//}
 
 
 	}
