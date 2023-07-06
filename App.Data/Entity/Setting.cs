@@ -17,7 +17,7 @@ namespace App.Data.Entity
 
         public string Name { get; set; }
 
-        [MaxLength(400), MinLength(2), Required(ErrorMessage = "The {0} field cannot be left blank!"), Column(TypeName = "nvarchar(400)")]
+        [MaxLength(400,ErrorMessage ="The {0} cannot exceed 400 characters."), MinLength(2, ErrorMessage = "The {0} must be at least 2 characters."), Required(ErrorMessage = "The {0} field cannot be left blank!"), Column(TypeName = "nvarchar(400)")]
 
         public string Value { get; set; }
 

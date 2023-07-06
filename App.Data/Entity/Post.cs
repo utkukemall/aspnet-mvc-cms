@@ -17,7 +17,7 @@ namespace App.Data.Entity
 
         public int UserId { get; set; }
 
-        [MaxLength(200), MinLength(1), Required(ErrorMessage = "The {0} field cannot be left blank!"), Column(TypeName = "nvarchar(200)")]
+        [MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(1, ErrorMessage = "The {0} must be at least 1 characters."), Required(ErrorMessage = "The {0} field cannot be left blank!"), Column(TypeName = "nvarchar(200)")]
 
         public string Title { get; set; }
 
