@@ -9,7 +9,12 @@ namespace App.Web.Mvc.Controllers
 			return View();
 		}
 
-		public IActionResult Login()
+		public IActionResult Login(string redirectUrl)
+		{
+			return View();
+		}
+
+		public IActionResult ForgorPassword()
 		{
 			return View();
 		}
