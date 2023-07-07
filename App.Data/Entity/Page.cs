@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Data.Entity
 {
-	public class Page : IAuiditEntity
+	public class Page : IAuditEntity
 	{
         [Key]
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Data.Entity
 {
-	public class PostComment : IAuiditEntity
+	public class PostComment : IAuditEntity
 	{
 		[Key]
         public int Id { get; set; }
