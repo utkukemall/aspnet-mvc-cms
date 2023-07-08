@@ -8,7 +8,7 @@ namespace App.Data.Entity
 		[Key]
 		public int Id { get; set; }
 
-		[Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.EmailAddress), EmailAddress, Column(TypeName = "varchar200"), MaxLength(200,ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
+		[Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.EmailAddress), EmailAddress, Column(TypeName = "varchar(200)"), MaxLength(200,ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
 		public string Email { get; set; }
 
 		[Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.Password), Column(TypeName = "nvarchar(100)"), MaxLength(100,ErrorMessage = "The {0} cannot exceed 100 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]

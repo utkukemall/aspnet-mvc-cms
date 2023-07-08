@@ -44,9 +44,9 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
 
-    var db = dbContext.Database;
+    var db = dbContext.Database; 
 
-    if(!await db.CanConnectAsync())
+    if(!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
     {
         await db.EnsureCreatedAsync();
 
