@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace App.Data.Entity
 {
-    public class Post : IAuiditEntity
+    public class Post : IAuditEntity
     {
         [Key]
         public int Id { get; set; }
