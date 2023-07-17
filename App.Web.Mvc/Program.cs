@@ -1,4 +1,5 @@
 using App.Data;
+using App.Data.Entity;
 using App.Web.Mvc.Services;
 using App.Web.Mvc.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +55,26 @@ using (var scope = app.Services.CreateScope())
         // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
         // burada seed yapýlmalý
 
+        //1. Admin
+        //2. Doktor Bülent
+        //3. hasta bilmemkim
+
+        User admin = new()
+        {
+            Email = "admin@noeva.com",
+            City = "Çorum",
+            Id = 1,
+            Password ="123456",
+            Phone = "5469389421"
+        };
+
+        Category kardiyoloji = new()
+        {
+            Id=1,
+            Description = "Cardio and other things",
+            Name = "Cardiology"
+
+        };
     }
 }
 
