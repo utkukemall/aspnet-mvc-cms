@@ -53,6 +53,7 @@ using (var scope = app.Services.CreateScope())
         // TODO: eðer veritabaný sýfýrdan oluþturulunca
         // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
         // burada seed yapýlmalý
+
     }
 }
 
