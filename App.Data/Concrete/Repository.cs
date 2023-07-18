@@ -92,5 +92,7 @@ namespace App.Data.Concrete
 		{
 			_dbSet.Update(entity);
 		}
+
+		// Repo designed
 	}
 }
