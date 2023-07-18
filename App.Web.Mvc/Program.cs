@@ -1,4 +1,5 @@
 using App.Data;
+using App.Data.Entity;
 using App.Web.Mvc.Services;
 using App.Web.Mvc.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -44,15 +45,36 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
 
-    var db = dbContext.Database;
+    var db = dbContext.Database; 
 
-    if(!await db.CanConnectAsync())
+    if(!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
     {
         await db.EnsureCreatedAsync();
 
         // TODO: eðer veritabaný sýfýrdan oluþturulunca
         // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
         // burada seed yapýlmalý
+
+        //1. Admin
+        //2. Doktor Bülent
+        //3. hasta bilmemkim
+
+        User admin = new()
+        {
+            Email = "admin@noeva.com",
+            City = "Çorum",
+            Id = 1,
+            Password ="123456",
+            Phone = "5469389421"
+        };
+
+        Category kardiyoloji = new()
+        {
+            Id=1,
+            Description = "Cardio and other things",
+            Name = "Cardiology"
+
+        };
     }
 }
 
