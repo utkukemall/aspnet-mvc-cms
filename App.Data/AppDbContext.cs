@@ -32,13 +32,7 @@ namespace App.Data
 
 		}
 
-		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		//{
-		//	optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=AspNetMvcCms; Trusted_Connection=True");
-
-		//	base.OnConfiguring(optionsBuilder);
-		//}
-
+	
 
 	}
 }
