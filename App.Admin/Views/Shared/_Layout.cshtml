@@ -7,6 +7,41 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/App.Admin.styles.css" asp-append-version="true" />
+
+
+    @*mazer template css*@
+
+    @*pages*@
+    <link href="~/mazer-template/assets/css/pages/auth.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/chat.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/datatables.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/dripicons.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/email.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/error.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/filepond.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/fontawesome.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/form-element-select.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/quill.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/rater-js.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/simple-datatables.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/summernote.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/sweetalert2.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/pages/toastify.css" rel="stylesheet" />
+
+    @*shared*@
+    <link href="~/mazer-template/assets/css/shared/iconly.css" rel="stylesheet" />
+
+    @*widgets*@
+    <link href="~/mazer-template/assets/css/widgets/chat.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/widgets/todo.css" rel="stylesheet" />
+
+ 
+
+
+    @*main*@
+    <link href="~/mazer-template/assets/css/main/app.css" rel="stylesheet" />
+    <link href="~/mazer-template/assets/css/main/app-dark.css" rel="stylesheet" />
+
 </head>
 <body>
     <header>
@@ -44,6 +79,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
