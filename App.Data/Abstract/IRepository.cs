@@ -26,5 +26,19 @@ namespace App.Data.Abstract
 		int Save();
 
 		// Async methods -- >
+
+		Task<T> FindAsync(int id);
+
+		Task<T> GetAsync(Expression<Func<T, bool>> expression);
+
+		Task<List<T>> GetAllAsync();
+
+		Task<List<T>> GetAllAsync(Expression<Func<T, bool>> expression);
+
+		Task AddAsync(T entity);
+
+		Task<int> SaveAsync();
+
+
 	}
 }
