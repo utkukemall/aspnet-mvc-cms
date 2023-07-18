@@ -12,7 +12,7 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseRouting(); // asd
 
 app.UseAuthorization();
 
