@@ -66,8 +66,9 @@ namespace App.API.Controllers
 			if (mainDepartment != null)
 			{
 				_service.Delete(mainDepartment);
+				_service.SaveAsync();
 
-				return await _service.SaveAsync();
+				return Ok();
 			}
 
 			return NotFound();
