@@ -1,5 +1,6 @@
 ﻿using App.Data.Abstract;
 using App.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace App.Data.Concrete
 		{
 		}
 
-		public Task<List<Post>> GetAllPostsByIncludeAsync()
+		public async Task<List<Post>> GetAllPostsByIncludeAsync()
 		{
-			throw new NotImplementedException();
+			return await _context.Posts.GroupJoin()
 		}
 
 
