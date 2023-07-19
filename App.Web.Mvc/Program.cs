@@ -1,4 +1,4 @@
-using App.Data;
+ï»¿using App.Data;
 using App.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +11,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
+    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigÃ¼rasyonu iÃ§erisinde "DBConStr" appsettings.json deÃ°erini oku.
+
+    // bu API tarafÄ±na geÃ§iyor.
 
     options.UseSqlServer(connStr);
 });
@@ -29,7 +31,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// JWT - Token ve Cookie araþtýr.
+// JWT - Token ve Cookie araÃ¾tÃ½r.
 
 //app.UseSession();
 
@@ -41,26 +43,26 @@ app.MapControllerRoute(
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaÃ°a kalktÃ½Ã°Ã½nda, belirtilen Database'i getir.
 
     var db = dbContext.Database; 
 
-    if(!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
+    if(!await db.CanConnectAsync()) // EÃ°er ilgili database'yi bulamÃ½yorsan 
     {
         await db.EnsureCreatedAsync();
 
-        // TODO: eðer veritabaný sýfýrdan oluþturulunca
-        // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
-        // burada seed yapýlmalý
+        // TODO: eÃ°er veritabanÃ½ sÃ½fÃ½rdan oluÃ¾turulunca
+        // iÃ§erisindeki bazÃ½ tablolarda kayÃ½t olmasÃ½ gerekiyorsa
+        // burada seed yapÃ½lmalÃ½
 
         //1. Admin
-        //2. Doktor Bülent
+        //2. Doktor BÃ¼lent
         //3. hasta bilmemkim
 
         User admin = new()
         {
             Email = "admin@noeva.com",
-            City = "Çorum",
+            City = "Ã‡orum",
             Id = 1,
             Password ="123456",
             Phone = "5469389421"
@@ -76,6 +78,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Category ve Services(Hospital Services) kýsmýný güncelle.
+// Category ve Services(Hospital Services) kÃ½smÃ½nÃ½ gÃ¼ncelle.
 
 app.Run();
