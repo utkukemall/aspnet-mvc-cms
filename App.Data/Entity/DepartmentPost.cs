@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace App.Data.Entity
 {
-	public class DepartmentPost
+	public class DepartmentPost 
 	{
 		[Key] // Bu property'nin Primary Key olduğunu belirtiyor.
 

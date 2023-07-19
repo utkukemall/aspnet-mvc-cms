@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Data.Entity
 {
-    public class Department
+    public class Department : IAuditEntity
     {
 
         [Key] // Id property'sinin primary key olduğunu belirtir.
