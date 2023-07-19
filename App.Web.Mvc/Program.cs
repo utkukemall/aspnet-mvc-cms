@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
 
     // bu API tarafına geçiyor.
+    // Yoo.
 
     options.UseSqlServer(connStr);
 });
