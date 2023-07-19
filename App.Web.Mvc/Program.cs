@@ -66,7 +66,7 @@ using (var scope = app.Services.CreateScope())
             Phone = "5469389421"
         };
 
-        Category kardiyoloji = new()
+        Department kardiyoloji = new()
         {
             Id=1,
             Description = "Cardio and other things",
