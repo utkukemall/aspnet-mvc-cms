@@ -26,7 +26,7 @@ namespace App.Web.Mvc.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            //var categories = await _dbContext.Categories.ToListAsync();
+            //var categories = await _dbContext.Categories.ToListAsync(); 
 
             return View(null);
         }
