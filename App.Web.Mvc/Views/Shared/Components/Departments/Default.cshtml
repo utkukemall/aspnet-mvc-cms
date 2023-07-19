@@ -1,0 +1,9 @@
+﻿
+@model IEnumerable<Department>
+
+@{
+    foreach(Department department in Model)
+    {
+        <li><a class="dropdown-item" asp-controller="Department" asp-action="Index" asp-route-id="@department.Id">@department.Name</a></li>
+    }
+}
