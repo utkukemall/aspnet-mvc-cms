@@ -16,7 +16,7 @@ namespace App.Data.Entity
 
 		[ForeignKey("Department")]
 
-		public int CategoryId { get; set; }
+		public int DepartmentId { get; set; }
 
 		[ForeignKey("Post")]
 
