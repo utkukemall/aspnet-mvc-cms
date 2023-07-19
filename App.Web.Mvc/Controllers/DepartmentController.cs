@@ -21,7 +21,7 @@ namespace App.Web.Mvc.Controllers
         }
 
 
-		[HttpGet]
+		//[HttpGet]
 		//public async Task<IActionResult> ListWithService([FromQuery] string? searchKey = null)
 		//{
   //          var sonuc = await _categoryService.GetCategories(searchKey);
