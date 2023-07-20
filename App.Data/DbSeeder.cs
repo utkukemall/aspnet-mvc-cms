@@ -22,13 +22,13 @@ namespace App.Data
             {
                 Email = "admin@noeva.com",
                 City = "Çorum",
-                Id = 1,
                 Password = "123456",
                 Phone = "5469389421"
             };
 
             _context.Users.Add(admin);
-           
+            _context.SaveChanges();
+
         }
     }
 }
