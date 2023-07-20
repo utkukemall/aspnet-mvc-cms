@@ -14,13 +14,19 @@ namespace App.Data.Entity
 
         public int Id { get; set; }
 
-		[ForeignKey("Department")]
 
 		public int DepartmentId { get; set; }
 
-		[ForeignKey("Post")]
 
 		public int PostId { get; set; }
 
-	}
+		[ForeignKey(nameof(DepartmentId))]
+		public Department? Departments { get; set; }
+
+		[ForeignKey(nameof(PostId))]
+		public Post? Post { get; set; }
+
+
+
+    }
 }
