@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using App.Data.Entity;
+using App.Service.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace App.API.Controllers
 {
@@ -8,6 +9,7 @@ namespace App.API.Controllers
     [ApiController]
     public class DepartmentsPostsController : ControllerBase
     {
+        //private readonly IService<Department>
         // GET: api/<DepartmentsPostsController>
         [HttpGet]
         public IEnumerable<string> Get()
