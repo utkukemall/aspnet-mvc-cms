@@ -28,7 +28,7 @@ namespace App.API.Controllers
         [HttpGet("{id}")]
         public async Task<Page> Get(int id)
         {
-          return  await _service.FindAsync(id);
+            return await _service.FindAsync(id);
         }
 
         // POST api/<PagesController>
@@ -38,7 +38,7 @@ namespace App.API.Controllers
             await _service.AddAsync(value);
             var response = await _service.SaveAsync();
 
-            if (response>0)
+            if (response > 0)
             {
                 return Ok();
             }
@@ -48,15 +48,42 @@ namespace App.API.Controllers
 
         // PUT api/<PagesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] Page value)
         {
+            Page mainModel = await _service.FindAsync(id);
+
+            if (mainModel != null)
+            {
+                mainModel = value;
+
+                _service.Update(mainModel);
+
+                var response = await _service.SaveAsync();
+
+                if (response > 0)
+                {
+                    return Ok();
+                }
+            }
+
+            return Problem();
 
         }
 
         // DELETE api/<PagesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            Page mainModel = await _service.FindAsync(id);
+
+            _service.Delete(mainModel);
+            var response =   await _service.SaveAsync();
+
+            if (response>0)
+            {
+                return Ok();
+            }
+            return Problem();
         }
     }
 }

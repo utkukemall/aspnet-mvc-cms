@@ -6,9 +6,9 @@ namespace App.Data
 {
 	public class AppDbContext : DbContext
 	{
-        public DbSet<Department> Categories { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
-        public DbSet<DepartmentPost> CategoryPosts { get; set; }
+        public DbSet<DepartmentPost> DepartmentPosts { get; set; }
 
         public DbSet<Page> Pages { get; set; }
 

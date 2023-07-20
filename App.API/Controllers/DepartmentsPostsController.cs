@@ -9,8 +9,13 @@ namespace App.API.Controllers
     [ApiController]
     public class DepartmentsPostsController : ControllerBase
     {
-        //private readonly IService<Department>
-        // GET: api/<DepartmentsPostsController>
+        private readonly IService<DepartmentPost> _service;
+
+        public DepartmentsPostsController(IService<DepartmentPost> service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
