@@ -6,47 +6,62 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.API.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class PostsController : ControllerBase
-	{
-		private readonly IService<Post> _service;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PostsController : ControllerBase
+    {
+        private readonly IService<Post> _service;
 
-		public PostsController(IService<Post> service)
-		{
-			_service = service;
-		}
+        public PostsController(IService<Post> service)
+        {
+            _service = service;
+        }
 
-		// GET: api/<PostsController>
-		[HttpGet]
-		public async Task<IEnumerable<Post>> Get()
-		{
-			return await _service.GetAllAsync();
-		}
+        // GET: api/<PostsController>
+        [HttpGet]
+        public async Task<IEnumerable<Post>> Get()
+        {
+            return await _service.GetAllAsync();
+        }
 
-		// GET api/<PostsController>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
-		{
-			return "value";
-		}
+        // GET api/<PostsController>/5
+        [HttpGet("{id}")]
+        public async Task<Post> GetAsync(int id)
+        {
+            Post model = await _service.FindAsync(id);
 
-		// POST api/<PostsController>
-		[HttpPost]
-		public void Post([FromBody] string value)
-		{
-		}
+            return model;
+        }
 
-		// PUT api/<PostsController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
-		{
-		}
+        // POST api/<PostsController>
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] Post value)
+        {
+            await _service.AddAsync(value);
+            var response = await _service.SaveAsync();
+            if (response > 0)
+            {
+                return Ok();
 
-		// DELETE api/<PostsController>/5
-		[HttpDelete("{id}")]
-		public void Delete(int id)
-		{
-		}
-	}
+            }
+            return Problem();
+        }
+
+        // PUT api/<PostsController>/5
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] string value)
+        {
+            Post mainModel = await _service.FindAsync(id);
+
+
+
+            return Ok();
+        }
+
+        // DELETE api/<PostsController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+    }
 }
