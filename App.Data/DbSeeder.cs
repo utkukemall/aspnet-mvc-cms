@@ -18,14 +18,27 @@ namespace App.Data
 
         public static void Seed(AppDbContext _context)
         {
+
+            Role role = new()
+            {
+                RoleName = "Admin"
+            };
+
             User admin = new()
             {
                 Email = "admin@noeva.com",
+                RoleId = 1,
                 City = "Çorum",
                 Password = "123456",
                 Phone = "5469389421"
             };
+            // Hiçbirine Id gelmeyecek.
+            // User dr
 
+            // Daha fazla entity eklenmesi gerek.
+
+
+            // Dummy'Ler eklenecek
             _context.Users.Add(admin);
 
 
