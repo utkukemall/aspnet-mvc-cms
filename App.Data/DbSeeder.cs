@@ -156,12 +156,27 @@ namespace App.Data
             };
             _context.Departments.Add(dp7);
             _context.SaveChanges();
+
+            PostImage image = new()
+            {
+                ImagePath="Image.png"
+            };
+            _context.PostImages.Add(image);
+
+            PostImage image2 = new()
+            {
+                ImagePath = "Image2.png"
+            };
+            _context.PostImages.Add(image2);
+
+            _context.SaveChanges();
             //Post
             Post post = new()
             {
                 UserId = 1,//admin
                 Title = "Ayarlar",
-                Content = "Ayarlar"
+                Content = "Ayarlar",
+                PostImageId = 2
             };
             _context.Posts.Add(post);
 
@@ -169,7 +184,8 @@ namespace App.Data
             {
                 UserId = 3,//doctor
                 Title = "Hastalıklar",
-                 Content = "Hastalıklar"
+                 Content = "Hastalıklar",
+                PostImageId = 1
             };
             _context.Posts.Add(post1);
 
@@ -177,7 +193,9 @@ namespace App.Data
             {
                 UserId = 5,//user
                 Title = "Hizmet",
-                Content = "Hizmet"
+                Content = "Hizmet",
+                PostImageId= 1
+                
             };
             _context.Posts.Add(post2);
             _context.SaveChanges();
@@ -206,8 +224,8 @@ namespace App.Data
             //PostImage
             PostImage postImage = new()
             {
-                PostId = 1,
-                ImagePath="",
+                
+               ImagePath=""
 
             };
             _context.PostImages.Add(postImage);

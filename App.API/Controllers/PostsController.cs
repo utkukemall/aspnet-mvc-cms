@@ -10,25 +10,27 @@ namespace App.API.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IService<Post> _service;
+        private readonly IPostService _service;
 
-        public PostsController(IService<Post> service)
+        public PostsController(IPostService service)
         {
             _service = service;
         }
+
+
 
         // GET: api/<PostsController>
         [HttpGet]
         public async Task<IEnumerable<Post>> Get()
         {
-            return await _service.GetAllAsync();
+            return await _service.GetAllPostsByIncludeAsync();
         }
 
         // GET api/<PostsController>/5
         [HttpGet("{id}")]
         public async Task<Post> GetAsync(int id)
         {
-            Post model = await _service.FindAsync(id);
+            Post model = await _service.GetPostByIncludeAsync(id);
 
             return model;
         }
@@ -49,19 +51,44 @@ namespace App.API.Controllers
 
         // PUT api/<PostsController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(int id, [FromBody] Post value)
         {
-            Post mainModel = await _service.FindAsync(id);
+            Post mainModel = await _service.GetPostByIncludeAsync(id);
 
+            if (mainModel!=null)
+            {
+                mainModel = value;
+                _service.Update(mainModel);
+                var response = await _service.SaveAsync();
 
+                if (response>0)
+                {
+                    return Ok();
+                }
+            }
 
-            return Ok();
+            return Problem();
         }
 
         // DELETE api/<PostsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            Post mainModel = await _service.GetPostByIncludeAsync(id);
+
+            if (mainModel!= null)
+            {
+                _service.Delete(mainModel);
+                var response = await _service.SaveAsync();
+
+                if (response>0)
+                {
+                    return Ok();
+                }
+            }
+
+
+            return Problem();
         }
     }
 }
