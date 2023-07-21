@@ -216,24 +216,24 @@ namespace App.Data
             Setting settings = new()
             {
                 UserId = 1,
-                Name = "",
-                Value = "",
+                Name = "Role Ekleme",
+                Value = "Role Ekleme",
             };
             _context.Settings.Add(settings);
 
             Setting settings1 = new()
             {
-                UserId = 2,
-                Name = "",
-                Value = "",
+                UserId = 3,
+                Name = "Hasta Ekleme",
+                Value = "Hasta Ekleme",
             };
             _context.Settings.Add(settings);
 
             Setting settings2 = new()
             {
-                UserId = 3,
-                Name = "",
-                Value = "",
+                UserId = 5,
+                Name = "Randevu İptali",
+                Value = "Randevu İptali",
             };
             _context.Settings.Add(settings);
 
