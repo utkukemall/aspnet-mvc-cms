@@ -227,7 +227,7 @@ namespace App.Data
                 Name = "Hasta Ekleme",
                 Value = "Hasta Ekleme",
             };
-            _context.Settings.Add(settings);
+            _context.Settings.Add(settings1);
 
             Setting settings2 = new()
             {
@@ -235,13 +235,7 @@ namespace App.Data
                 Name = "Randevu İptali",
                 Value = "Randevu İptali",
             };
-            _context.Settings.Add(settings);
-
-
-
-
-
-
+            _context.Settings.Add(settings2);
 
             _context.SaveChanges();
 
