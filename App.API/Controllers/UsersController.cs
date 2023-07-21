@@ -8,7 +8,7 @@ namespace App.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IService<User> _service;
+        private readonly IUserService _service;
 
         public UsersController(IService<User> service)
         {
@@ -26,7 +26,7 @@ namespace App.API.Controllers
         [HttpGet("{id}")]
         public async Task<User> Get(int id)
         {
-            return await _service.FindAsync(id);
+            return await _service.GetUserByIncludeAsync(id);
         }
 
         // POST api/<UsersController>

@@ -1,4 +1,4 @@
-using App.Data;
+ï»¿using App.Data;
 using App.Data.Entity;
 using App.Service.Abstract;
 using App.Service.Concrete;
@@ -8,19 +8,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(); // Eðer sonsuz döngü hatasý alýrsan AddJsonOptions(IgnoreCycles) kullan
+builder.Services.AddControllers(); // EÃ°er sonsuz dÃ¶ngÃ¼ hatasÃ½ alÃ½rsan AddJsonOptions(IgnoreCycles) kullan
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
+    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigÃ¼rasyonu iÃ§erisinde "DBConStr" appsettings.json deÃ°erini oku.
 
     options.UseSqlServer(connStr);
 });
 
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
@@ -37,19 +38,19 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaÃ°a kalktÃ½Ã°Ã½nda, belirtilen Database'i getir.
 
     var db = dbContext.Database;
 
-    if (!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
+    if (!await db.CanConnectAsync()) // EÄŸer ilgili database'yi bulamÄ±yorsan 
     {
 
 
         await db.EnsureCreatedAsync();
 
-        // TODO: eðer veritabaný sýfýrdan oluþturulunca
-        // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
-        // burada seed yapýlmalý
+        // TODO: eÃ°er veritabanÃ½ sÃ½fÃ½rdan oluÃ¾turulunca
+        // iÃ§erisindeki bazÃ½ tablolarda kayÃ½t olmasÃ½ gerekiyorsa
+        // burada seed yapÃ½lmalÃ½
 
         DbSeeder.Seed(dbContext);
     }
