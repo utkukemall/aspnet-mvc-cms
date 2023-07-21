@@ -37,7 +37,7 @@ namespace App.Data
                 RoleName = "User"
             };
             _context.Roles.Add(user);
-
+            _context.SaveChanges();
             //Users
             User admin0 = new()
             {
@@ -98,7 +98,7 @@ namespace App.Data
                 Phone = "54693894210"
             };
             _context.Users.Add(user5);
-
+            _context.SaveChanges();
             //Departments
             Department dp = new()
             {
@@ -155,7 +155,7 @@ namespace App.Data
                 Description = "Radyoloji"
             };
             _context.Departments.Add(dp7);
-
+            _context.SaveChanges();
             //Post
             Post post = new()
             {
@@ -180,7 +180,7 @@ namespace App.Data
                 Content = "Hizmet"
             };
             _context.Posts.Add(post2);
-
+            _context.SaveChanges();
             //DepartmenPost
             DepartmentPost dpPost = new() 
             {
@@ -202,7 +202,7 @@ namespace App.Data
                 PostId = 3,
             };
             _context.DepartmentPosts.Add(dpPost2);
-
+            _context.SaveChanges();
             //PostImage
             PostImage postImage = new()
             {
@@ -211,7 +211,7 @@ namespace App.Data
 
             };
             _context.PostImages.Add(postImage);
-
+            _context.SaveChanges();
             //Settings
             Setting settings = new()
             {
