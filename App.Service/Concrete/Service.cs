@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.Service.Concrete
 {
-	public class Service<T> : Repository<T>, IService<T> where T : class, IAuditEntity, new()
+	public class Service<T> : Repository<T>, IService<T> where T : class, IEntity, new()
 	{
 		public Service(AppDbContext context) : base(context)
 		{
