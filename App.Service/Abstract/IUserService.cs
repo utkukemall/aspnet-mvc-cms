@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace App.Service.Abstract
 {
-    internal interface IUserService : IUserRepository
+    public interface IUserService : IUserRepository
     {
     }
 }
