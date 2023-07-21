@@ -3,8 +3,8 @@
     public abstract class BaseAuditEntity : BaseEntity, IAuditEntity
     {
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? UpdatedAt { get ; set ; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // Bir kere oluşturulduktan sonra sabit kalmasını istiyoruz.
+        public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow; // Her güncellemede son değeri almasını istiyoruz.
         public DateTime? DeletedAt { get ; set ; }
     }
 }
