@@ -26,7 +26,7 @@ namespace App.API.Controllers
         [HttpGet("{id}")]
         public async Task<User> Get(int id)
         {
-            return await _service.GetUserByIncludeASync(id);
+            return await _service.GetUserByIncludeAsync(id);
         }
 
         // POST api/<UsersController>
