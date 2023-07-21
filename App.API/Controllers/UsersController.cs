@@ -19,7 +19,7 @@ namespace App.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<User>> Get()
         {
-            return await _service.GetAllAsync();
+            return await _service.GetAllUserByIncludeAsync();
         }
 
         // GET api/<UsersController>/5
@@ -34,7 +34,6 @@ namespace App.API.Controllers
         public async Task<ActionResult> PostAsync([FromBody] User value)
         {
             await _service.AddAsync(value);
-
             await _service.SaveAsync();
             return Ok();
         }
@@ -43,8 +42,8 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> PutAsync(int id, [FromBody] User value)
         {
-              User mainUser =   await _service.FindAsync(id);
-            if (mainUser!=null)
+            User mainUser = await _service.FindAsync(id);
+            if (mainUser != null)
             {
                 mainUser = value;
 

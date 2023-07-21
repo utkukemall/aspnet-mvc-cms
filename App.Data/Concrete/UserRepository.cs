@@ -10,6 +10,11 @@ namespace App.Data.Concrete
         {
         }
 
+        public async Task<List<User>> GetAllUserByIncludeAsync()
+        {
+            return await _dbSet.AsNoTracking().Include(u => u.Role).ToListAsync();
+        }
+
         public async Task<User> GetUserByIncludeAsync(int userId)
         {
             return await _dbSet.Where(u => u.Id == userId).Include(u => u.Role).FirstOrDefaultAsync();
