@@ -10,7 +10,7 @@ namespace App.API.Controllers
     {
         private readonly IUserService _service;
 
-        public UsersController(IService<User> service)
+        public UsersController(IUserService service)
         {
             _service = service;
         }
