@@ -64,7 +64,13 @@ namespace App.API.Controllers
             if (mainUser is not null)
             {
                 _service.Delete(mainUser);
-                await _service.SaveAsync();
+                var response = await _service.SaveAsync();
+
+                if (response > 0)
+                {
+                    return Ok();
+
+                }
             }
             return BadRequest();
         }

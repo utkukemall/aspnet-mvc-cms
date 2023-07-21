@@ -58,14 +58,20 @@ namespace App.API.Controllers
 
         // DELETE api/<SettingsController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             Setting mainSetting = await _service.FindAsync(id);
             if (mainSetting != null)
             {
                 _service.Delete(mainSetting);
-                await _service.SaveAsync();
-                return Ok();
+                var response = await _service.SaveAsync();
+                if (response > 0)
+                {
+
+                    return Ok();
+
+                }
+
             }
             return Problem();
         }
