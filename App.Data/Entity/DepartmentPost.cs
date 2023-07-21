@@ -8,20 +8,17 @@ using System.Threading.Tasks;
 
 namespace App.Data.Entity
 {
-	public class DepartmentPost : IAuditEntity
+	public class DepartmentPost : BaseEntity
 	{
-		[Key] // Bu property'nin Primary Key olduğunu belirtiyor.
-
-        public int Id { get; set; }
-
 
 		public int DepartmentId { get; set; }
 
-
-		public int PostId { get; set; }
-
 		[ForeignKey(nameof(DepartmentId))]
 		public Department? Departments { get; set; }
+
+
+
+		public int PostId { get; set; }
 
 		[ForeignKey(nameof(PostId))]
 		public Post? Post { get; set; }

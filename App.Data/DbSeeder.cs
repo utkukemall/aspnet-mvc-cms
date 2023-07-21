@@ -27,6 +27,13 @@ namespace App.Data
             };
 
             _context.Users.Add(admin);
+
+
+
+
+
+
+
             _context.SaveChanges();
 
         }

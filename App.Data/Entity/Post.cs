@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace App.Data.Entity
 {
-    public class Post : IAuditEntity
+    public class Post : BaseAuditEntity
     {
-        [Key]
-        public int Id { get; set; }
-
-        [ForeignKey("User")]
 
         public int UserId { get; set; }
+
+        [ForeignKey(nameof(UserId))]
+        public User? User { get; set; }
 
         [MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(1, ErrorMessage = "The {0} must be at least 1 characters."), Required(ErrorMessage = "The {0} field cannot be left blank!"), Column(TypeName = "nvarchar(200)")]
 
