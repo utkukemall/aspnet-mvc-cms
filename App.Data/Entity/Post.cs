@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Data.Entity
 {
-    public class Post : BaseAuditEntity
+    public class Post : BaseAuditEntity // Bunu News gibi işlerde kullanabiliyoruz Ancak poliklinikler için Departman Post ile Include ediyoruz.
     {
 
         public int UserId { get; set; }
