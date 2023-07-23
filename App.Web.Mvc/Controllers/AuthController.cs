@@ -1,57 +1,91 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using App.Data.Entity;
+using App.Web.Mvc.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
 
 namespace App.Web.Mvc.Controllers
 {
-	public class AuthController : Controller
-	{
-		public IActionResult Register()
-		{
-			return View();
-		}
+    public class AuthController : Controller
+    {
+        private readonly HttpClient _httpClient;
 
-		public IActionResult Login(string redirectUrl)
-		{
-			// Butonla Yönetici tarafına yönlendirilebilir orada giriş yapar.
-			return View();
-		}
-
-		[HttpPost]
-        public IActionResult Login([FromForm] LoginViewModel model, [FromServices] IConfiguration configuration) // Yalnızca hasta girişi olacak
+        public AuthController(HttpClient httpClient)
         {
-			if (!ModelState.IsValid)
-			{
-				return ValidationProblem(ModelState);
-			}
+            _httpClient = httpClient;
+        }
 
-			// check db if user exists
-
-
-			//if ok do login
-
-
-			if (User.IsInRole("Admin"))
+        private readonly string _apiAddress = "http://localhost:5005/api/Users";
+        private readonly string _apiRoleAddress = "http://localhost:5005/api/Roles";
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(User newUser, string password2)
+        {
+            try
             {
+                if (newUser.Password == password2)
+                {
+                    var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+                    var user = users.FirstOrDefault(u => u.Email == newUser.Email);
 
-                return Redirect(configuration.GetValue<string>("AdminUrl"));
+                    if (user is not null)
+                        ModelState.AddModelError("", "This Email Has Already Been Registered!");
+
+                    var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
+                    var roleFromDatabase = roles.FirstOrDefault(r => r.Id == newUser.RoleId); // newUser.RoleId Her zaman Null olduğu için roleFromDatabase de null oluyor
+
+                    if (roleFromDatabase == null)
+                    {
+                        roleFromDatabase = new Role
+                        {
+                            RoleName = "DefaultRoleName" // roleFromDatabase Null olduğu için her zaman DefaultRoleName adında yeni role ekliyor.
+                        };
+                    }
+
+                    newUser.Role = roleFromDatabase; 
+
+                    var add = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
+
+                    if (add.IsSuccessStatusCode)
+                        return RedirectToAction("Index", "Home");
+                    else
+                        ModelState.AddModelError("", "An error occurred while registering the user.");
+                }
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            return View(newUser);
+        }
 
-			// Su
+
+
+
+
+
+        public IActionResult Login(string redirectUrl)
+        {
             return View();
         }
 
-        public IActionResult ForgotPassword()
-		{
-			return View();
-		}
-	}
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginModel)
+        {
+            var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+            var user = users.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
+            if (user is not null)
+                return RedirectToAction("Index", "Home");
+            ModelState.AddModelError("", "?");
+            return View(loginModel);
+        }
 
-	// move this to models
-	public class LoginViewModel
-	{
-		[Required, EmailAddress]
-		public string Mail { get; set; } = string.Empty;
-        public string Password { get; set; }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }

@@ -39,66 +39,66 @@ namespace App.Data
             _context.Roles.Add(user);
             _context.SaveChanges();
             //Users
-            //User admin0 = new()
-            //{
-            //    Email = "admin0@noeva.com",  
-            //    RoleId = 1 ,
-            //    City = "Çorum",
-            //    Password = "123456",
-            //    Phone = "5469389421"
-            //};
-            //_context.Users.Add(admin0);
+            User admin0 = new()
+            {
+                Email = "admin0@noeva.com",
+                RoleId = 1,
+                City = "Çorum",
+                Password = "123456",
+                Phone = "5469389421"
+            };
+            _context.Users.Add(admin0);
 
-            //User admin1 = new()
-            //{
-            //    Email = "admin1@noeva.com",
-            //    RoleId = 1 ,
-            //    City = "Tekirdağ",
-            //    Password = "123456",
-            //    Phone = "54693894210"
-            //};
-            //_context.Users.Add(admin1);
+            User admin1 = new()
+            {
+                Email = "admin1@noeva.com",
+                RoleId = 1,
+                City = "Tekirdağ",
+                Password = "123456",
+                Phone = "54693894210"
+            };
+            _context.Users.Add(admin1);
 
-            //User doctor2 = new()
-            //{
-            //    Email = "doctor2@noeva.com",
-            //    RoleId = 2,
-            //    City = "Izmir",
-            //    Password = "123456",
-            //    Phone = "54693894210"
-            //};
-            //_context.Users.Add(doctor2);
+            User doctor2 = new()
+            {
+                Email = "doctor2@noeva.com",
+                RoleId = 2,
+                City = "Izmir",
+                Password = "123456",
+                Phone = "54693894210"
+            };
+            _context.Users.Add(doctor2);
 
-            //User doctor3 = new()
-            //{
-            //    Email = "doctor3@noeva.com",
-            //    RoleId = 2,
-            //    City = "Bursa",
-            //    Password = "123456",
-            //    Phone = "54693894210"
-            //};
-            //_context.Users.Add(doctor3);
+            User doctor3 = new()
+            {
+                Email = "doctor3@noeva.com",
+                RoleId = 2,
+                City = "Bursa",
+                Password = "123456",
+                Phone = "54693894210"
+            };
+            _context.Users.Add(doctor3);
 
-            //User user4 = new()
-            //{
-            //    Email = "user4@noeva.com",
-            //    RoleId = 3,
-            //    City = "Ankara",
-            //    Password = "123456",
-            //    Phone = "54693894210"
-            //};
-            //_context.Users.Add(user4);
+            User user4 = new()
+            {
+                Email = "user4@noeva.com",
+                RoleId = 3,
+                City = "Ankara",
+                Password = "123456",
+                Phone = "54693894210"
+            };
+            _context.Users.Add(user4);
 
-            //User user5 = new()
-            //{
-            //    Email = "user5@noeva.com",
-            //    RoleId = 3,
-            //    City = "Yalova",
-            //    Password = "123456",
-            //    Phone = "54693894210"
-            //};
-            //_context.Users.Add(user5);
-            //_context.SaveChanges();
+            User user5 = new()
+            {
+                Email = "user5@noeva.com",
+                RoleId = 3,
+                City = "Yalova",
+                Password = "123456",
+                Phone = "54693894210"
+            };
+            _context.Users.Add(user5);
+            _context.SaveChanges();
             //Departments
             Department dp = new()
             {

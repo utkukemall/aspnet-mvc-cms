@@ -1,5 +1,6 @@
 using App.Data;
 using App.Data.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,22 @@ builder.Services.AddHttpClient();
 
 //builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(k =>
+{
+    k.LoginPath = "/Auth/";
+    k.LogoutPath = "/Auth/";
+    k.AccessDeniedPath = "/Auth/";
+    k.Cookie.Name = "AuthenticationCookie";
+    k.Cookie.MaxAge = TimeSpan.FromDays(1);
+});
+
+builder.Services.AddAuthorization(p =>
+{
+    p.AddPolicy("AdminPolicy", c => c.RequireClaim("Role", "Admin"));
+    p.AddPolicy("DoctorPolicy", c => c.RequireClaim("Role", "Doctor"));
+    p.AddPolicy("UserPolicy", c => c.RequireClaim("Role", "User"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,7 +52,7 @@ app.UseRouting();
 // JWT - Token ve Cookie araþtýr.
 
 //app.UseSession();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -56,7 +73,7 @@ app.MapControllerRoute(
 //        // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
 //        // burada seed yapýlmalý
 
-      
+
 
 //        User admin = new()
 //        {
