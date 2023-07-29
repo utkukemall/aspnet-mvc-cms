@@ -3,34 +3,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Admin.Controllers
 {
-    public class UsersController : Controller
+    public class PostCommentsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres= "http://localhost:5005/api/Users";
-        public UsersController(HttpClient httpClient)
+        private readonly string _apiAdres = "http://localhost:5005/api/Users";
+        public PostCommentsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-
-        // GET: UsersController
+        // GET: PostCommentsController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: UsersController/Details/5
+        // GET: PostCommentsController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: UsersController/Create
+        // GET: PostCommentsController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UsersController/Create
+        // POST: PostCommentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -45,13 +44,13 @@ namespace App.Admin.Controllers
             }
         }
 
-        // GET: UsersController/Edit/5
+        // GET: PostCommentsController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: UsersController/Edit/5
+        // POST: PostCommentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -66,13 +65,13 @@ namespace App.Admin.Controllers
             }
         }
 
-        // GET: UsersController/Delete/5
+        // GET: PostCommentsController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: UsersController/Delete/5
+        // POST: PostCommentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

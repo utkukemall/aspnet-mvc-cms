@@ -3,34 +3,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Admin.Controllers
 {
-    public class UsersController : Controller
+    public class RolesController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres= "http://localhost:5005/api/Users";
-        public UsersController(HttpClient httpClient)
+        private readonly string _apiAdres = "http://localhost:5005/api/Users";
+        public RolesController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-
-        // GET: UsersController
+        // GET: RolesController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: UsersController/Details/5
+        // GET: RolesController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: UsersController/Create
+        // GET: RolesController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UsersController/Create
+        // POST: RolesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -45,13 +44,13 @@ namespace App.Admin.Controllers
             }
         }
 
-        // GET: UsersController/Edit/5
+        // GET: RolesController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: UsersController/Edit/5
+        // POST: RolesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -66,13 +65,13 @@ namespace App.Admin.Controllers
             }
         }
 
-        // GET: UsersController/Delete/5
+        // GET: RolesController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: UsersController/Delete/5
+        // POST: RolesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
