@@ -35,7 +35,10 @@ namespace App.Web.Mvc.Controllers
                         ModelState.AddModelError("", "This Email Has Already Been Registered!");
 
                     var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
+
                     var roleFromDatabase = roles.FirstOrDefault(r => r.Id == newUser.RoleId); // newUser.RoleId Her zaman Null olduğu için roleFromDatabase de null oluyor
+
+                    //KAAA
 
                     if (roleFromDatabase == null)
                     {
