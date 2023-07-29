@@ -16,7 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Admin\App.Doctor.csproj" />
+    <ProjectReference Include="..\App.API\App.API.csproj" />
     <ProjectReference Include="..\App.Data\App.Data.csproj" />
+    <ProjectReference Include="..\App.Service\App.Service.csproj" />
+    <ProjectReference Include="..\App.Web.Mvc\App.Web.Mvc.csproj" />
   </ItemGroup>
 
 </Project>

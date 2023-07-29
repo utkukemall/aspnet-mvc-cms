@@ -4,11 +4,18 @@ using System.Diagnostics;
 
 namespace App.Doctor.Controllers
 {
-    public class HomeController : Controller
+    public class MainController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly HttpClient _httpClient;
+        private readonly string _apiAdres = "http://localhost:5005/api/Users";
+        public MainController(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<MainController> _logger;
+
+        public MainController(ILogger<MainController> logger)
         {
             _logger = logger;
         }
