@@ -13,12 +13,12 @@ builder.Services.AddHttpClient();
 
 //builder.Services.AddSession();
 
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//{
-//    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
 
-//    options.UseSqlServer(connStr);
-//});
+    options.UseSqlServer(connStr);
+});
 
 //builder.Services.AddScoped<ICategoryService, CategoryService>();
 
