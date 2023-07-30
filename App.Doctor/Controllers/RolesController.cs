@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Admin.Controllers
@@ -6,15 +7,16 @@ namespace App.Admin.Controllers
     public class RolesController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Users";
+        private readonly string _apiAdres = "http://localhost:5005/api/Roles";
         public RolesController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
         // GET: RolesController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<List<Role>>(_apiAdres);
+            return View(model);
         }
 
         // GET: RolesController/Details/5
