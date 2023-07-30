@@ -71,46 +71,46 @@ using (var scope = app.Services.CreateScope())
         // TODO: eðer veritabaný sýfýrdan oluþturulunca
         // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
         // burada seed yapýlmalý
-        User admin = new()
-        {
-            Email = "admin@noeva.com",
-            City = "Çorum",
-            Id = 1,
-            Password = "123456",
-            Phone = "5469389421"
-        };
+        //User admin = new()
+        //{
+        //    Email = "admin@noeva.com",
+        //    City = "Çorum",
+        //    Id = 1,
+        //    Password = "123456",
+        //    Phone = "5469389421"
+        //};
 
-        User doctor = new()
-        {
-            Email = "doctor@noeva.com",
-            City = "Çanakkale",
-            Id = 2,
-            Password = "123456",
-            Phone = "54693190421"
-        };
+        //User doctor = new()
+        //{
+        //    Email = "doctor@noeva.com",
+        //    City = "Çanakkale",
+        //    Id = 2,
+        //    Password = "123456",
+        //    Phone = "54693190421"
+        //};
 
-        Department kardiyoloji = new()
-        {
-            Id = 1,
-            Description = "Cardio and other things",
-            Name = "Cardiology"
+        //Department kardiyoloji = new()
+        //{
+        //    Id = 1,
+        //    Description = "Cardio and other things",
+        //    Name = "Cardiology"
 
-        };
+        //};
 
-        Post post = new()
-        {
-            Content = "Our Hospital is the best",
-            Id = 1,
-            Title = "Best Hospital",
-            UserId = 2
-        };
+        //Post post = new()
+        //{
+        //    Content = "Our Hospital is the best",
+        //    Id = 1,
+        //    Title = "Best Hospital",
+        //    UserId = 2
+        //};
 
-        DepartmentPost departmentPost = new()
-        {
-            Id = 1,
-            DepartmentId = 1,
-            PostId = 1
-        };
+        //DepartmentPost departmentPost = new()
+        //{
+        //    Id = 1,
+        //    DepartmentId = 1,
+        //    PostId = 1
+        //};
         DbSeeder.Seed(dbContext);
 
     }

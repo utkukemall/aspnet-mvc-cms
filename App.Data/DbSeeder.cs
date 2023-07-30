@@ -257,22 +257,6 @@ namespace App.Data
 
             _context.SaveChanges();
 
-            Doctor doctor1 = new()
-            {
-                City= "New York",
-                Email = "miracle@noeva.com",
-                Password="1234567",
-                Phone = "5446508042",
-                RoleId = 2,
-                Specialty= "Neuroscience",
-                
-            };
-
-            Patient patient = new()
-            {
-                // Doldurulacak
-            };
-
         }
     }
 }

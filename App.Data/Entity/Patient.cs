@@ -11,10 +11,10 @@ namespace App.Data.Entity
             Empty, Black, Red, Yellow, Green
         }
 
-        public int DoctorId { get; set; }
+        //public int DoctorId { get; set; }
 
-        [ForeignKey(nameof(DoctorId))]
-        public Doctor Doctor { get; set; }
+        //[ForeignKey(nameof(DoctorId))]
+        //public Doctor Doctor { get; set; }
     }
 
     

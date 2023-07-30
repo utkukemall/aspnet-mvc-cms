@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Admin.Controllers
@@ -13,9 +14,10 @@ namespace App.Admin.Controllers
         }
 
         // GET: UsersController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<List<User>>(_apiAdres);
+            return View(model);
         }
 
         // GET: UsersController/Details/5
