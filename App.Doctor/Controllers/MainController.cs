@@ -8,17 +8,7 @@ namespace App.Doctor.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAdres = "http://localhost:5005/api/Users";
-        public MainController(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
 
-        private readonly ILogger<MainController> _logger;
-
-        public MainController(ILogger<MainController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
