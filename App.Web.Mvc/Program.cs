@@ -111,7 +111,7 @@ using (var scope = app.Services.CreateScope())
         //    DepartmentId = 1,
         //    PostId = 1
         //};
-        DbSeeder.Seed(dbContext);
+        
 
     }
 }

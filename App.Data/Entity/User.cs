@@ -12,6 +12,8 @@ namespace App.Data.Entity
         public Role Role { get; set; }
         // RoleId eklenecek ve Role tablosu eklenecek.
 
+        //[Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.Text),Column(TypeName = "nvarchar(100)"), MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
+        //public string FullName { get; set; }
 
         [Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.EmailAddress), EmailAddress, Column(TypeName = "varchar(200)"), MaxLength(200,ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
 		public string Email { get; set; }
