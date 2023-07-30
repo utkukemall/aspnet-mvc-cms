@@ -53,7 +53,6 @@ using (var scope = app.Services.CreateScope())
         // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
         // burada seed yapýlmalý
 
-        DbSeeder.Seed(dbContext);
     }
 }
 
