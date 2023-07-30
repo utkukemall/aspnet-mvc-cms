@@ -7,7 +7,9 @@ namespace App.Admin.Controllers
     public class UsersController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres= "http://localhost:5005/api/Users";
+        private readonly string _apiAddress = "http://localhost:5005/api/Users";
+        private readonly string _apiRoleAddress = "http://localhost:5005/api/Roles";
+
         public UsersController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -16,7 +18,7 @@ namespace App.Admin.Controllers
         // GET: UsersController
         public async Task<ActionResult> Index()
         {
-            var model = await _httpClient.GetFromJsonAsync<List<User>>(_apiAdres);
+            var model = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
             return View(model);
         }
 
@@ -35,16 +37,43 @@ namespace App.Admin.Controllers
         // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(User collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+                var user = users.FirstOrDefault(u => u.Email == collection.Email);
+
+                if (user is not null)
+                    ModelState.AddModelError("", "This Email Has Already Been Registered!");
+
+                var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
+
+                var roleFromDatabase = roles.FirstOrDefault(r => r.Id == collection.RoleId); // newUser.RoleId Her zaman Null olduğu için roleFromDatabase de null oluyor
+
+                //KAAA
+
+                if (roleFromDatabase == null)
+                {
+                    roleFromDatabase = new Role
+                    {
+                        RoleName = "KadirAltınay" // roleFromDatabase Null olduğu için her zaman DefaultRoleName adında yeni role ekliyor.
+                    };
+                }
+
+                collection.Role = roleFromDatabase;
+
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "An error occurred while registering the user.");
             }
+            return View(collection);
         }
 
         // GET: UsersController/Edit/5
