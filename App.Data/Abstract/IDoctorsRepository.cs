@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace App.Data.Abstract
 {
-    public interface IDoctorRepository : IRepository<Doctors>
+    public interface IDoctorsRepository : IRepository<Doctors>
     {
         Task<Doctors> GetDoctorByIncludeAsync(int id);
 
-        Task<List<Doctor>> GetAllDoctorsByIncludeAsync();
+        Task<List<Doctors>> GetAllDoctorsByIncludeAsync();
 
-        Task<List<Doctor>> GetSomeDoctorsByIncludeAsync(Expression<Func<Doctors,bool>> expression);
+        Task<List<Doctors>> GetSomeDoctorsByIncludeAsync(Expression<Func<Doctors,bool>> expression);
     }
 }

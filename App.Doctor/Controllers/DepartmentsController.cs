@@ -44,6 +44,7 @@ namespace App.Admin.Controllers
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                     return RedirectToAction(nameof(Index));
 
                 }
@@ -56,39 +57,73 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+            if (id != null)
+            {
+                return BadRequest();
+            }
+                Department model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
         }
 
         // POST: DepartmentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Department collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PatchAsJsonAsync(_apiAddress, collection);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                    return RedirectToAction(nameof(Index));
+                }
+              
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
             }
+
+                return View();
         }
 
         // GET: DepartmentsController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
         }
 
         // POST: DepartmentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, Department collection)
         {
             try
             {
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
+
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
             }
             catch

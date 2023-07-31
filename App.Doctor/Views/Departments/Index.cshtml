@@ -39,9 +39,9 @@
                             <td>@department.Name</td>
                             <td>@department.Description</td>
                             <td>
-                                <a class="btn btn-primary" asp-controller="Departments" asp-action="Edit" asp-route-id="">Edit</a> |
+                                <a class="btn btn-primary" asp-controller="Departments"  asp-action="Edit" asp-route-id="@department.Id">Edit</a> |
 
-                                <a class="btn btn-danger" asp-controller="Departments" asp-action="Delete" asp-route-id="">Delete</a>
+                                <a class="btn btn-danger" asp-controller="Departments" asp-action="Delete" asp-route-id="@department.Id">Delete</a>
                             </td>
 
 

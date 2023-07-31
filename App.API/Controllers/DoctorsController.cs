@@ -10,25 +10,27 @@ namespace App.API.Controllers
     [ApiController]
     public class DoctorsController : ControllerBase
     {
-        private readonly IService<Doctors> _service;
+        private readonly IDoctorsService _service;
 
-        public DoctorsController(IService<Doctors> service)
+        public DoctorsController(IDoctorsService service)
         {
             _service = service;
         }
+
+
 
         // GET: api/<DoctorsController>
         [HttpGet]
         public async Task<IEnumerable<Doctors>> Get()
         {
-            return await _service.GetAllAsync();
+            return await _service.GetAllDoctorsByIncludeAsync();
         }
 
         // GET api/<DoctorsController>/5
         [HttpGet("{id}")]
         public async Task<Doctors> Get(int id)
         {
-            return await _service.FindAsync(id);
+            return await _service.GetDoctorByIncludeAsync(id);
         }
 
         // POST api/<DoctorsController>
@@ -44,7 +46,7 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Doctors value)
         {
-            var doctor = await _service.FindAsync(id);
+            var doctor = await _service.GetDoctorByIncludeAsync(id);
 
             if (doctor != null)
             {
@@ -62,7 +64,7 @@ namespace App.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var doctor = await _service.FindAsync(id);
+            var doctor = await _service.GetDoctorByIncludeAsync(id);
 
             if (doctor != null)
             {
