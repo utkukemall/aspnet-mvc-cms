@@ -8,19 +8,22 @@ using System.Threading.Tasks;
 
 namespace App.Data.Entity
 {
-	public class DepartmentPost
+	public class DepartmentPost : BaseEntity
 	{
-		[Key] // Bu property'nin Primary Key olduğunu belirtiyor.
 
-        public int Id { get; set; }
+		public int DepartmentId { get; set; }
 
-		[ForeignKey("Department")]
+		[ForeignKey(nameof(DepartmentId))]
+		public Department? Departments { get; set; }
 
-		public int CategoryId { get; set; }
 
-		[ForeignKey("Post")]
 
 		public int PostId { get; set; }
 
-	}
+		[ForeignKey(nameof(PostId))]
+		public Post? Post { get; set; }
+
+
+
+    }
 }

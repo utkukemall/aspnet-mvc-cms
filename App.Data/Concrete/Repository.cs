@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.Data.Concrete
 {
-	public class Repository<T> : IRepository<T> where T : class, IAuditEntity, new()
+	public class Repository<T> : IRepository<T> where T : class, IEntity, new()
 	{
 
 		internal AppDbContext _context;
@@ -94,5 +94,7 @@ namespace App.Data.Concrete
 		}
 
 		// Repo designed
+
+		
 	}
 }

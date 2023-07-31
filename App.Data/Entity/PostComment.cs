@@ -3,14 +3,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Data.Entity
 {
-	public class PostComment : IAuditEntity
+	public class PostComment : BaseAuditEntity
 	{
-		[Key]
-        public int Id { get; set; }
 
-		[ForeignKey("Post")]
+
+		[ForeignKey(nameof(PostId))]
 
 		public int PostId { get; set; }
+
+        public Post Post { get; set; }
 
         [ForeignKey("User")]
 
