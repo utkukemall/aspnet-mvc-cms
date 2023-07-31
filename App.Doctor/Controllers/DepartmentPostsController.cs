@@ -31,8 +31,9 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentPostsController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
+            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             return View();
         }
 
@@ -51,16 +52,18 @@ namespace App.Admin.Controllers
             }
             catch
             {
-            }
                 ModelState.AddModelError("", "Hata Oluştu!");
-            //ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiDepartments), "Id", "Name");
+            }
+            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             return View();
         }
 
         // GET: DepartmentPostsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
-            return View();
+            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
+            var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: DepartmentPostsController/Edit/5
