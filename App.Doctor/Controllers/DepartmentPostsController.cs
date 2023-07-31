@@ -47,15 +47,16 @@ namespace App.Admin.Controllers
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                     return RedirectToAction(nameof(Index));
                 }
             }
-            catch
+            catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata Oluştu!");
+                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
-            return View();
+            return View(collection);
         }
 
         // GET: DepartmentPostsController/Edit/5
