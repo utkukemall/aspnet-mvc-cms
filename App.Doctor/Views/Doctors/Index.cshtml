@@ -1,4 +1,4 @@
-﻿@model IEnumerable<User>
+﻿@model IEnumerable<Doctors>
 
 @{
     ViewData["Title"] = "Users";
@@ -32,18 +32,20 @@
                         <th>Email</th>
                         <th>City</th>
                         <th>Phone</th>
+                        <td>Patients</td>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var user in Model)
+                    @foreach (var Doctors in Model)
                     {
                         <tr>
-                            <td>@user.Id</td>
-                            <td>@user.Role</td>
-                            <td>@user.Email</td>
-                            <td>@user.City</td>
-                            <td>@user.Phone</td>
+                            <td>@Doctors.Id</td>
+                            <td>@Doctors.Role</td>
+                            <td>@Doctors.Email</td>
+                            <td>@Doctors.City</td>
+                            <td>@Doctors.Phone</td>
+                            <td>@Doctors.Patients</td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
                                 <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |

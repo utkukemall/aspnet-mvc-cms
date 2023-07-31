@@ -1,4 +1,4 @@
-﻿@model IEnumerable<User>
+﻿@model IEnumerable<PostComment>
 
 @{
     ViewData["Title"] = "Users";
@@ -28,22 +28,15 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>City</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
+                        <th>Comment</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var user in Model)
+                    @foreach (var postComment in Model)
                     {
                         <tr>
-                            <td>@user.Id</td>
-                            <td>@user.Role</td>
-                            <td>@user.Email</td>
-                            <td>@user.City</td>
-                            <td>@user.Phone</td>
+                            <td>@postComment.Id</td>
+                            <td>@postComment.Comment</td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
                                 <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |
