@@ -18,7 +18,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Index()
         {
 
-            var model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAdres);
+            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAdres);
             return View(model);
         }
 
