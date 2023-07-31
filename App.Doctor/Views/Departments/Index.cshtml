@@ -7,11 +7,11 @@
 
 <div class="container-fluid">
     <h1 class="mt-4 ">Departments List</h1>
-    <a class="btn btn-outline-success mt-2 ms-1" asp-controller="Departments" asp-action="Create">Create New Department</a>
+    <a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="Departments" asp-action="Create">Create New Department</a>
     <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body text-center bg-dark text-bg-dark">
             
-            <p class="fw-bold"><i> You can see all departments in this area...</i> </p>
+            <p class="fw-bold text-bg-dark"><i> You can see all departments in this area...</i> </p>
             
         </div>
     </div>
@@ -39,9 +39,9 @@
                             <td>@department.Name</td>
                             <td>@department.Description</td>
                             <td>
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
-                                
-                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="">Delete</a>
+                                <a class="btn btn-primary" asp-controller="Departments" asp-action="Edit" asp-route-id="">Edit</a> |
+
+                                <a class="btn btn-danger" asp-controller="Departments" asp-action="Delete" asp-route-id="">Delete</a>
                             </td>
 
 
