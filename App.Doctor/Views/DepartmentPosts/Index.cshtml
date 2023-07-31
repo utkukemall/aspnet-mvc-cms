@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Role>
+﻿@model IEnumerable<DepartmentPost>
 @{
     ViewData["Title"] = "Index";
 }
@@ -26,7 +26,10 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>RoleName</th>
+                        <th>DepartmentId</th>
+                        <th>Departments</th>
+                        <th>Post</th>
+                        <th>PostId</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,7 +37,10 @@
                     {
                         <tr>
                             <td>@role.Id</td>
-                            <td>@role.RoleName</td>
+                            <td>@role.DepartmentId</td>
+                            <td>@role.Departments</td>
+                            <td>@role.Post</td>
+                            <td>@role.PostId</td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
                                 <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |
