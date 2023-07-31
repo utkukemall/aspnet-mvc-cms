@@ -51,9 +51,9 @@ namespace App.Admin.Controllers
             }
             catch
             {
-                ModelState.AddModelError("", "Hata Oluştu!");
             }
-            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiDepartments), "Id", "Name");
+                ModelState.AddModelError("", "Hata Oluştu!");
+            //ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiDepartments), "Id", "Name");
             return View();
         }
 
