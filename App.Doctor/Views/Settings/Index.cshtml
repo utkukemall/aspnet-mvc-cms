@@ -1,1 +1,57 @@
-﻿
+﻿@model IEnumerable<Setting>
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+
+<div class="container-fluid">
+    <h1 class="mt-4 ">Departments List</h1>
+    <a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="Settings" asp-action="Create">Create New Setting</a>
+    <div class="card mb-4">
+        <div class="card-body text-center bg-dark text-bg-dark">
+
+            <p class="fw-bold text-bg-dark"><i>Settings</i> </p>
+
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>User</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Setting department in Model)
+                    {
+                        <tr>
+                            <td>@department.Id</td>
+                            <td>@department.Name</td>    
+                            <td>@department.Value</td>   
+                            <td>@department.User</td>   
+                            <td>
+                                <a class="btn btn-primary" asp-controller="Settings" asp-action="Edit" asp-route-id="">Edit</a> |
+
+                                <a class="btn btn-danger" asp-controller="Settings" asp-action="Delete" asp-route-id="">Delete</a>
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

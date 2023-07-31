@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Admin.Controllers
@@ -6,22 +7,24 @@ namespace App.Admin.Controllers
     public class SettingsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Users";
+        private readonly string _apiAdres = "http://localhost:5005/api/Settings";
         public SettingsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
         // GET: HomeController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+
+            List<Setting> model = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAdres);
+            return View(model);
         }
 
         // GET: HomeController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: HomeController/Create
         public ActionResult Create()
@@ -32,16 +35,22 @@ namespace App.Admin.Controllers
         // POST: HomeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Setting collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PostAsJsonAsync(_apiAdres, collection);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
+            return View();
         }
 
         // GET: HomeController/Edit/5

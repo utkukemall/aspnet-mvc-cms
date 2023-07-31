@@ -31,9 +31,8 @@ namespace App.Admin.Controllers
         //}
 
         // GET: DepartmentPostsController/Create
-        public async Task<ActionResult> CreateAsync()
+        public ActionResult Create()
         {
-            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiDepartments), "Id", "Name");
             return View();
         }
 
