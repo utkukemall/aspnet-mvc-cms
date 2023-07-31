@@ -1,20 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Admin.Controllers
 {
-    public class DoctorController : Controller
+    public class DoctorsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Users";
-        public DoctorController(HttpClient httpClient)
+        private readonly string _apiAddress = "http://localhost:5005/api/Doctors";
+        public DoctorsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
         // GET: DoctorController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddress);
+            return View(model);
         }
 
         // GET: DoctorController/Details/5

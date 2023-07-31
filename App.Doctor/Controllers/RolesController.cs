@@ -7,7 +7,7 @@ namespace App.Admin.Controllers
     public class RolesController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Roles";
+        private readonly string _apiAddress = "http://localhost:5005/api/Roles";
         public RolesController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -15,7 +15,7 @@ namespace App.Admin.Controllers
         // GET: RolesController
         public async Task<ActionResult> Index()
         {
-            var model = await _httpClient.GetFromJsonAsync<List<Role>>(_apiAdres);
+            var model = await _httpClient.GetFromJsonAsync<List<Role>>(_apiAddress);
             return View(model);
         }
 

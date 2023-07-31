@@ -9,7 +9,7 @@ namespace App.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<DepartmentPost> DepartmentPosts { get; set; }
         public DbSet<Page> Pages { get; set; }
-        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Doctors> Doctors { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PostComment> PostComments { get; set; }

@@ -7,7 +7,7 @@ namespace App.Admin.Controllers
     public class DepartmentsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Departments";
+        private readonly string _apiAddress = "http://localhost:5005/api/Departments";
 
         public DepartmentsController(HttpClient httpClient)
         {
@@ -17,8 +17,7 @@ namespace App.Admin.Controllers
         // GET: DepartmentsController
         public async Task<ActionResult> Index()
         {
-
-            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAdres);
+            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress);
             return View(model);
         }
 
@@ -42,7 +41,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(_apiAdres, collection);
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index));

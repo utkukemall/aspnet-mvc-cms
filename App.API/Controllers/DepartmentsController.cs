@@ -32,45 +32,40 @@ namespace App.API.Controllers
 
 		// POST api/<DepartmentsController>
 		[HttpPost]
-		public async Task<int> Post([FromBody] Department value)
+		public async Task<ActionResult> Post([FromBody] Department value)
 		{
 			await _service.AddAsync(value);
-
-			return await _service.SaveAsync();
+            await _service.SaveAsync();
+            return Ok(value);
 		}
 
 		// PUT api/<DepartmentsController>/5
 		[HttpPut("{id}")]
-		public async Task<int> Put(int id, [FromBody] Department value)
+		public async Task<ActionResult> Put(int id, [FromBody] Department value)
 		{
-			Department mainDepartment = await _service.FindAsync(id);
+			var mainDepartment = await _service.FindAsync(id);
 
 			if(mainDepartment != null)
 			{
 				mainDepartment = value;
-
 				_service.Update(mainDepartment);
-
-				return await _service.SaveAsync();
-			}
-
-			return 304;
+				 await _service.SaveAsync();
+				return Ok(mainDepartment);
+            }
+			return NotFound();
 		}
 
 		// DELETE api/<DepartmentsController>/5
 		[HttpDelete("{id}")]
-		public async Task<ActionResult> DeleteAsync(int id)
+		public async Task<ActionResult> Delete(int id)
 		{
-			Department mainDepartment = await _service.FindAsync(id);
-
+			var mainDepartment = await _service.FindAsync(id);
 			if (mainDepartment != null)
 			{
 				_service.Delete(mainDepartment);
 				_service.SaveAsync();
-
 				return Ok();
 			}
-
 			return NotFound();
 		}
 	}

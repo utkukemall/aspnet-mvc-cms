@@ -1,20 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace App.Admin.Controllers
 {
     public class PostsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Users";
+        private readonly string _apiAddress = "http://localhost:5005/api/Posts";
         public PostsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
         // GET: PostsController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<List<Post>>(_apiAddress);
+            return View(model);
         }
 
         // GET: PostsController/Details/5

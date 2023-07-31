@@ -6,10 +6,6 @@ namespace App.Doctor.Controllers
 {
     public class MainController : Controller
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Users";
-
-
         public IActionResult Index()
         {
             return View();

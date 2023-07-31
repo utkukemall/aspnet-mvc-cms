@@ -7,7 +7,7 @@ namespace App.Admin.Controllers
     public class SettingsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Settings";
+        private readonly string _apiAddress = "http://localhost:5005/api/Settings";
         public SettingsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -15,8 +15,7 @@ namespace App.Admin.Controllers
         // GET: HomeController
         public async Task<ActionResult> Index()
         {
-
-            List<Setting> model = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAdres);
+            List<Setting> model = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
             return View(model);
         }
 
@@ -39,7 +38,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(_apiAdres, collection);
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index));

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Admin.Controllers
@@ -6,15 +7,16 @@ namespace App.Admin.Controllers
     public class PostImagesController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "http://localhost:5005/api/Users";
+        private readonly string _apiAddress = "http://localhost:5005/api/PostImages";
         public PostImagesController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
         // GET: PostImagesController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<List<PostImage>>(_apiAddress);
+            return View(model);
         }
 
         // GET: PostImagesController/Details/5

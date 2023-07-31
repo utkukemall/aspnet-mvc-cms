@@ -1,6 +1,6 @@
 ﻿namespace App.Data.Entity
 {
-    public class Doctor : User
+    public class Doctors : User
     {
         public string Specialty { get; set; }
 
