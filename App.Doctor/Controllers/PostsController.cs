@@ -1,7 +1,9 @@
 ﻿using App.Data.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
+using System.Drawing.Drawing2D;
 
 namespace App.Admin.Controllers
 {
@@ -9,6 +11,7 @@ namespace App.Admin.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/Posts";
+        private readonly string _apiUsers = "http://localhost:5005/api/Users";
         public PostsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -27,24 +30,31 @@ namespace App.Admin.Controllers
         }
 
         // GET: PostsController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "Email");
             return View();
         }
 
         // POST: PostsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Post collection, IFormFile? Image)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Hata Oluştu!");
             }
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "Email");
+            return View(collection);
         }
 
         // GET: PostsController/Edit/5
