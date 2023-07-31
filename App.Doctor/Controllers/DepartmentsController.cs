@@ -7,7 +7,7 @@ namespace App.Admin.Controllers
     public class DepartmentsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres= "http://localhost:5005/api/Departments";
+        private readonly string _apiAdres = "http://localhost:5005/api/Departments";
 
         public DepartmentsController(HttpClient httpClient)
         {
@@ -23,30 +23,37 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: DepartmentsController/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
         // POST: DepartmentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Department collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PostAsJsonAsync(_apiAdres, collection);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
+            return View();
         }
 
         // GET: DepartmentsController/Edit/5
