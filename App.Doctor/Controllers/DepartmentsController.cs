@@ -23,10 +23,10 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: DepartmentsController/Create
         public ActionResult Create()
