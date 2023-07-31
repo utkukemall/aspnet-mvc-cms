@@ -30,4 +30,8 @@
     <ProjectReference Include="..\App.Web.Mvc\App.Web.Mvc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Settings\" />
+  </ItemGroup>
+
 </Project>

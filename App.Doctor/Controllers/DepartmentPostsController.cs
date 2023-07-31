@@ -1,6 +1,9 @@
 ﻿using App.Data.Entity;
+using App.Web.Mvc.ViewComponents;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Drawing.Drawing2D;
 
 namespace App.Admin.Controllers
 {
@@ -8,6 +11,7 @@ namespace App.Admin.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAdres = "http://localhost:5005/api/DepartmentsPosts";
+        private readonly string _apiDepartments = "http://localhost:5005/api/Departments";
         public DepartmentPostsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -21,21 +25,22 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentPostsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: DepartmentPostsController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
+            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiDepartments), "Id", "Name");
             return View();
         }
 
-        // POST: DepartmentPostsController/Create
+        // POST: DepartmentPostsController/Createz
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(DepartmentPost collection)
+        public async Task<ActionResult> CreateAsync(DepartmentPost collection)
         {
             try
             {
@@ -43,13 +48,13 @@ namespace App.Admin.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index));
-
                 }
             }
-            catch (Exception e)
+            catch
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Hata Oluştu!");
             }
+            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiDepartments), "Id", "Name");
             return View();
         }
 
