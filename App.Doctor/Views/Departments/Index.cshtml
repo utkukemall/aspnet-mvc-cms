@@ -6,16 +6,13 @@
 
 
 <div class="container-fluid">
-    <h1 class="mt-4">Tables</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item active">Tables</li>
-    </ol>
+    <h1 class="mt-4 ">Departments List</h1>
+    <a class="btn btn-outline-success mt-2 ms-1" asp-controller="Departments" asp-action="Create">Create New Department</a>
     <div class="card mb-4">
         <div class="card-body">
-            DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-            <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-            .
+            
+            <p class="fw-bold"><i> You can see all departments in this area...</i> </p>
+            
         </div>
     </div>
     <div class="card mb-4">
@@ -43,7 +40,7 @@
                             <td>@department.Description</td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
-                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |
+                                
                                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="">Delete</a>
                             </td>
 
