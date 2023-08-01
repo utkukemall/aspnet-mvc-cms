@@ -1,9 +1,6 @@
 ﻿using App.Data.Entity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Hosting;
-using System.Drawing.Drawing2D;
 
 namespace App.Admin.Controllers
 {
