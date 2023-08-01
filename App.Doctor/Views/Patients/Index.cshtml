@@ -41,11 +41,15 @@
                     {
                         <tr>
                             <td>@patient.Id</td>
-                            <td>@patient.Role</td>
+                            <td>@patient.RoleId</td>
                             <td>@patient.Email</td>
                             <td>@patient.City</td>
                             <td>@patient.Phone</td>
-                            <td>BURAYA DOCTOR GELECEK</td>
+                            @if (patient.Doctor is not null)
+                            {
+                                <td>@patient.Doctor.FullName</td>
+
+                            }
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
                                 <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |
