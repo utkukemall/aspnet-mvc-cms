@@ -3,12 +3,13 @@ using App.Data.Entity;
 using App.Service.Abstract;
 using App.Service.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(); // Eðer sonsuz döngü hatasý alýrsan AddJsonOptions(IgnoreCycles) kullan
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles); ; // Eðer sonsuz döngü hatasý alýrsan AddJsonOptions(IgnoreCycles) kullan
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
