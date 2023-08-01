@@ -5,10 +5,10 @@ namespace App.Data.Entity
 {
     public class User : BaseAuditEntity
 	{
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
         [ForeignKey(nameof(RoleId))]
-        public Role Role { get; set; }
+        public Role? Role { get; set; }
 
         public int? ImageId { get; set; }
 
