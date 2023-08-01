@@ -7,12 +7,15 @@ namespace App.Admin.Controllers
     public class DepartmentsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Departments";
 
         public DepartmentsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
+
+        private readonly string _apiAddress = "http://localhost:5005/api/Departments";
+
+
 
         // GET: DepartmentsController
         public async Task<ActionResult> Index()
@@ -59,16 +62,10 @@ namespace App.Admin.Controllers
         // GET: DepartmentsController/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id != null)
-            {
-                return BadRequest();
-            }
-                Department model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
 
-            if (model == null)
-            {
-                return NotFound();
-            }
+            Department model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+
+
 
             return View(model);
         }
@@ -78,40 +75,51 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, Department collection)
         {
-            try
-            {
-                var response = await _httpClient.PatchAsJsonAsync(_apiAddress, collection);
+            //try
+            //{
 
-                if (response.IsSuccessStatusCode)
-                {
-                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                    return RedirectToAction(nameof(Index));
-                }
-              
-            }
-            catch(Exception e)
-            {
-                ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
-            }
 
-                return View();
+            //}
+            //catch(Exception e)
+            //{
+            //    ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
+            //}
+
+            //    return View();
+
+            var response = await _httpClient.PutAsJsonAsync(_apiAddress, collection);
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: DepartmentsController/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return BadRequest();
-            }
-            var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+                if (id == null)
+                {
+                    return BadRequest();
+                }
+                var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
 
-            if (model == null)
+                if (model == null)
+                {
+                    return NotFound();
+                }
+
+                return View(model);
+            }
+            catch (Exception e)
             {
-                return NotFound();
-            }
 
-            return View(model);
+                ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
+            }
+            return View();
         }
 
         // POST: DepartmentsController/Delete/5
