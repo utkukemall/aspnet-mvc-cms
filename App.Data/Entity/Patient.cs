@@ -2,7 +2,7 @@
 
 namespace App.Data.Entity
 {
-    public class Patient : User // Eğer User bir hasta olarak kaydolacaksa ileride kullanılacaktır.
+    public class Patient : User
     {
 
         public string? Diagnosis { get; set; }
@@ -21,7 +21,4 @@ namespace App.Data.Entity
             Empty, Black, Green, Yellow, Red
         }
     }
-
-    
-    
 }
