@@ -51,12 +51,12 @@ namespace App.Data
                 {
                     RoleId = i,
                     ImageId = i,
-                    FullName = $"User FullName {i}",
-                    City = $"City {i}",
+                    FullName = $"doctor FullName{i}",
+                    City = $"City{i}",
                     Phone = $"123456789{i}",
-                    Specialty = $"Specialty {i}",
+                    Specialty = $"Specialty{i}",
                     Patients = SeedPatientsForDoctor(i),
-                    Email = $"doctor{i}@example.com",
+                    Email = GenerateRandomEmail($"Doctors{i}", "Doctors.com"),
                     Password = "mysecretpassword"
                 };
 
@@ -77,10 +77,10 @@ namespace App.Data
                     Diagnosis = $"Diagnosis {i} for Doctor {doctorId}",
                     RoleId = i,
                     ImageId = i,
-                    FullName = $"User FullName {i}",
-                    City = $"City {i}",
+                    FullName = $"Patient FullName{i}",
+                    City = $"City{i}",
                     Phone = $"123456789{i}",
-                    Email = $"Patient{i}@example.com",
+                    Email = GenerateRandomEmail($"Patient{i}", "Patient.com"),
                     Password = "mysecretpassword",
                 };
 
@@ -96,13 +96,13 @@ namespace App.Data
             {
                 var patient = new Patient
                 {
-                    Diagnosis = $"Diagnosis {i}",
+                    Diagnosis = $"Diagnosis{i}",
                     RoleId = i,
                     ImageId = i,
-                    FullName = $"User FullName {i}",
-                    City = $"City {i}",
+                    FullName = $"Patient FullName{i}",
+                    City = $"City{i}",
                     Phone = $"123456789{i}",
-                    Email = $"Patient{i}{i}@example.com",
+                    Email = GenerateRandomEmail($"Patient{i}", "example.com"),
                     Password = "mysecretpassword",
                 };
 
@@ -118,7 +118,7 @@ namespace App.Data
             {
                 var image = new Image
                 {
-                    ImagePath = $"ImagePath {i}",
+                    ImagePath = $"ImagePath{i}",
                     // Gerekli diğer özellikleri de doldur.
                 };
 
@@ -135,8 +135,8 @@ namespace App.Data
                 var post = new Post
                 {
                     ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
-                    Title = $"Post Title {i}",
-                    Content = $"Post Content {i}",
+                    Title = $"Post Title{i}",
+                    Content = $"Post Content{i}",
                     CommentsCount = i,
                     Comments = SeedCommentsForPost(i), // Her post için rastgele yorumlar oluşturuluyor.
                     // Gerekli diğer özellikleri de doldur.
@@ -176,7 +176,7 @@ namespace App.Data
                 {
                     PostId = i, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
                     UserId = i, // Bu örnekte UserId'leri 1'den 10'a kadar ekledik.
-                    Comment = $"Comment {i}",
+                    Comment = $"Comment{i}",
                     IsActive = true, // Varsayılan olarak true olarak ekledik.
                     // Gerekli diğer özellikleri de doldur.
                 };
@@ -193,7 +193,7 @@ namespace App.Data
             {
                 var role = new Role
                 {
-                    RoleName = $"Role {i}",
+                    RoleName = $"Role{i}",
                     // Gerekli diğer özellikleri de doldur.
                 };
 
@@ -210,8 +210,8 @@ namespace App.Data
                 var setting = new Setting
                 {
                     UserId = i, // Bu örnekte UserId'leri 1'den 10'a kadar ekledik.
-                    Name = $"Setting Name {i}",
-                    Value = $"Setting Value {i}",
+                    Name = $"Setting Name{i}",
+                    Value = $"Setting Value{i}",
                     // Gerekli diğer özellikleri de doldur.
                 };
 
@@ -226,8 +226,8 @@ namespace App.Data
             {
                 var page = new Page
                 {
-                    Title = $"Page Title {i}",
-                    Content = $"Page Content {i}",
+                    Title = $"Page Title{i}",
+                    Content = $"Page Content{i}",
                     IsActive = true, // Set IsActive based on your requirements.
                                      // Add other necessary properties here.
                 };
@@ -246,12 +246,11 @@ namespace App.Data
                 {
                     RoleId = i, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
                     ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
-                    FullName = $"User FullName {i}",
-                    Email = $"user{i}@example.com",
+                    FullName = $"User{i}",
+                    Email = GenerateRandomEmail($"user{i}", "example.com"),
                     Password = "passwordpassword",
-                    City = $"City {i}",
+                    City = $"City{i}",
                     Phone = $"123456789{i}", // Örnek telefon numarası oluşturduk.
-                    // Gerekli diğer özellikleri de doldur.
                 };
 
                 context.Users.Add(user);
@@ -267,7 +266,6 @@ namespace App.Data
                 {
                     DepartmentId = i, // Bu örnekte DepartmentId'leri 1'den 10'a kadar ekledik.
                     PostId = i, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
-                                // Gerekli diğer özellikleri de doldur.
                 };
 
                 context.DepartmentPosts.Add(departmentPost);
@@ -276,5 +274,12 @@ namespace App.Data
             context.SaveChanges();
         }
 
+        private static string GenerateRandomEmail(string name, string domain)
+        {
+            // Rastgele bir sayı ekleyerek benzersiz bir e-posta adresi oluşturun.
+            var random = new Random();
+            var randomNumber = random.Next(1000, 9999);
+            return $"{name}{randomNumber}@{domain}";
+        }
     }
 }
