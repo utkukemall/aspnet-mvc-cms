@@ -46,7 +46,7 @@
                             <td>
                                 @if (patient.Role is not null)
                                 {
-                                    @patient.Role.RoleName
+                                    @patient.Role.RoleName.ToUpper()
                                 }
 
                             </td>
