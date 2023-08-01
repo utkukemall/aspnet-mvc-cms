@@ -9,9 +9,9 @@ namespace App.API.Controllers
     [ApiController]
     public class DepartmentsPostsController : ControllerBase
     {
-        private readonly IService<DepartmentPost> _service;
+        private readonly IDepartmentsPostsService _service;
 
-        public DepartmentsPostsController(IService<DepartmentPost> service)
+        public DepartmentsPostsController(IDepartmentsPostsService service)
         {
             _service = service;
         }
@@ -19,14 +19,14 @@ namespace App.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<DepartmentPost>> Get()
         {
-            return await _service.GetAllAsync();
+            return await _service.GetAllDepartmentPostByIncludeAsync();
         }
 
         // GET api/<DepartmentsPostsController>/5
         [HttpGet("{id}")]
         public async Task<DepartmentPost> Get(int id)
         {
-            return await _service.FindAsync(id);
+            return await _service.GetDepartmentPostByIncludeAsync(id);
         }
 
         // POST api/<DepartmentsPostsController>
@@ -48,7 +48,7 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] DepartmentPost value)
         {
-            DepartmentPost mainModel = await _service.FindAsync(id);
+            DepartmentPost mainModel = await _service.GetDepartmentPostByIncludeAsync(id);
 
             if (mainModel != null)
             {
@@ -72,7 +72,7 @@ namespace App.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            DepartmentPost mainModel = await _service.FindAsync(id);
+            DepartmentPost mainModel = await _service.GetDepartmentPostByIncludeAsync(id);
 
             _service.Delete(mainModel);
             var response = await _service.SaveAsync();

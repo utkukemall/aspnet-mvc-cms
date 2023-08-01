@@ -13,8 +13,8 @@ namespace App.Data.Entity
 
         public Post Post { get; set; }
 
-        [ForeignKey("User")]
 
+        [ForeignKey("User")]
 		public int UserId { get; set; }
 
         [Column(TypeName = "text"), DataType(DataType.Text)]

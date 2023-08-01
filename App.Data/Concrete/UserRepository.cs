@@ -12,12 +12,20 @@ namespace App.Data.Concrete
 
         public async Task<List<User>> GetAllUserByIncludeAsync()
         {
-            return await _dbSet.AsNoTracking().Include(u => u.Role).ToListAsync();
+            return await _context.Users
+                .Include(u => u.Role)
+                .Include(u => u.Image) // Image ilişkisini Include ediyoruz
+                .ToListAsync();
         }
 
         public async Task<User> GetUserByIncludeAsync(int userId)
         {
-            return await _dbSet.Where(u => u.Id == userId).Include(u => u.Role).FirstOrDefaultAsync();
+            return await _context.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.Role)
+                .Include(u => u.Image) // Image ilişkisini Include ediyoruz
+                .FirstOrDefaultAsync();
         }
     }
 }
+

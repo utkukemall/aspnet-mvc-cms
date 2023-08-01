@@ -157,13 +157,13 @@ namespace App.Data
             _context.Departments.Add(dp7);
             _context.SaveChanges();
 
-            PostImage image = new()
+            Image image = new()
             {
-                ImagePath="Image.png"
+                ImagePath = "Image.png"
             };
             _context.PostImages.Add(image);
 
-            PostImage image2 = new()
+            Image image2 = new()
             {
                 ImagePath = "Image2.png"
             };
@@ -173,36 +173,33 @@ namespace App.Data
             //Post
             Post post = new()
             {
-                UserId = 1,//admin
                 Title = "Ayarlar",
                 Content = "Ayarlar",
-                PostImageId = 2
+                ImageId = 2
             };
             _context.Posts.Add(post);
 
             Post post1 = new()
             {
-                UserId = 3,//doctor
                 Title = "Hastalıklar",
-                 Content = "Hastalıklar",
-                PostImageId = 1
+                Content = "Hastalıklar",
+                ImageId = 1
             };
             _context.Posts.Add(post1);
 
             Post post2 = new()
             {
-                UserId = 5,//user
                 Title = "Hizmet",
                 Content = "Hizmet",
-                PostImageId= 1
-                
+                ImageId = 1
+
             };
             _context.Posts.Add(post2);
             _context.SaveChanges();
             //DepartmenPost
-            DepartmentPost dpPost = new() 
+            DepartmentPost dpPost = new()
             {
-                DepartmentId = 1, 
+                DepartmentId = 1,
                 PostId = 1,
             };
             _context.DepartmentPosts.Add(dpPost);
@@ -222,10 +219,10 @@ namespace App.Data
             _context.DepartmentPosts.Add(dpPost2);
             _context.SaveChanges();
             //PostImage
-            PostImage postImage = new()
+            Image postImage = new()
             {
-                
-               ImagePath=""
+
+                ImagePath = ""
 
             };
             _context.PostImages.Add(postImage);

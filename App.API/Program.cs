@@ -23,7 +23,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IDepartmentsPostsService, DepartmentsPostsService>();
 builder.Services.AddScoped<ISettingService, SettingService>();
+builder.Services.AddScoped<IDoctorsService, DoctorsService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,8 +47,6 @@ using (var scope = app.Services.CreateScope())
 
     if (!await db.CanConnectAsync()) // Eğer ilgili database'yi bulamıyorsan 
     {
-
-
         await db.EnsureCreatedAsync();
 
         // TODO: eðer veritabaný sýfýrdan oluþturulunca

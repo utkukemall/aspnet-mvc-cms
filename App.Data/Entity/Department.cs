@@ -14,5 +14,10 @@ namespace App.Data.Entity
         [MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(1,ErrorMessage = "The {0} must be at least 1 characters."), Required(ErrorMessage = "The {0} field cannot be left blank!"), Column(TypeName = "nvarchar(200)")]
 
         public string Description { get; set; }
+
+        public int? ImageId { get; set; }
+
+        [ForeignKey(nameof(ImageId))]
+        public Image? Image { get; set; }
     }
 }

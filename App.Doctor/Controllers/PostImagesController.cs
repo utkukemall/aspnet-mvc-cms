@@ -15,7 +15,7 @@ namespace App.Admin.Controllers
         // GET: PostImagesController
         public async Task<ActionResult> Index()
         {
-            var model = await _httpClient.GetFromJsonAsync<List<PostImage>>(_apiAddress);
+            var model = await _httpClient.GetFromJsonAsync<List<Image>>(_apiAddress);
             return View(model);
         }
 

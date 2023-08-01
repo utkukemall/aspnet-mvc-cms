@@ -10,30 +10,30 @@ namespace App.API.Controllers
     [ApiController]
     public class PostImagesController : ControllerBase
     {
-        private readonly IService<PostImage> _service;
+        private readonly IService<Image> _service;
 
-        public PostImagesController(IService<PostImage> service)
+        public PostImagesController(IService<Image> service)
         {
             _service = service;
         }
 
         // GET: api/<PostImagesController>
         [HttpGet]
-        public async Task<IEnumerable<PostImage>> Get()
+        public async Task<IEnumerable<Image>> Get()
         {
             return await _service.GetAllAsync();
         }
 
         // GET api/<PostImagesController>/5
         [HttpGet("{id}")]
-        public async Task<PostImage> Get(int id)
+        public async Task<Image> Get(int id)
         {
             return await _service.FindAsync(id);
         }
 
         // POST api/<PostImagesController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] PostImage value)
+        public async Task<ActionResult> Post([FromBody] Image value)
         {
             await _service.AddAsync(value);
             await _service.SaveAsync();
@@ -42,7 +42,7 @@ namespace App.API.Controllers
 
         // PUT api/<PostImagesController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] PostImage value)
+        public async Task<ActionResult> Put(int id, [FromBody] Image value)
         {
             var postImage = await _service.FindAsync(id);
 

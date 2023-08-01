@@ -1,12 +1,7 @@
 ﻿using App.Data.Abstract;
 using App.Data.Entity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Data.Concrete
 {
@@ -18,17 +13,51 @@ namespace App.Data.Concrete
 
         public async Task<List<Post>> GetAllPostsByIncludeAsync()
         {
-            return await _context.Posts.Include(x=> x.User).Include(x=> x.Comments).Include(x=> x.PostImage).AsNoTracking().ToListAsync();
+            var posts = await _context.Posts
+                .Include(x => x.Comments)
+                .Include(x => x.Image)
+                .AsNoTracking()
+                .ToListAsync();
+
+            // Her bir post için comments sayısını hesaplayıp CommentsCount özelliğini güncelliyoruz
+            foreach (var post in posts)
+            {
+                post.CommentsCount = post.Comments?.Count ?? 0;
+            }
+
+            return posts;
         }
 
         public async Task<Post> GetPostByIncludeAsync(int id)
         {
-            return await _context.Posts.Include(x => x.User).Include(x => x.Comments).Include(x => x.PostImage).AsNoTracking().FirstOrDefaultAsync(p=> p.Id == id);
+            var post = await _context.Posts
+                .Include(x => x.Comments)
+                .Include(x => x.Image)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            // Comments sayısını hesaplayıp CommentsCount özelliğini güncelliyoruz
+            post.CommentsCount = post.Comments?.Count ?? 0;
+
+            return post;
         }
 
         public async Task<List<Post>> GetSomePostsByIncludeAsync(Expression<Func<Post, bool>> expression)
         {
-            return await _context.Posts.Include(p=> p.Comments).Include(p=> p.PostImage).Include(p=> p.User).AsNoTracking().Where(expression).ToListAsync();
+            var posts = await _context.Posts
+                .Include(p => p.Comments)
+                .Include(p => p.Image)
+                .AsNoTracking()
+                .Where(expression)
+                .ToListAsync();
+
+            // Her bir post için comments sayısını hesaplayıp CommentsCount özelliğini güncelliyoruz
+            foreach (var post in posts)
+            {
+                post.CommentsCount = post.Comments?.Count ?? 0;
+            }
+
+            return posts;
         }
     }
 }

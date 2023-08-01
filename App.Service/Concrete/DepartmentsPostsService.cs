@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace App.Service.Concrete
 {
-    public class DoctorsService : DoctorsRepository, IDoctorsService
+    public class DepartmentsPostsService : DepartmentsPostsRepository, IDepartmentsPostsService
     {
-        public DoctorsService(AppDbContext context) : base(context)
+        public DepartmentsPostsService(AppDbContext context) : base(context)
         {
         }
     }
