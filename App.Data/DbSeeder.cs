@@ -1,13 +1,7 @@
 ﻿using App.Data.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace App.Data
 {
-    public class DbSeeder : AppDbContext
+    public class DbSeeder
     {
         private readonly AppDbContext _context;
 
@@ -16,244 +10,271 @@ namespace App.Data
             _context = context;
         }
 
-        public static void Seed(AppDbContext _context)
+        public static void Seed(AppDbContext context)
         {
-            //idye gerek yok
-            //Roles
-            Role admin = new()
-            {
-                RoleName = "Admin"
-            };
-            _context.Roles.Add(admin);
-
-            Role doctor = new()
-            {
-                RoleName = "Doctor"
-            };
-            _context.Roles.Add(doctor);
-
-            Role user = new()
-            {
-                RoleName = "User"
-            };
-            _context.Roles.Add(user);
-            _context.SaveChanges();
-            //Users
-            User admin0 = new()
-            {
-                Email = "admin0@noeva.com",
-                RoleId = 1,
-                City = "Çorum",
-                Password = "123456",
-                Phone = "5469389421"
-            };
-            _context.Users.Add(admin0);
-
-            User admin1 = new()
-            {
-                Email = "admin1@noeva.com",
-                RoleId = 1,
-                City = "Tekirdağ",
-                Password = "123456",
-                Phone = "54693894210"
-            };
-            _context.Users.Add(admin1);
-
-            User doctor2 = new()
-            {
-                Email = "doctor2@noeva.com",
-                RoleId = 2,
-                City = "Izmir",
-                Password = "123456",
-                Phone = "54693894210"
-            };
-            _context.Users.Add(doctor2);
-
-            User doctor3 = new()
-            {
-                Email = "doctor3@noeva.com",
-                RoleId = 2,
-                City = "Bursa",
-                Password = "123456",
-                Phone = "54693894210"
-            };
-            _context.Users.Add(doctor3);
-
-            User user4 = new()
-            {
-                Email = "user4@noeva.com",
-                RoleId = 3,
-                City = "Ankara",
-                Password = "123456",
-                Phone = "54693894210"
-            };
-            _context.Users.Add(user4);
-
-            User user5 = new()
-            {
-                Email = "user5@noeva.com",
-                RoleId = 3,
-                City = "Yalova",
-                Password = "123456",
-                Phone = "54693894210"
-            };
-            _context.Users.Add(user5);
-            _context.SaveChanges();
-            //Departments
-            Department dp = new()
-            {
-                Name = "Acil Servis",
-                Description = "Acil Servis"
-            };
-            _context.Departments.Add(dp);
-
-            Department dp1 = new()
-            {
-                Name = "Cildiye (Dermatoloji)",
-                Description = "Cildiye"
-            };
-            _context.Departments.Add(dp1);
-
-            Department dp2 = new()
-            {
-                Name = "İç Hastalıkları (Dahiliye)",
-                Description = "İç Hastalıkları (Dahiliye)"
-            };
-            _context.Departments.Add(dp2);
-
-            Department dp3 = new()
-            {
-                Name = "Kulak Burun Boğaz (KBB)",
-                Description = "Kulak Burun Boğaz (KBB)"
-            };
-            _context.Departments.Add(dp3);
-
-            Department dp4 = new()
-            {
-                Name = "Kadın Hastalıkları (Jinekoloji)",
-                Description = "Kadın Hastalıkları (Jinekoloji)"
-            };
-            _context.Departments.Add(dp4);
-
-            Department dp5 = new()
-            {
-                Name = "Kardiyoloji",
-                Description = "Kardiyoloji"
-            };
-            _context.Departments.Add(dp5);
-
-            Department dp6 = new()
-            {
-                Name = "Psikoloji",
-                Description = "Psikoloji"
-            };
-            _context.Departments.Add(dp6);
-
-            Department dp7 = new()
-            {
-                Name = "Radyoloji",
-                Description = "Radyoloji"
-            };
-            _context.Departments.Add(dp7);
-            _context.SaveChanges();
-
-            Image image = new()
-            {
-                ImagePath = "Image.png"
-            };
-            _context.PostImages.Add(image);
-
-            Image image2 = new()
-            {
-                ImagePath = "Image2.png"
-            };
-            _context.PostImages.Add(image2);
-
-            _context.SaveChanges();
-            //Post
-            Post post = new()
-            {
-                Title = "Ayarlar",
-                Content = "Ayarlar",
-                ImageId = 2
-            };
-            _context.Posts.Add(post);
-
-            Post post1 = new()
-            {
-                Title = "Hastalıklar",
-                Content = "Hastalıklar",
-                ImageId = 1
-            };
-            _context.Posts.Add(post1);
-
-            Post post2 = new()
-            {
-                Title = "Hizmet",
-                Content = "Hizmet",
-                ImageId = 1
-
-            };
-            _context.Posts.Add(post2);
-            _context.SaveChanges();
-            //DepartmenPost
-            DepartmentPost dpPost = new()
-            {
-                DepartmentId = 1,
-                PostId = 1,
-            };
-            _context.DepartmentPosts.Add(dpPost);
-
-            DepartmentPost dpPost1 = new()
-            {
-                DepartmentId = 2,
-                PostId = 2,
-            };
-            _context.DepartmentPosts.Add(dpPost1);
-
-            DepartmentPost dpPost2 = new()
-            {
-                DepartmentId = 3,
-                PostId = 3,
-            };
-            _context.DepartmentPosts.Add(dpPost2);
-            _context.SaveChanges();
-            //PostImage
-            Image postImage = new()
-            {
-
-                ImagePath = ""
-
-            };
-            _context.PostImages.Add(postImage);
-            _context.SaveChanges();
-            //Settings
-            Setting settings = new()
-            {
-                UserId = 1,
-                Name = "Role Ekleme",
-                Value = "Role Ekleme",
-            };
-            _context.Settings.Add(settings);
-
-            Setting settings1 = new()
-            {
-                UserId = 3,
-                Name = "Hasta Ekleme",
-                Value = "Hasta Ekleme",
-            };
-            _context.Settings.Add(settings1);
-
-            Setting settings2 = new()
-            {
-                UserId = 5,
-                Name = "Randevu İptali",
-                Value = "Randevu İptali",
-            };
-            _context.Settings.Add(settings2);
-
-            _context.SaveChanges();
-
+            SeedDepartments(context);
+            SeedImages(context);
+            SeedRoles(context);
+            SeedDoctors(context);
+            SeedPatients(context);
+            SeedPosts(context);
+            SeedPostComments(context);
+            SeedSettings(context);
+            SeedUsers(context);
+            SeedPages(context);
+            SeedDepartmentPosts(context);
         }
+
+
+        private static void SeedDepartments(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var department = new Department
+                {
+                    Name = $"Department {i}",
+                    Description = $"Description for Department {i}",
+                    // Gerekli diğer özellikler doldur.
+                };
+
+                context.Departments.Add(department);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void SeedDoctors(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var doctor = new Doctors
+                {
+                    RoleId = i,
+                    ImageId = i,
+                    FullName = $"User FullName {i}",
+                    City = $"City {i}",
+                    Phone = $"123456789{i}",
+                    Specialty = $"Specialty {i}",
+                    Patients = SeedPatientsForDoctor(i),
+                    Email = $"doctor{i}@example.com",
+                    Password = "mysecretpassword"
+                };
+
+                context.Doctors.Add(doctor);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static List<Patient> SeedPatientsForDoctor(int doctorId)
+        {
+            var patients = new List<Patient>();
+
+            for (int i = 1; i <= 5; i++) // Her doktor için 5 hasta oluşturuluyor.
+            {
+                var patient = new Patient
+                {
+                    Diagnosis = $"Diagnosis {i} for Doctor {doctorId}",
+                    RoleId = i,
+                    ImageId = i,
+                    FullName = $"User FullName {i}",
+                    City = $"City {i}",
+                    Phone = $"123456789{i}",
+                    Email = $"Patient{i}@example.com",
+                    Password = "mysecretpassword",
+                };
+
+                patients.Add(patient);
+            }
+
+            return patients;
+        }
+
+        private static void SeedPatients(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var patient = new Patient
+                {
+                    Diagnosis = $"Diagnosis {i}",
+                    RoleId = i,
+                    ImageId = i,
+                    FullName = $"User FullName {i}",
+                    City = $"City {i}",
+                    Phone = $"123456789{i}",
+                    Email = $"Patient{i}{i}@example.com",
+                    Password = "mysecretpassword",
+                };
+
+                context.Patients.Add(patient);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void SeedImages(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var image = new Image
+                {
+                    ImagePath = $"ImagePath {i}",
+                    // Gerekli diğer özellikleri de doldur.
+                };
+
+                context.Images.Add(image);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void SeedPosts(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var post = new Post
+                {
+                    ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
+                    Title = $"Post Title {i}",
+                    Content = $"Post Content {i}",
+                    CommentsCount = i,
+                    Comments = SeedCommentsForPost(i), // Her post için rastgele yorumlar oluşturuluyor.
+                    // Gerekli diğer özellikleri de doldur.
+                };
+
+                context.Posts.Add(post);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static List<PostComment> SeedCommentsForPost(int postId)
+        {
+            var comments = new List<PostComment>();
+
+            for (int i = 1; i <= 5; i++) // Her post için 5 yorum oluşturuluyor.
+            {
+                var comment = new PostComment
+                {
+                    PostId = postId,
+                    Comment = $"Comment {i} for Post {postId}",
+                    IsActive = true, // Varsayılan olarak true olarak ekledik.
+                    // Gerekli diğer özellikleri de doldur.
+                };
+
+                comments.Add(comment);
+            }
+
+            return comments;
+        }
+
+        private static void SeedPostComments(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var postComment = new PostComment
+                {
+                    PostId = i, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
+                    UserId = i, // Bu örnekte UserId'leri 1'den 10'a kadar ekledik.
+                    Comment = $"Comment {i}",
+                    IsActive = true, // Varsayılan olarak true olarak ekledik.
+                    // Gerekli diğer özellikleri de doldur.
+                };
+
+                context.PostComments.Add(postComment);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void SeedRoles(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var role = new Role
+                {
+                    RoleName = $"Role {i}",
+                    // Gerekli diğer özellikleri de doldur.
+                };
+
+                context.Roles.Add(role);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void SeedSettings(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var setting = new Setting
+                {
+                    UserId = i, // Bu örnekte UserId'leri 1'den 10'a kadar ekledik.
+                    Name = $"Setting Name {i}",
+                    Value = $"Setting Value {i}",
+                    // Gerekli diğer özellikleri de doldur.
+                };
+
+                context.Settings.Add(setting);
+            }
+
+            context.SaveChanges();
+        }
+        private static void SeedPages(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var page = new Page
+                {
+                    Title = $"Page Title {i}",
+                    Content = $"Page Content {i}",
+                    IsActive = true, // Set IsActive based on your requirements.
+                                     // Add other necessary properties here.
+                };
+
+                context.Pages.Add(page);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void SeedUsers(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var user = new User
+                {
+                    RoleId = i, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
+                    ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
+                    FullName = $"User FullName {i}",
+                    Email = $"user{i}@example.com",
+                    Password = "passwordpassword",
+                    City = $"City {i}",
+                    Phone = $"123456789{i}", // Örnek telefon numarası oluşturduk.
+                    // Gerekli diğer özellikleri de doldur.
+                };
+
+                context.Users.Add(user);
+            }
+
+            context.SaveChanges();
+        }
+        private static void SeedDepartmentPosts(AppDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var departmentPost = new DepartmentPost
+                {
+                    DepartmentId = i, // Bu örnekte DepartmentId'leri 1'den 10'a kadar ekledik.
+                    PostId = i, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
+                                // Gerekli diğer özellikleri de doldur.
+                };
+
+                context.DepartmentPosts.Add(departmentPost);
+            }
+
+            context.SaveChanges();
+        }
+
     }
 }

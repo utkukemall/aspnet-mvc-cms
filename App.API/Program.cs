@@ -41,19 +41,14 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     var db = dbContext.Database;
 
-    if (!await db.CanConnectAsync()) // Eğer ilgili database'yi bulamıyorsan 
+    if (!await db.CanConnectAsync()) 
     {
         await db.EnsureCreatedAsync();
-
-        // TODO: eðer veritabaný sýfýrdan oluþturulunca
-        // içerisindeki bazý tablolarda kayýt olmasý gerekiyorsa
-        // burada seed yapýlmalý
         DbSeeder.Seed(dbContext);
-
     }
 }
 

@@ -1,16 +1,21 @@
-﻿@model IEnumerable<Post>
+﻿@model IEnumerable<Page>
 
 @{
-    ViewData["Title"] = "Posts";
+    ViewData["Title"] = "Pages";
 }
 
 
 <div class="container-fluid">
-    <h1 class="mt-4 ">Posts List</h1>
-    <a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="Posts" asp-action="Create">Create New Post</a>
+    <h1 class="mt-4">Tables</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+        <li class="breadcrumb-item active">Tables</li>
+    </ol>
     <div class="card mb-4">
-        <div class="card-body text-center bg-dark text-bg-dark">
-            <p class="fw-bold text-bg-dark"><i> You can see all posts in this area...</i> </p>
+        <div class="card-body">
+            DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+            <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+            .
         </div>
     </div>
     <div class="card mb-4">
@@ -23,22 +28,20 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Tittle</th>
+                        <th>Title</th>
                         <th>Content</th>
-                        <th>Comments</th>
-                        <th>PostImage</th>
+                        <th>IsActive</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var post in Model)
+                    @foreach (var patient in Model)
                     {
                         <tr>
-                            <td>@post.Id</td>
-                            <td>@post.Title</td>
-                            <td>@post.Content</td>
-                            <td>@post.CommentsCount</td>
-                            <td>@post.Image.ImagePath</td>
+                            <td>@patient.Id</td>
+                            <td>@patient.Title</td>
+                            <td>@patient.Content</td>
+                            <td>@patient.IsActive</td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
                                 <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |
@@ -51,3 +54,5 @@
         </div>
     </div>
 </div>
+
+
