@@ -34,7 +34,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> CreateAsync()
         {
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
-            return View();
+            return View(); 
         }
 
         // POST: DepartmentPostsController/Createz
@@ -56,7 +56,7 @@ namespace App.Admin.Controllers
                 ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
-            return View(collection);
+            return View(collection); //selectlist
         }
 
         // GET: DepartmentPostsController/Edit/5
