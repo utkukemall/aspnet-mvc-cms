@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace App.Doctor.Controllers
 {
+    //deneme
     public class MainController : Controller
     {
         public IActionResult Index()
