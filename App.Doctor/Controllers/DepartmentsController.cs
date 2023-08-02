@@ -1,4 +1,5 @@
-﻿using App.Data.Entity;
+﻿using App.Admin.Utils;
+using App.Data.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,9 +65,6 @@ namespace App.Admin.Controllers
         {
 
             Department model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
-
-
-
             return View(model);
         }
 
@@ -100,10 +98,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Delete(int id)
         {
 
-            Department model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
-
-
-
+            var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
             return View(model);
         }
 
@@ -114,8 +109,8 @@ namespace App.Admin.Controllers
         {
             try
             {
+                FileHelper.FileRemover(collection.Description);
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
-
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
             }
