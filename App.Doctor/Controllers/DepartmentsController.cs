@@ -109,7 +109,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                FileHelper.FileRemover(collection.Description);
+                //FileHelper.FileRemover(collection.);
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
