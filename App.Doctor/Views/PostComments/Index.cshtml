@@ -39,9 +39,9 @@
                             <td>@postComment.Id</td>
                             <td>@postComment.Comment</td>
                             <td>
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
-                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |
-                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="">Delete</a>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@postComment.Id">Edit</a> |
+                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="@postComment.Id">Details</a> |
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@postComment.Id">Delete</a>
                             </td>
                         </tr>
                     }

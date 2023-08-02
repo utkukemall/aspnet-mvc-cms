@@ -32,17 +32,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Setting department in Model)
+                    @foreach (var setting in Model)
                     {
                         <tr>
-                            <td>@department.Id</td>
-                            <td>@department.Name</td>    
-                            <td>@department.Value</td>   
-                            <td>@department.User.FullName</td>   
+                            <td>@setting.Id</td>
+                            <td>@setting.Name</td>
+                            <td>@setting.Value</td>
+                            <td>@setting.User.FullName</td>
                             <td>
-                                <a class="btn btn-primary" asp-controller="Settings" asp-action="Edit" asp-route-id="">Edit</a> |
+                                <a class="btn btn-primary" asp-controller="Settings" asp-action="Edit" asp-route-id="@setting.Id">Edit</a> |
 
-                                <a class="btn btn-danger" asp-controller="Settings" asp-action="Delete" asp-route-id="">Delete</a>
+                                <a class="btn btn-danger" asp-controller="Settings" asp-action="Delete" asp-route-id="@setting.Id">Delete</a>
                             </td>
 
 

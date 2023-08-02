@@ -40,9 +40,9 @@
                             <td>@post.CommentsCount</td>
                             <td>@post.Image</td>
                             <td>
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="">Edit</a> |
-                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="">Details</a> |
-                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="">Delete</a>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@post.Id">Edit</a> |
+                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="@post.Id">Details</a> |
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@post.Id">Delete</a>
                             </td>
                         </tr>
                     }
