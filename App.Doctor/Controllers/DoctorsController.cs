@@ -56,7 +56,6 @@ namespace App.Admin.Controllers
         // GET: DoctorController/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-
             Doctors model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
             return View(model);
         }
