@@ -20,10 +20,10 @@ namespace App.Admin.Controllers
         }
 
         // GET: PostCommentsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: PostCommentsController/Create
         public ActionResult Create()
@@ -34,52 +34,61 @@ namespace App.Admin.Controllers
         // POST: PostCommentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> CreateAsync(PostComment collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Hata Oluştu!");
             }
+            return View(collection);
         }
 
         // GET: PostCommentsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<PostComment>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PostCommentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int? id, Role collection)
         {
-            try
+            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+
+            if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PostCommentsController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<PostComment>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PostCommentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, Role collection)
         {
             try
             {
+                //FileHelper.FileRemover(collection.);
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
             }
             catch
