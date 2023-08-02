@@ -65,19 +65,7 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, Doctors collection)
         {
-            //try
-            //{
-
-
-            //}
-            //catch(Exception e)
-            //{
-            //    ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
-            //}
-
-            //    return View();
-
-            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+            var response = await _httpClient.PutAsJsonAsync<Doctors>((_apiAddress + "/" + id), collection);
 
             if (response.IsSuccessStatusCode)
             {
