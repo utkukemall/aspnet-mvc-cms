@@ -69,7 +69,7 @@ namespace App.API.Controllers
 				await _service.SaveAsync();
 				return Ok();
 			}
-			return NotFound();
+			return NotFound(mainDepartment);
 		}
 	}
 }

@@ -28,23 +28,19 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Action</th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Department department in Model)
+                    @foreach (var departments in Model)
                     {
                         <tr>
-                            <td>@department.Id</td>
-                            <td>@department.Name</td>
-                            <td>@department.Description</td>
+                            <td>@departments.Id</td>
+                            <td>@departments.Name</td>
+                            <td>@departments.Description</td>
                             <td>
-                                <a class="btn btn-primary" asp-controller="Departments"  asp-action="Edit" asp-route-id="@department.Id">Edit</a> |
-
-                                <a class="btn btn-danger" asp-controller="Departments" asp-action="Delete" asp-route-id="@department.Id">Delete</a>
+                                <a class="btn btn-primary" asp-controller="Departments" asp-action="Edit" asp-route-id="@departments.Id">Edit</a> |
+                                <a class="btn btn-danger" asp-controller="Departments" asp-action="Delete" asp-route-id="@departments.Id">Delete</a>
                             </td>
-
-
                         </tr>
                     }
                 </tbody>

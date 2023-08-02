@@ -96,7 +96,6 @@ namespace App.Admin.Controllers
         // GET: DepartmentsController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-
             var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
             return View(model);
         }
