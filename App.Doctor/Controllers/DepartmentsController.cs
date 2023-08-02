@@ -105,8 +105,6 @@ namespace App.Admin.Controllers
 
 
             return View(model);
-
-
         }
 
         // POST: DepartmentsController/Delete/5
