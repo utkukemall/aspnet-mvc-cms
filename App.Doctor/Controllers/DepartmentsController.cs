@@ -97,29 +97,16 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentsController/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            try
-            {
-                if (id == null)
-                {
-                    return BadRequest();
-                }
-                var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
 
-                if (model == null)
-                {
-                    return NotFound();
-                }
+            Department model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
 
-                return View(model);
-            }
-            catch (Exception e)
-            {
 
-                ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
-            }
-            return View();
+
+            return View(model);
+
+
         }
 
         // POST: DepartmentsController/Delete/5
