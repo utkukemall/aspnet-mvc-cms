@@ -87,7 +87,7 @@ namespace App.Admin.Controllers
 
             //    return View();
 
-            var response = await _httpClient.PutAsJsonAsync(_apiAddress, collection);
+            var response = await _httpClient.PutAsJsonAsync((_apiAddress+"/"+id),collection);
 
             if (response.IsSuccessStatusCode)
             {
