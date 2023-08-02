@@ -20,10 +20,10 @@ namespace App.Admin.Controllers
         }
 
         // GET: DoctorController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: DoctorController/Create
         public ActionResult Create()
@@ -34,37 +34,57 @@ namespace App.Admin.Controllers
         // POST: DoctorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Doctors collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                    return RedirectToAction(nameof(Index));
+
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
+            return View();
         }
 
         // GET: DoctorController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+
+            Doctors model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: DoctorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Doctors collection)
         {
-            try
+            //try
+            //{
+
+
+            //}
+            //catch(Exception e)
+            //{
+            //    ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
+            //}
+
+            //    return View();
+
+            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+
+            if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: DoctorController/Delete/5

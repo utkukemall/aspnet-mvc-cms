@@ -1,4 +1,5 @@
-﻿using App.Data.Entity;
+﻿using App.Admin.Utils;
+using App.Data.Entity;
 using App.Web.Mvc.ViewComponents;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -97,18 +98,21 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentPostsController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            return View();
+            DepartmentPost model = await _httpClient.GetFromJsonAsync<DepartmentPost>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: DepartmentPostsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAsync(int id, DepartmentPost collection)
         {
             try
             {
+                //FileHelper.FileRemover(collection.);
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
