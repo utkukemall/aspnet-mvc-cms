@@ -63,7 +63,7 @@ namespace App.Admin.Controllers
         // GET: DepartmentsController/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            Department model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
             return View(model);
         }
 
