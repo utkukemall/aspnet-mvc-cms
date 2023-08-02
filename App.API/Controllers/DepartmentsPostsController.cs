@@ -52,7 +52,10 @@ namespace App.API.Controllers
 
             if (mainModel != null)
             {
-                mainModel = value;
+                mainModel.Departments = value.Departments;
+                mainModel.DepartmentId = value.DepartmentId;
+                mainModel.PostId = value.PostId;
+                mainModel.Post = value.Post;
 
                 _service.Update(mainModel);
 
@@ -63,9 +66,7 @@ namespace App.API.Controllers
                     return Ok();
                 }
             }
-
             return Problem();
-
         }
 
         // DELETE api/<DepartmentsPostsController>/5

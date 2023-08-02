@@ -50,7 +50,19 @@ namespace App.API.Controllers
 
             if (doctor != null)
             {
-                doctor = value;
+                doctor.FullName = value.FullName;
+                doctor.Email = value.Email;
+                doctor.Specialty = value.Specialty;
+                doctor.Phone = value.Phone;
+                doctor.Password = value.Password;
+
+                //doctor.Patients = value.Patients;
+                //doctor.City = value.City;
+                //doctor.UpdatedAt = DateTime.UtcNow;
+                //doctor.Image=value.Image;
+                //doctor.ImageId = value.ImageId;
+                //doctor.Role = value.Role;
+                //doctor.RoleId = value.RoleId;
                 _service.Update(doctor);
                 await _service.SaveAsync();
                 return Ok(doctor);
