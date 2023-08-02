@@ -26,10 +26,12 @@
                     <tr>
                         <th>Id</th>
                         <th>Role</th>
+                        <th>FullName</th>
                         <th>Email</th>
                         <th>City</th>
                         <th>Phone</th>
                         <th>Patients</th>
+                        <th>Specialty</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -39,8 +41,10 @@
                         <tr>
                             <td>@doctor.Id</td>
                             <td>@doctor.RoleId</td>
+                            <td>@doctor.FullName</td>
                             <td>@doctor.Email</td>
                             <td>@doctor.City</td>
+                            <td>@doctor.Specialty</td>
                             <td>@doctor.Phone</td>
                             <td>
                                 @if (doctor.Patients.Count > 0)
