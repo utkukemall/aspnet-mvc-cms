@@ -50,6 +50,7 @@ namespace App.API.Controllers
 
             if (doctor != null)
             {
+
                 doctor.FullName = value.FullName;
                 doctor.Email = value.Email;
                 doctor.Specialty = value.Specialty;
@@ -64,12 +65,17 @@ namespace App.API.Controllers
                 //doctor.Role = value.Role;
                 //doctor.RoleId = value.RoleId;
                 _service.Update(doctor);
-                await _service.SaveAsync();
-                return Ok(doctor);
+                var response = await _service.SaveAsync();
+
+                if (response > 0)
+                {
+
+                    return Ok(doctor);
+                }
 
             }
 
-            return NotFound();
+            return Problem();
         }
 
         // DELETE api/<DoctorsController>/5
