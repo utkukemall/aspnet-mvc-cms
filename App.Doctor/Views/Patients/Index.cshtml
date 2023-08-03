@@ -7,8 +7,8 @@
 
 
 <div class="container-fluid">
-    <h1 class="mt-4">Doctors List</h1>
-    <a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="Patients" asp-action="Create">Create New Doctor</a>
+    <h1 class="mt-4">Patients List</h1>
+    <a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="Patients" asp-action="Create">Create New Patient</a>
 
     <div class="card mb-4">
         <div class="card-body text-center bg-dark text-bg-dark">
@@ -43,7 +43,7 @@
                             <td>
                                 @if (patient.Role is not null)
                                 {
-                                    @patient.Role.RoleName.ToUpper()
+                                    @patient.Role.RoleName
                                 }
 
                             </td>
