@@ -41,9 +41,8 @@
                           @*  <td>@setting.User.FullName</td>*@
                             <td>
                                 <!-- Button trigger modal for Edit -->   <!--  data-bs-toggle='modal' ifadesi penceresini açmaya yarar.   -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editSettingModal_@setting.Id">
-                                    Edit
-                                </button>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@setting.Id">Edit</a> |
+
                                 <!-- Button trigger modal for Delete -->
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal_@setting.Id">
                                     Delete
