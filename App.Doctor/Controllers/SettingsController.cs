@@ -15,7 +15,7 @@ namespace App.Admin.Controllers
         // GET: HomeController
         public async Task<ActionResult> Index()
         {
-            List<Setting> model = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
+            var model = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
             return View(model);
         }
 
@@ -41,6 +41,7 @@ namespace App.Admin.Controllers
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                     return RedirectToAction(nameof(Index));
 
                 }
@@ -49,43 +50,45 @@ namespace App.Admin.Controllers
             {
                 ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
-            return View();
+            return View(collection);
         }
 
         // GET: HomeController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Setting>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: HomeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Setting collection)
         {
-            try
+            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+
+            if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: HomeController/Delete/5
-        public ActionResult Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Setting>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: HomeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Remove(int id, IFormCollection collection)
+        public async Task<ActionResult> Remove(int id, Setting collection)
         {
             try
             {
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -94,4 +97,5 @@ namespace App.Admin.Controllers
             }
         }
     }
+}
 }
