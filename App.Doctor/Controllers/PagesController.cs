@@ -78,7 +78,7 @@ namespace App.Admin.Controllers
         }
 
         // GET: PagesController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Remove(int id)
         {
             var model = await _httpClient.GetFromJsonAsync<Page>(_apiAddress + "/" + id);
             return View(model);
@@ -87,7 +87,7 @@ namespace App.Admin.Controllers
         // POST: PagesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAsync(int id, Page collection)
+        public async Task<ActionResult> Remove(int id, Page collection)
         {
             try
             {

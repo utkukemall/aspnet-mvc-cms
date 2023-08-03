@@ -68,7 +68,7 @@ namespace App.Admin.Controllers
         }
 
         // GET: PostImagesController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Remove(int id)
         {
             return View();
         }
@@ -76,7 +76,7 @@ namespace App.Admin.Controllers
         // POST: PostImagesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Remove(int id, IFormCollection collection)
         {
             try
             {

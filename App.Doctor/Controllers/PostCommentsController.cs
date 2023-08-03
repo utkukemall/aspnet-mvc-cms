@@ -73,7 +73,7 @@ namespace App.Admin.Controllers
         }
 
         // GET: PostCommentsController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Remove(int id)
         {
             var model = await _httpClient.GetFromJsonAsync<PostComment>(_apiAddress + "/" + id);
             return View(model);
@@ -82,7 +82,7 @@ namespace App.Admin.Controllers
         // POST: PostCommentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, Role collection)
+        public async Task<ActionResult> Remove(int id, Role collection)
         {
             try
             {

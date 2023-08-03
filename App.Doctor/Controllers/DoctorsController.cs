@@ -75,20 +75,19 @@ namespace App.Admin.Controllers
         }
 
         // GET: DoctorController/Delete/5
-        public async Task<ActionResult> Delete(int id)
-        {
-            var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
-            return View(model);
-        }
+        //public async Task<ActionResult> Remove(int? id)
+        //{
+        //    var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
+        //    return View(model);
+        //}
 
         // POST: DoctorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, Doctors collection)
+        public async Task<ActionResult> Remove(int id)
         {
             try
             {
-                //FileHelper.FileRemover(collection.);
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
@@ -98,5 +97,6 @@ namespace App.Admin.Controllers
                 return View();
             }
         }
+
     }
 }

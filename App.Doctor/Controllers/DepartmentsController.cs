@@ -94,7 +94,7 @@ namespace App.Admin.Controllers
         }
 
         // GET: DepartmentsController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Remove(int id)
         {
             var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
             return View(model);
@@ -103,7 +103,7 @@ namespace App.Admin.Controllers
         // POST: DepartmentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, Department collection)
+        public async Task<ActionResult> Remove(int id, Department collection)
         {
             try
             {
