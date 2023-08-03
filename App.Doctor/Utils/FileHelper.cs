@@ -2,13 +2,13 @@
 {
     public class FileHelper
     {
-        public static async Task<string> FileLoaderAsync(IFormFile formFile, string filePath = "/Images/" )
+        public static async Task<string> FileLoaderAsync(IFormFile formFile )
         {
             string fileName ="";
 
             fileName = formFile.FileName;
 
-            string directory = Directory.GetCurrentDirectory() + "/wwwroot" + filePath + fileName;
+            string directory = Directory.GetCurrentDirectory() + "/wwwroot/Images/" + fileName;
 
             using var stream = new FileStream(directory, FileMode.Create);
             await formFile.CopyToAsync(stream);
