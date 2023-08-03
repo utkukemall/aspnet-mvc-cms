@@ -57,6 +57,8 @@ namespace App.API.Controllers
                 doctor.Phone = value.Phone;
                 doctor.Password = value.Password;
                 doctor.City = value.City;
+                doctor.DepartmentId = value.DepartmentId;
+                doctor.Department = value.Department;
 
                 //doctor.Patients = value.Patients;
                 //doctor.City = value.City;

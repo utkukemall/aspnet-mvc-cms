@@ -18,17 +18,17 @@ namespace App.Data.Concrete
 
         public async Task<List<Doctors>> GetAllDoctorsByIncludeAsync()
         {
-            return await _context.Doctors.Include(d => d.Patients).ToListAsync();
+            return await _context.Doctors.Include(d => d.Patients).Include(d => d.Department).ToListAsync();
         }
 
         public async Task<Doctors> GetDoctorByIncludeAsync(int id)
         {
-            return await _context.Doctors.Include(d => d.Patients).FirstOrDefaultAsync(p=> p.Id == id);
+            return await _context.Doctors.Include(d => d.Patients).Include(d=> d.Department).FirstOrDefaultAsync(p=> p.Id == id);
         }
 
         public async Task<List<Doctors>> GetSomeDoctorsByIncludeAsync(Expression<Func<Doctors, bool>> expression)
         {
-            return await _context.Doctors.Where(expression).Include(d => d.Patients).ToListAsync();
+            return await _context.Doctors.Where(expression).Include(d => d.Patients).Include(d => d.Department).ToListAsync();
         }
     }
 }

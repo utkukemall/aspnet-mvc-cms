@@ -57,7 +57,8 @@ namespace App.Data
                     Specialty = $"Specialty{i}",
                     Patients = SeedPatientsForDoctor(i),
                     Email = GenerateRandomEmail($"Doctors{i}", "Doctors.com"),
-                    Password = "mysecretpassword"
+                    Password = "mysecretpassword",
+                    DepartmentId = i
                 };
 
                 context.Doctors.Add(doctor);
