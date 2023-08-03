@@ -13,7 +13,7 @@ namespace App.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
-        public DbSet<Image> Images { get; set; }
+        
         public DbSet<Setting> Settings { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

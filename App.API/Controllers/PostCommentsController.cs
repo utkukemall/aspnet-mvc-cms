@@ -10,25 +10,27 @@ namespace App.API.Controllers
     [ApiController]
     public class PostCommentsController : ControllerBase
     {
-        private readonly IService<PostComment> _service;
+        private readonly IPostCommentService _service;
 
-        public PostCommentsController(IService<PostComment> service)
+        public PostCommentsController(IPostCommentService service)
         {
             _service = service;
         }
+
+
 
         // GET: api/<PostCommentsController>
         [HttpGet]
         public async Task<IEnumerable<PostComment>> Get()
         {
-            return await _service.GetAllAsync();
+            return await _service.GetAllPostCommentsByIncludeAsync();
         }
 
         // GET api/<PostCommentsController>/5
         [HttpGet("{id}")]
         public async Task<PostComment> Get(int id)
         {
-            return await _service.FindAsync(id);
+            return await _service.GetPostCommentByIncludeAsync(id);
         }
 
         // POST api/<PostCommentsController>
@@ -48,7 +50,7 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] PostComment value)
         {
-            var postComment = await _service.FindAsync(id);
+            var postComment = await _service.GetPostCommentByIncludeAsync(id);
 
             if (postComment != null)
             {
@@ -64,7 +66,7 @@ namespace App.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var postComment = await _service.FindAsync(id);
+            var postComment = await _service.GetPostCommentByIncludeAsync(id);
             if (postComment != null)
             {
                 _service.Delete(postComment);

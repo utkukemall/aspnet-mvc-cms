@@ -47,8 +47,8 @@ namespace App.Admin.Controllers
             {
                 if (Image is not null)
                 {
-                    collection.Image.ImagePath = await FileHelper.FileLoaderAsync(Image);
-                    collection.Image.ImageTitle = Image.Name;
+                    collection.Image = await FileHelper.FileLoaderAsync(Image);
+                   
                 }
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
@@ -75,7 +75,7 @@ namespace App.Admin.Controllers
         // POST: DepartmentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Department collection)
+        public async Task<ActionResult> Edit(int id, Department collection, IFormFile? Image)
         {
             //try
             //{
@@ -88,6 +88,11 @@ namespace App.Admin.Controllers
             //}
 
             //    return View();
+
+            if (Image != null)
+            {
+                collection.Image = await FileHelper.FileLoaderAsync(Image);
+            }
 
             var response = await _httpClient.PutAsJsonAsync((_apiAddress+"/"+id),collection);
 

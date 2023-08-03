@@ -13,7 +13,7 @@ namespace App.Data
         public static void Seed(AppDbContext context)
         {
             SeedDepartments(context);
-            SeedImages(context);
+           // SeedImages(context);
             SeedRoles(context);
             SeedDoctors(context);
             SeedPatients(context);
@@ -50,7 +50,7 @@ namespace App.Data
                 var doctor = new Doctors
                 {
                     RoleId = i,
-                    ImageId = i,
+                  //  ImageId = i,
                     FullName = $"doctor FullName{i}",
                     City = $"City{i}",
                     Phone = $"123456789{i}",
@@ -77,7 +77,7 @@ namespace App.Data
                 {
                     Diagnosis = $"Diagnosis {i} for Doctor {doctorId}",
                     RoleId = i,
-                    ImageId = i,
+                  //  ImageId = i,
                     FullName = $"Patient FullName{i}",
                     City = $"City{i}",
                     Phone = $"123456789{i}",
@@ -99,7 +99,7 @@ namespace App.Data
                 {
                     Diagnosis = $"Diagnosis{i}",
                     RoleId = i,
-                    ImageId = i,
+                   // ImageId = i,
                     FullName = $"Patient FullName{i}",
                     City = $"City{i}",
                     Phone = $"123456789{i}",
@@ -113,21 +113,7 @@ namespace App.Data
             context.SaveChanges();
         }
 
-        private static void SeedImages(AppDbContext context)
-        {
-            for (int i = 1; i <= 10; i++)
-            {
-                var image = new Image
-                {
-                    ImagePath = $"ImagePath{i}",
-                    // Gerekli diğer özellikleri de doldur.
-                };
-
-                context.Images.Add(image);
-            }
-
-            context.SaveChanges();
-        }
+        
 
         private static void SeedPosts(AppDbContext context)
         {
@@ -135,7 +121,7 @@ namespace App.Data
             {
                 var post = new Post
                 {
-                    ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
+                  //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
                     Title = $"Post Title{i}",
                     Content = $"Post Content{i}",
                     CommentsCount = i,
@@ -246,7 +232,7 @@ namespace App.Data
                 var user = new User
                 {
                     RoleId = i, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
-                    ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
+                  //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
                     FullName = $"User{i}",
                     Email = GenerateRandomEmail($"user{i}", "example.com"),
                     Password = "passwordpassword",
