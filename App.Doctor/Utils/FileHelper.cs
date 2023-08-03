@@ -2,7 +2,7 @@
 {
     public class FileHelper
     {
-        public static async Task<string> FileLoaderAsync(IFormFile formFile, string filePath = "/Images/" )
+        public static async Task<string> FileLoaderAsync(IFormFile formFile, string filePath = "/Img/" )
         {
             string fileName ="";
 
