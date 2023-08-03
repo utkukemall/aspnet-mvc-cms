@@ -14,7 +14,6 @@ namespace App.Data.Concrete
         {
             return await _context.Users
                 .Include(u => u.Role)
-                .Include(u => u.Image) // Image ilişkisini Include ediyoruz
                 .ToListAsync();
         }
 
@@ -23,7 +22,6 @@ namespace App.Data.Concrete
             return await _context.Users
                 .Where(u => u.Id == userId)
                 .Include(u => u.Role)
-                .Include(u => u.Image) // Image ilişkisini Include ediyoruz
                 .FirstOrDefaultAsync();
         }
     }

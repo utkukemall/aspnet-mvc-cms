@@ -7,8 +7,8 @@ namespace App.Data.Entity
 	{
 
 
-		[ForeignKey(nameof(PostId))]
 
+		[ForeignKey(nameof(PostId))]
 		public int PostId { get; set; }
 
         public Post Post { get; set; }

@@ -15,9 +15,7 @@ namespace App.Data.Entity
 
         public string Description { get; set; }
 
-        public int? ImageId { get; set; }
-
-        [ForeignKey(nameof(ImageId))]
-        public Image? Image { get; set; }
+        [MaxLength(75), DataType(DataType.ImageUrl)]
+        public string? Image { get; set; }
     }
 }

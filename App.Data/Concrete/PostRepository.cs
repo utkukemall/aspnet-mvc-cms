@@ -15,7 +15,6 @@ namespace App.Data.Concrete
         {
             var posts = await _context.Posts
                 .Include(x => x.Comments)
-                .Include(x => x.Image)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -32,7 +31,6 @@ namespace App.Data.Concrete
         {
             var post = await _context.Posts
                 .Include(x => x.Comments)
-                .Include(x => x.Image)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -46,7 +44,6 @@ namespace App.Data.Concrete
         {
             var posts = await _context.Posts
                 .Include(p => p.Comments)
-                .Include(p => p.Image)
                 .AsNoTracking()
                 .Where(expression)
                 .ToListAsync();
