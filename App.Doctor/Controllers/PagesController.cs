@@ -1,6 +1,7 @@
 ﻿using App.Data.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net.Http;
 
 namespace App.Admin.Controllers
@@ -57,7 +58,7 @@ namespace App.Admin.Controllers
         }
 
         // GET: PagesController/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> EditAsync(int? id)
         {
             var model = await _httpClient.GetFromJsonAsync<Page>(_apiAddress + "/" + id);
             return View(model);
@@ -73,6 +74,7 @@ namespace App.Admin.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
         }

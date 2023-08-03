@@ -50,11 +50,13 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Page value)
         {
-            Page mainModel = await _service.FindAsync(id);
+            var mainModel = await _service.FindAsync(id);
 
             if (mainModel != null)
             {
-                mainModel = value;
+                mainModel.Title = value.Title;
+                mainModel.Content = value.Content;
+                mainModel.IsActive = value.IsActive;
 
                 _service.Update(mainModel);
 
@@ -65,9 +67,7 @@ namespace App.API.Controllers
                     return Ok();
                 }
             }
-
             return Problem();
-
         }
 
         // DELETE api/<PagesController>/5

@@ -31,7 +31,7 @@ namespace App.Admin.Controllers
         //}
 
         // GET: PostCommentsController/Create
-        public async Task<ActionResult> CreateAsync()
+        public async Task<ActionResult> Create()
         {
             ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
@@ -41,19 +41,21 @@ namespace App.Admin.Controllers
         // POST: PostCommentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(PostComment collection)
+        public async Task<ActionResult> Create(PostComment collection)
         {
             try
             {
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                     return RedirectToAction(nameof(Index));
+
                 }
             }
-            catch
+            catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata Oluştu!");
+                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
             ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
@@ -63,6 +65,8 @@ namespace App.Admin.Controllers
         // GET: PostCommentsController/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             var model = await _httpClient.GetFromJsonAsync<PostComment>(_apiAddress + "/" + id);
             return View(model);
         }
@@ -70,14 +74,15 @@ namespace App.Admin.Controllers
         // POST: PostCommentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int? id, Role collection)
+        public async Task<ActionResult> Edit(int id, PostComment collection)
         {
-            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
-
+            var response = await _httpClient.PutAsJsonAsync<PostComment>((_apiAddress + "/" + id), collection);
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return RedirectToAction(nameof(Index));
         }
 
@@ -91,13 +96,11 @@ namespace App.Admin.Controllers
         // POST: PostCommentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Remove(int id, Role collection)
+        public async Task<ActionResult> Remove(int id, PostComment collection)
         {
             try
             {
-                //FileHelper.FileRemover(collection.);
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
-                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
             }
             catch

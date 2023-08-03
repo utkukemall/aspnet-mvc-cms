@@ -50,20 +50,30 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Patient value)
         {
-            Patient mainPatient =  await _service.GetPatientByIncludeAsync(id);
+            var mainPatient = await _service.GetPatientByIncludeAsync(id);
 
-            if (mainPatient!= null)
+            if (mainPatient != null)
             {
-                mainPatient = value;
+                mainPatient.FullName = value.FullName;
+                mainPatient.Password = value.Password;
+                mainPatient.Phone = value.Phone;
+                mainPatient.City = value.City;
+                mainPatient.Email = value.Email;
+                mainPatient.Diagnosis = value.Diagnosis;
+                mainPatient.RoleId = value.RoleId;
+                mainPatient.Role = value.Role;
+                mainPatient.DoctorId = value.DoctorId;
+                mainPatient.Doctor = value.Doctor;
+                //mainPatient.ImageId = value.ImageId;
+                //mainPatient.Image = value.Image;
 
-                _service.Update(value);
+                _service.Update(mainPatient);
                 var response = await _service.SaveAsync();
                 if (response > 0)
                 {
                     return Ok();
                 }
             }
-
             return Problem();
         }
 
@@ -71,7 +81,7 @@ namespace App.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            Patient mainPatient = await _service.GetPatientByIncludeAsync(id);
+            var mainPatient = await _service.GetPatientByIncludeAsync(id);
 
             if (mainPatient != null)
             {
