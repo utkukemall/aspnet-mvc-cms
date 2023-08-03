@@ -55,39 +55,41 @@ namespace App.Admin.Controllers
         }
 
         // GET: PostsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Post>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PostsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Post collection)
         {
-            try
+            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+
+            if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PostsController/Delete/5
-        public ActionResult Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Post>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PostsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Remove(int id, IFormCollection collection)
+        public async Task<ActionResult> Remove(int id, Post collection)
         {
             try
             {
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
