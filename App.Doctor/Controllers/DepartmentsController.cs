@@ -41,10 +41,15 @@ namespace App.Admin.Controllers
         // POST: DepartmentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Department collection)
+        public async Task<ActionResult> Create(Department collection, IFormFile? Image)
         {
             try
             {
+                if (Image is not null)
+                {
+                    collection.Image.ImagePath = await FileHelper.FileLoaderAsync(Image);
+                    collection.Image.ImageTitle = Image.Name;
+                }
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
