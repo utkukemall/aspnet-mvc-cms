@@ -34,52 +34,61 @@ namespace App.Admin.Controllers
         // POST: PostImagesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Image collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                    return RedirectToAction(nameof(Index));
+
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
+            return View(collection);
         }
 
         // GET: PostImagesController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Image>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PostImagesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Image collection)
         {
-            try
+            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+
+            if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PostImagesController/Delete/5
-        public ActionResult Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Image>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PostImagesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Remove(int id, IFormCollection collection)
+        public async Task<ActionResult> Remove(int id, Image collection)
         {
             try
             {
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
