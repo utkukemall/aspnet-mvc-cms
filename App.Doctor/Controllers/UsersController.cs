@@ -129,18 +129,20 @@ namespace App.Admin.Controllers
         }
 
         // GET: UsersController/Delete/5
-        public ActionResult Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: UsersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Remove(int id, IFormCollection collection)
+        public async Task<ActionResult> Remove(int id, User collection)
         {
             try
             {
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
