@@ -31,6 +31,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
+                <img src=""style="max-height='16px'" alt="" />
                 <tbody>
                     @foreach (var departments in Model)
                     {
@@ -38,7 +39,7 @@
                             <td>@departments.Id</td>
                             <td>@departments.Name</td>
                             <td>@departments.Description</td>
-                            <td>@departments.Image</td>
+                            <td><img src="/Images/@departments.Image" class="img-fluid" style="max-height" /></td>
                             <td>
                                 <a class="btn btn-primary" asp-controller="Departments" asp-action="Edit" asp-route-id="@departments.Id">Edit</a> |
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal_@departments.Id">
