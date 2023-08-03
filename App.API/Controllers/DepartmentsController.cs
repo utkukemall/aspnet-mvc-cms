@@ -9,25 +9,27 @@ namespace App.API.Controllers
     [ApiController]
     public class DepartmentsController : ControllerBase
     {
-        private readonly IService<Department> _service;
+        private readonly IDepartmentService _service;
 
-        public DepartmentsController(IService<Department> departmentContext)
+        public DepartmentsController(IDepartmentService service)
         {
-            _service = departmentContext;
+            _service = service;
         }
+
+
 
         // GET: api/<DepartmentsController>
         [HttpGet]
         public async Task<IEnumerable<Department>> Get()
         {
-            return await _service.GetAllAsync();
+            return await _service.GetAllDepartmentsByIncludeAsync();
         }
 
         // GET api/<DepartmentsController>/5
         [HttpGet("{id}")]
         public async Task<Department> Get(int id)
         {
-            return await _service.FindAsync(id);
+            return await _service.GetDepartmentByIncludeAsync(id);
         }
 
         // POST api/<DepartmentsController>
