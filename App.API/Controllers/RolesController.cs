@@ -54,7 +54,7 @@ namespace App.API.Controllers
 
             if (mainModel != null)
             {
-                mainModel = value;
+                mainModel.RoleName = value.RoleName;
 
                 _service.Update(mainModel);
 

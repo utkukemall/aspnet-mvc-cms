@@ -48,7 +48,9 @@ namespace App.API.Controllers
             Setting mainSetting = await _service.FindAsync(id);
             if (mainSetting != null)
             {
-                mainSetting = value;
+                mainSetting.Value = value.Value;
+                mainSetting.Name = value.Name;
+             
                 _service.Update(mainSetting);
                 await _service.SaveAsync();
                 return Ok();
