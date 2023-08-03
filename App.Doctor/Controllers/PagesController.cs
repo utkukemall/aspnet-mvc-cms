@@ -53,7 +53,7 @@ namespace App.Admin.Controllers
             {
                 ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
-            return View();
+            return View(collection);
         }
 
         // GET: PagesController/Edit/5

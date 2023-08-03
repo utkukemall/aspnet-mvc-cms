@@ -144,10 +144,6 @@
                             <input type="text" class="form-control" id="Specialty_@doctor.Id" name="Specialty" value="@doctor.Specialty" />
                         </div>
                         <div class="form-group">
-                            <label asp-for="DepartmentId_@doctor.Id" class="control-label">Department</label>
-                            <select for="DepartmentId_@doctor.Id" class="form-select"  name="Department" asp-items="ViewBag.DepartmentId"></select>
-                        </div>
-                        <div class="form-group">
                             <label for="Phone_@doctor.Id">Phone</label>
                             <input type="text" class="form-control" id="Phone_@doctor.Id" name="Phone" value="@doctor.Phone" />
                         </div>

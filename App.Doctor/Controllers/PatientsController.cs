@@ -63,39 +63,44 @@ namespace App.Admin.Controllers
         }
 
         // GET: PatientsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PatientsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Patient collection)
         {
-            try
+            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+
+            if (response.IsSuccessStatusCode)
             {
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
+            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
+            return View(collection);
         }
 
         // GET: PatientsController/Delete/5
-        public ActionResult Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
+            return View(model);
         }
 
         // POST: PatientsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Remove(int id, IFormCollection collection)
+        public async Task<ActionResult> Remove(int id, Patient collection)
         {
             try
             {
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
