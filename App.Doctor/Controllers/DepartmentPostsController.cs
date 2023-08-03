@@ -13,6 +13,7 @@ namespace App.Admin.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/DepartmentsPosts";
         private readonly string _apiDepartments = "http://localhost:5005/api/Departments";
+        private readonly string _apiPosts = "http://localhost:5005/api/Posts";
         public DepartmentPostsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -35,6 +36,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> CreateAsync()
         {
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return View(); 
         }
 
@@ -57,6 +59,7 @@ namespace App.Admin.Controllers
                 ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return View(collection); //selectlist
         }
 
@@ -65,6 +68,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> EditAsync(int? id)
         {
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             DepartmentPost model = await _httpClient.GetFromJsonAsync<DepartmentPost>(_apiAddress + "/" + id);
             return View(model);
         }
@@ -94,6 +98,7 @@ namespace App.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return RedirectToAction(nameof(Index));
         }
 

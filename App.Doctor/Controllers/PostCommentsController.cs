@@ -1,6 +1,7 @@
 ﻿using App.Data.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App.Admin.Controllers
 {
@@ -8,6 +9,8 @@ namespace App.Admin.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/PostComments";
+        private readonly string _apiUsers = "http://localhost:5005/api/Users";
+        private readonly string _apiPosts = "http://localhost:5005/api/Posts";
         public PostCommentsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -15,6 +18,8 @@ namespace App.Admin.Controllers
         // GET: PostCommentsController
         public async Task<ActionResult> Index()
         {
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             var model = await _httpClient.GetFromJsonAsync<List<PostComment>>(_apiAddress);
             return View(model);
         }
@@ -26,8 +31,10 @@ namespace App.Admin.Controllers
         //}
 
         // GET: PostCommentsController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return View();
         }
 
@@ -48,6 +55,8 @@ namespace App.Admin.Controllers
             {
                 ModelState.AddModelError("", "Hata Oluştu!");
             }
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
+            ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return View(collection);
         }
 

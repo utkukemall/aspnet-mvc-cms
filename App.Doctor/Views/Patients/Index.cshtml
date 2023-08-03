@@ -5,17 +5,14 @@
 }
 
 
+
 <div class="container-fluid">
-    <h1 class="mt-4">Tables</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item active">Tables</li>
-    </ol>
+    <h1 class="mt-4">Patients List</h1>
+    <a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="Patients" asp-action="Create">Create New Patient</a>
+
     <div class="card mb-4">
-        <div class="card-body">
-            DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-            <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-            .
+        <div class="card-body text-center bg-dark text-bg-dark">
+            <p class="fw-bold text-bg-dark"><i>You can see all Doctors in this area...</i></p>
         </div>
     </div>
     <div class="card mb-4">
@@ -46,10 +43,11 @@
                             <td>
                                 @if (patient.Role is not null)
                                 {
-                                    @patient.Role.RoleName.ToUpper()
+                                    @patient.Role.RoleName
                                 }
 
                             </td>
+
                             <td>@patient.Email</td>
                             <td>@patient.City</td>
                             <td>@patient.Phone</td>
