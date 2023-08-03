@@ -18,7 +18,7 @@ namespace App.Admin.Controllers
         // GET: PostCommentsController
         public async Task<ActionResult> Index()
         {
-            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "Email");
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             var model = await _httpClient.GetFromJsonAsync<List<PostComment>>(_apiAddress);
             return View(model);
@@ -33,7 +33,7 @@ namespace App.Admin.Controllers
         // GET: PostCommentsController/Create
         public async Task<ActionResult> CreateAsync()
         {
-            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "Email");
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return View();
         }
@@ -55,7 +55,7 @@ namespace App.Admin.Controllers
             {
                 ModelState.AddModelError("", "Hata Oluştu!");
             }
-            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "Email");
+            ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "FullName");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
             return View(collection);
         }
