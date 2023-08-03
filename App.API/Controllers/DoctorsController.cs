@@ -56,6 +56,7 @@ namespace App.API.Controllers
                 doctor.Specialty = value.Specialty;
                 doctor.Phone = value.Phone;
                 doctor.Password = value.Password;
+                doctor.City = value.City;
 
                 //doctor.Patients = value.Patients;
                 //doctor.City = value.City;
@@ -87,8 +88,14 @@ namespace App.API.Controllers
             if (doctor != null)
             {
                 _service.Delete(doctor);
-                _service.SaveAsync();
-                return Ok();
+                var response = await _service.SaveAsync();
+                if (response > 0)
+                {
+                    return Ok();
+
+                }
+
+                return Problem();
             }
 
             return NotFound();
