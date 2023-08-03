@@ -65,6 +65,8 @@ namespace App.Admin.Controllers
         // GET: PatientsController/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
+            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
             return View(model);
         }
@@ -74,16 +76,15 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, Patient collection)
         {
-            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+            var response = await _httpClient.PutAsJsonAsync<Patient>((_apiAddress + "/" + id), collection);
 
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                return RedirectToAction(nameof(Index));
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
-            return View(collection);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PatientsController/Delete/5

@@ -36,8 +36,12 @@ namespace App.API.Controllers
         public async Task<ActionResult> Post([FromBody] PostComment value)
         {
             await _service.AddAsync(value);
-            await _service.SaveAsync();
-            return Ok(value);
+            var response = await _service.SaveAsync();
+            if (response > 0)
+            {
+                return Ok();
+            }
+            return Problem();
         }
 
         // PUT api/<PostCommentsController>/5
