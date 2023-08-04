@@ -32,7 +32,7 @@ namespace App.Data
             var department = new Department
             {
                 Name = $"Opthomology",
-                Description = $"Ophthalmology, the branch of medicine that focuses on the study and treatment of disorders and diseases related to the eyes and visual system. Ophthalmologists are specialized medical professionals who diagnose and manage various eye conditions, ranging from refractive errors like nearsightedness and farsightedness to more complex issues such as cataracts, glaucoma, and retinal disorders. They use advanced diagnostic tools and surgical techniques to provide patients with the best possible care for their vision and overall eye health. Regular eye check-ups with ophthalmologists are crucial for early detection and timely treatment of eye problems, helping individuals maintain clear vision and prevent potential sight-threatening conditionsOphthalmology, the branch of medicine that focuses on the study and treatment of disorders and diseases related to the eyes and visual system. Ophthalmologists are specialized medical professionals who diagnose and manage various eye conditions, ranging from refractive errors like nearsightedness and farsightedness to more complex issues such as cataracts, glaucoma, and retinal disorders. They use advanced diagnostic tools and surgical techniques to provide patients with the best possible care for their vision and overall eye health. Regular eye check-ups with ophthalmologists are crucial for early detection and timely treatment of eye problems, helping individuals maintain clear vision and prevent potential sight-threatening conditionsOphthalmology, the branch of medicine that focuses on the study and treatment of disorders and diseases related to the eyes and visual system. Ophthalmologists are specialized medical professionals who diagnose and manage various eye conditions, ranging from refractive errors like nearsightedness and farsightedness to more complex issues such as cataracts, glaucoma, and retinal disorders. They use advanced diagnostic tools and surgical techniques to provide patients with the best possible care for their vision and overall eye health. Regular eye check-ups with ophthalmologists are crucial for early detection and timely treatment of eye problems, helping individuals maintain clear vision and prevent potential sight-threatening conditions.",
+                Description = $"Ophthalmology, the branch of medicine that focuses on the study and treatment of disorders and diseases related to the eyes and visual system. Ophthalmologists are specialized medical professionals who diagnose and manage various eye conditions, ranging from refractive errors like nearsightedness and farsightedness to more complex issues such as cataracts, glaucoma, and retinal disorders. They use advanced diagnostic tools and surgical techniques to provide patients with the best possible care for their vision and overall eye health. Regular eye check-ups with ophthalmologists are crucial for early detection and timely treatment of eye problems, helping individuals maintain clear vision and prevent potential sight-threatening conditions.",
                 // Gerekli diğer özellikler doldur.
             };
 
@@ -99,7 +99,7 @@ namespace App.Data
                 // Gerekli diğer özellikler doldur.
             };
             context.Departments.Add(department);
-            context.Departments.Add(department2);   
+            context.Departments.Add(department2);
             context.Departments.Add(department3);
             context.Departments.Add(department4);
             context.Departments.Add(department5);
@@ -112,75 +112,51 @@ namespace App.Data
 
             context.SaveChanges();
         }
-
+        // admin 1 // rol id 1
+        // 2 doktor rol 1 rol 2 rol 10
+        // Patitents // rol id 3
+        // user // rol id 4
         private static void SeedDoctors(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
+
+            var doctor = new Doctors
             {
-                var doctor = new Doctors
-                {
-                    RoleId = i,
-                    //  ImageId = i,
-                    FullName = $"doctor FullName{i}",
-                    City = $"City{i}",
-                    Phone = $"123456789{i}",
-                    Specialty = $"Specialty{i}",
-                    Patients = SeedPatientsForDoctor(i),
-                    Email = GenerateRandomEmail($"Doctors{i}", "Doctors.com"),
-                    Password = "mysecretpassword",
-                    DepartmentId = i
-                };
+                RoleId = 2, // roller hepsi 2
+                            //  ImageId = i,
+                FullName = $"Alexandar James",
+                City = $"Arizona",
+                Phone = $"123456789",
+                Specialty = $"Orthopedic Surgary",
+                //  Patients = SeedPatientsForDoctor,
+                Email = "alexandarjames@mvccms.com",
+                Password = "123",
+                DepartmentId = 2
+            };
 
-                context.Doctors.Add(doctor);
-            }
-
+            context.Doctors.Add(doctor);
             context.SaveChanges();
         }
 
-        private static List<Patient> SeedPatientsForDoctor(int doctorId)
-        {
-            var patients = new List<Patient>();
-
-            for (int i = 1; i <= 5; i++) // Her doktor için 5 hasta oluşturuluyor.
-            {
-                var patient = new Patient
-                {
-                    Diagnosis = $"Diagnosis {i} for Doctor {doctorId}",
-                    RoleId = i,
-                    //  ImageId = i,
-                    FullName = $"Patient FullName{i}",
-                    City = $"City{i}",
-                    Phone = $"123456789{i}",
-                    Email = GenerateRandomEmail($"Patient{i}", "Patient.com"),
-                    Password = "mysecretpassword",
-                };
-
-                patients.Add(patient);
-            }
-
-            return patients;
-        }
+  
 
         private static void SeedPatients(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
-            {
+         
                 var patient = new Patient
                 {
-                    Diagnosis = $"Diagnosis{i}",
-                    RoleId = i,
-                    // ImageId = i,
-                    FullName = $"Patient FullName{i}",
-                    City = $"City{i}",
-                    Phone = $"123456789{i}",
-                    Email = GenerateRandomEmail($"Patient{i}", "example.com"),
-                    Password = "mysecretpassword",
+                    Diagnosis = $"Brain Damage",
+                    RoleId = 3,
+                    FullName = $"Hakkı Bulut",
+                    City = $"Hakkari/Turkey",
+                    Phone = $"123456789",
+                    Email = "patient1@gmail.com",
+                    Password = "123123",
+                    DoctorId = 1
+
                 };
 
                 context.Patients.Add(patient);
-            }
-
-            context.SaveChanges();
+                context.SaveChanges();
         }
 
 
@@ -246,17 +222,40 @@ namespace App.Data
 
         private static void SeedRoles(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
+
+            var role = new Role
             {
-                var role = new Role
-                {
-                    RoleName = $"Role{i}",
-                    // Gerekli diğer özellikleri de doldur.
-                };
+                RoleName = "Admin",
+                // Gerekli diğer özellikleri de doldur.
+            };
+            var role2 = new Role
+            {
+                RoleName = "Doctor",
+                // Gerekli diğer özellikleri de doldur.
+            };
+            var role3 = new Role
+            {
+                RoleName = "Patient",
+                // Gerekli diğer özellikleri de doldur.
+            };
 
-                context.Roles.Add(role);
-            }
+            var role4 = new Role
+            {
+                RoleName = "User",
+                // Gerekli diğer özellikleri de doldur.
+            };
 
+            var role5 = new Role
+            {
+                RoleName = "Guest",
+                // Gerekli diğer özellikleri de doldur.
+            };
+            
+            context.Roles.Add(role);
+            context.Roles.Add(role2);
+            context.Roles.Add(role3);
+            context.Roles.Add(role4);
+            context.Roles.Add(role5);
             context.SaveChanges();
         }
 
@@ -296,22 +295,42 @@ namespace App.Data
 
         private static void SeedUsers(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
+
+            var user = new User
             {
-                var user = new User
-                {
-                    RoleId = i, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
-                                //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
-                    FullName = $"User{i}",
-                    Email = GenerateRandomEmail($"user{i}", "example.com"),
-                    Password = "passwordpassword",
-                    City = $"City{i}",
-                    Phone = $"123456789{i}", // Örnek telefon numarası oluşturduk.
-                };
+                RoleId = 1, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
+                            //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
+                FullName = $"Admin admin",
+                Email = "admin@mvccms.com",
+                Password = "123123",
+                City = $"Istanbul",
+                Phone = $"1234567890", // Örnek telefon numarası oluşturduk.
+            };
 
-                context.Users.Add(user);
-            }
+            var user2 = new User
+            {
+                RoleId = 4, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
+                            //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
+                FullName = $"Guest",
+                Email = GenerateRandomEmail($"Guest", "Guest@mvccms.com"),
+                Password = "123",
+                City = $"Bagcilar",
+                Phone = $"09008008080", // Örnek telefon numarası oluşturduk.
+            };   
+            var user3 = new User
+            {
+                RoleId = 4, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
+                            //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
+                FullName = $"User",
+                Email = GenerateRandomEmail($"Guest", "User@mvccms.com"),
+                Password = "123",
+                City = $"Texas",
+                Phone = $"09008008080", // Örnek telefon numarası oluşturduk.
+            };
 
+            context.Users.Add(user);
+            context.Users.Add(user2);
+            context.Users.Add(user3);
             context.SaveChanges();
         }
         private static void SeedDepartmentPosts(AppDbContext context)
