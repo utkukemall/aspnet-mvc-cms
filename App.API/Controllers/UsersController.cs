@@ -40,18 +40,27 @@ namespace App.API.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutAsync(int id, [FromBody] User value)
+        public async Task<ActionResult> Put(int id, [FromBody] User value)
         {
-            User mainUser = await _service.FindAsync(id);
+            var mainUser = await _service.GetUserByIncludeAsync(id);
+
             if (mainUser != null)
             {
-                mainUser = value;
-
+                mainUser.RoleId = value.RoleId;
+                mainUser.ImageId = value.ImageId;
+                mainUser.FullName = value.FullName;
+                mainUser.Email = value.Email;
+                mainUser.Password = value.Password;
+                mainUser.City = value.City;
+                mainUser.Phone = value.Phone;
+                mainUser.Role = value.Role;
                 _service.Update(mainUser);
-                await _service.SaveAsync();
-                return Ok();
+                var response = await _service.SaveAsync();
+                if (response > 0)
+                {
+                    return Ok();
+                }
             }
-
             return Problem();
         }
 
