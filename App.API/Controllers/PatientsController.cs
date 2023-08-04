@@ -36,6 +36,7 @@ namespace App.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync([FromBody] Patient value)
         {
+            value.RoleId = 2;
             await _service.AddAsync(value);
             var response = await _service.SaveAsync();
             if (response >0)
@@ -60,7 +61,7 @@ namespace App.API.Controllers
                 mainPatient.City = value.City;
                 mainPatient.Email = value.Email;
                 mainPatient.Diagnosis = value.Diagnosis;
-                mainPatient.RoleId = value.RoleId;
+                mainPatient.RoleId = 2;
                 mainPatient.DoctorId = value.DoctorId;
                 //mainPatient.Doctor = value.Doctor;
                 //mainPatient.Role = value.Role;
