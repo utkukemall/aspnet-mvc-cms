@@ -196,7 +196,6 @@ namespace App.Data
             {
                 var setting = new Setting
                 {
-                    UserId = i, // Bu örnekte UserId'leri 1'den 10'a kadar ekledik.
                     Name = $"Setting Name{i}",
                     Value = $"Setting Value{i}",
                     // Gerekli diğer özellikleri de doldur.

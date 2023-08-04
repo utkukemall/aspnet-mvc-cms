@@ -53,20 +53,19 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Post value)
         {
-            Post mainModel = await _service.GetPostByIncludeAsync(id);
-
-            if (mainModel!=null)
+            var mainModel = await _service.GetPostByIncludeAsync(id);
+            if (mainModel != null)
             {
-                mainModel = value;
+                mainModel.Title = value.Title;
+                mainModel.Content= value.Content;
+                mainModel.Image = value.Image;
+
                 _service.Update(mainModel);
                 var response = await _service.SaveAsync();
 
-                if (response>0)
-                {
+                if (response > 0)
                     return Ok();
-                }
             }
-
             return Problem();
         }
 
@@ -74,20 +73,16 @@ namespace App.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            Post mainModel = await _service.GetPostByIncludeAsync(id);
-
-            if (mainModel!= null)
+            var mainModel = await _service.GetPostByIncludeAsync(id);
+            if (mainModel != null)
             {
                 _service.Delete(mainModel);
                 var response = await _service.SaveAsync();
 
-                if (response>0)
-                {
+                if (response > 0)
                     return Ok();
-                }
+
             }
-
-
             return Problem();
         }
     }

@@ -11,25 +11,27 @@ namespace App.API.Controllers
     [ApiController]
     public class SettingsController : ControllerBase
     {
-        private readonly ISettingService _service;
+        private readonly IService<Setting> _service;
 
-        public SettingsController(ISettingService service)
+        public SettingsController(IService<Setting> service)
         {
             _service = service;
         }
+
+
 
         // GET: api/<SettingsController>
         [HttpGet]
         public async Task<IEnumerable<Setting>> Get()
         {
-            return await _service.GetAllSettingAsync();
+            return await _service.GetAllAsync();
         }
 
         // GET api/<SettingsController>/5
         [HttpGet("{id}")]
         public async Task<Setting> GetAsync(int id)
         {
-            return await _service.GetSettingByIncludeAsync(id);
+            return await _service.FindAsync(id);
         }
 
         // POST api/<SettingsController>

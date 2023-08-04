@@ -25,7 +25,6 @@ builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IDepartmentsPostsService, DepartmentsPostsService>();
-builder.Services.AddScoped<ISettingService, SettingService>();
 builder.Services.AddScoped<IDoctorsService, DoctorsService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
