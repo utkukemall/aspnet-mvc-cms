@@ -137,47 +137,45 @@ namespace App.Data
             context.SaveChanges();
         }
 
-  
+
 
         private static void SeedPatients(AppDbContext context)
         {
-         
-                var patient = new Patient
-                {
-                    Diagnosis = $"Brain Damage",
-                    RoleId = 3,
-                    FullName = $"Hakkı Bulut",
-                    City = $"Hakkari/Turkey",
-                    Phone = $"123456789",
-                    Email = "patient1@gmail.com",
-                    Password = "123123",
-                    DoctorId = 1
 
-                };
+            var patient = new Patient
+            {
+                Diagnosis = $"Brain Damage",
+                RoleId = 3,
+                FullName = $"Hakkı Bulut",
+                City = $"Hakkari/Turkey",
+                Phone = $"123456789",
+                Email = "patient1@gmail.com",
+                Password = "123123",
+                DoctorId = 1
 
-                context.Patients.Add(patient);
-                context.SaveChanges();
+            };
+
+            context.Patients.Add(patient);
+            context.SaveChanges();
         }
 
 
 
         private static void SeedPosts(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
+
+            var post = new Post
             {
-                var post = new Post
-                {
-                    //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
-                    Title = $"Post Title{i}",
-                    Content = $"Post Content{i}",
-                    CommentsCount = i,
-                    Comments = SeedCommentsForPost(i), // Her post için rastgele yorumlar oluşturuluyor.
-                    // Gerekli diğer özellikleri de doldur.
-                };
+                //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
 
-                context.Posts.Add(post);
-            }
+                Title = "Advances in the Healthcare Sector",
+                Content = "The healthcare sector is continuously evolving and advancing due to innovations in science, technology, and medicine. These advancements have led to the improvement of healthcare services and treatment methods for human health. In this article, we will discuss some significant developments and innovations in the healthcare sector: Genetic and Cellular Therapies: In recent years, there have been significant advancements in genetic and cellular therapies. Gene editing technologies offer promising results for treating genetic disorders. Additionally, stem cell therapy holds great potential in the treatment of certain diseases and enhancing injury recovery.Artificial Intelligence and Data Analytics: Artificial intelligence (AI) and data analytics have revolutionized the healthcare sector. AI algorithms are being used for early disease detection, treatment planning, and patient care. Big data analytics improves the efficiency and effectiveness of healthcare services.Digital Health and Telemedicine: Digital health technologies and telemedicine services facilitate easier patient-doctor interactions and increase access to healthcare services. Remote monitoring systems and telehealth platforms are used for managing chronic diseases and providing remote patient care.Targeted Therapies: Advancements in pharmacology enable more effective and targeted treatments for diseases. Personalized medicines are tailored to individual patients' genetic characteristics and disease profiles.Robotic Surgery: Robotic surgery enhances precision and accuracy, making surgical procedures safer and more effective. This technology plays a significant role in performing complex surgeries and minimally invasive interventions.Neuromodulation Techniques: Neuromodulation involves stimulating the nervous system electrically or chemically to treat certain medical conditions. It is considered an effective method for managing chronic pain, Parkinson's disease, and epilepsy. These are just a few examples of the developments in the healthcare sector. Research and advancements in medicine and healthcare continue to progress, and we can expect even more significant breakthroughs in the future. These advancements hold the potential to improve patients' quality of life and make healthcare services more effective and accessible",
+                CommentsCount = 10,
+                // Comments = SeedCommentsForPost, // Her post için rastgele yorumlar oluşturuluyor.
+                // Gerekli diğer özellikleri de doldur.
+            };
 
+            context.Posts.Add(post);
             context.SaveChanges();
         }
 
@@ -185,37 +183,33 @@ namespace App.Data
         {
             var comments = new List<PostComment>();
 
-            for (int i = 1; i <= 5; i++) // Her post için 5 yorum oluşturuluyor.
+
+            var comment = new PostComment
             {
-                var comment = new PostComment
-                {
-                    PostId = postId,
-                    Comment = $"Comment {i} for Post {postId}",
-                    IsActive = true, // Varsayılan olarak true olarak ekledik.
-                    // Gerekli diğer özellikleri de doldur.
-                };
+                PostId = postId,
+                Comment = $"Wow, these healthcare advancements are truly remarkable! It's incredible to see how technology and science are revolutionizing the medical field. The potential for personalized treatments and improved patient care is so promising. Exciting times ahead for healthcare{postId}",
+                IsActive = true, // Varsayılan olarak true olarak ekledik.
+                                 // Gerekli diğer özellikleri de doldur.
+            };
 
-                comments.Add(comment);
-            }
-
+            comments.Add(comment);
             return comments;
         }
 
         private static void SeedPostComments(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
-            {
-                var postComment = new PostComment
-                {
-                    PostId = i, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
-                    UserId = i, // Bu örnekte UserId'leri 1'den 10'a kadar ekledik.
-                    Comment = $"Comment{i}",
-                    IsActive = true, // Varsayılan olarak true olarak ekledik.
-                    // Gerekli diğer özellikleri de doldur.
-                };
 
-                context.PostComments.Add(postComment);
-            }
+            var postComment = new PostComment
+            {
+                PostId = 1, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
+                UserId = 1, // Bu örnekte UserId'leri 1'den 10'a kadar ekledik.
+                Comment = $"This is such a positive step forward in healthcare! The progress in genetic therapies and AI applications is truly impressive. It gives hope for better treatment options and faster diagnoses in the future. Kudos to all the researchers and healthcare professionals working tirelessly to make these advancements a reality!",
+                IsActive = true, // Varsayılan olarak true olarak ekledik.
+                                 // Gerekli diğer özellikleri de doldur.
+            };
+
+            context.PostComments.Add(postComment);
+
 
             context.SaveChanges();
         }
@@ -250,7 +244,7 @@ namespace App.Data
                 RoleName = "Guest",
                 // Gerekli diğer özellikleri de doldur.
             };
-            
+
             context.Roles.Add(role);
             context.Roles.Add(role2);
             context.Roles.Add(role3);
@@ -261,35 +255,29 @@ namespace App.Data
 
         private static void SeedSettings(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
+
+            var setting = new Setting
             {
-                var setting = new Setting
-                {
-                    Name = $"Setting Name{i}",
-                    Value = $"Setting Value{i}",
-                    // Gerekli diğer özellikleri de doldur.
-                };
+                Name = $"Setting Name",
+                Value = $"Setting Value",
+                // Gerekli diğer özellikleri de doldur.
+            };
 
-                context.Settings.Add(setting);
-            }
-
+            context.Settings.Add(setting);
             context.SaveChanges();
         }
         private static void SeedPages(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
+
+            var page = new Page
             {
-                var page = new Page
-                {
-                    Title = $"Page Title{i}",
-                    Content = $"Page Content{i}",
-                    IsActive = true, // Set IsActive based on your requirements.
-                                     // Add other necessary properties here.
-                };
+                Title = $"Cms News",
+                Content = $"News From Healty World",
+                IsActive = true, // Set IsActive based on your requirements.
+                                 // Add other necessary properties here.
+            };
 
-                context.Pages.Add(page);
-            }
-
+            context.Pages.Add(page);
             context.SaveChanges();
         }
 
@@ -316,7 +304,7 @@ namespace App.Data
                 Password = "123",
                 City = $"Bagcilar",
                 Phone = $"09008008080", // Örnek telefon numarası oluşturduk.
-            };   
+            };
             var user3 = new User
             {
                 RoleId = 4, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
@@ -335,17 +323,14 @@ namespace App.Data
         }
         private static void SeedDepartmentPosts(AppDbContext context)
         {
-            for (int i = 1; i <= 10; i++)
+
+            var departmentPost = new DepartmentPost
             {
-                var departmentPost = new DepartmentPost
-                {
-                    DepartmentId = i, // Bu örnekte DepartmentId'leri 1'den 10'a kadar ekledik.
-                    PostId = i, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
-                };
+                DepartmentId = 1, // Bu örnekte DepartmentId'leri 1'den 10'a kadar ekledik.
+                PostId = 1, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
+            };
 
-                context.DepartmentPosts.Add(departmentPost);
-            }
-
+            context.DepartmentPosts.Add(departmentPost)
             context.SaveChanges();
         }
 
