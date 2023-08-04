@@ -61,9 +61,9 @@ namespace App.API.Controllers
                 mainPatient.Email = value.Email;
                 mainPatient.Diagnosis = value.Diagnosis;
                 mainPatient.RoleId = value.RoleId;
-                mainPatient.Role = value.Role;
                 mainPatient.DoctorId = value.DoctorId;
-                mainPatient.Doctor = value.Doctor;
+                //mainPatient.Doctor = value.Doctor;
+                //mainPatient.Role = value.Role;
                 //mainPatient.ImageId = value.ImageId;
                 //mainPatient.Image = value.Image;
 

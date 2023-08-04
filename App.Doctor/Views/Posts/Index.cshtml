@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Tittle</th>
+                        <th>Title</th>
                         <th>Content</th>
                         <th>Comments</th>
                         <th>PostImage</th>
@@ -38,7 +38,11 @@
                             <td>@post.Title</td>
                             <td>@post.Content</td>
                             <td>@post.Comments?.Count</td>
-                            <td>@post.Image</td>
+                            <td>
+
+                                <img src="/Images/@post.Image" alt="" class="img-fluid rounded-circle" style="max-height:75px" />
+
+                            </td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@post.Id">Edit</a> |
                                 <a class="btn btn-warning" asp-action="Detail" asp-route-id="@post.Id">Details</a> |
