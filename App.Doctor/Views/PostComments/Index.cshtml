@@ -26,7 +26,7 @@
                     <tr>
                         <th>Id</th>
                         <th>PostId</th>
-                        @*<th>Post.Title</th>*@
+                        <th>Post.Title</th>
                         <th>UserId</th>
                         <th>IsActive</th>
                         <th>Comment</th>                        
@@ -42,7 +42,7 @@
                         <tr>
                             <td>@postComment.Id</td>
                             <td>@postComment.PostId</td>
-                            @*<td>@postComment.Post.Title</td>*@
+                            <td>@postComment.Post?.Title</td>
                             <td>@postComment.UserId</td>
                             <td>@postComment.IsActive</td>
                             <td>@postComment.Comment</td>

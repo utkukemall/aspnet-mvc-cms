@@ -47,7 +47,7 @@ namespace App.API.Controllers
             if (mainUser != null)
             {
                 mainUser.RoleId = value.RoleId;
-                mainUser.ImageId = value.ImageId;
+                mainUser.Image = value.Image;
                 mainUser.FullName = value.FullName;
                 mainUser.Email = value.Email;
                 mainUser.Password = value.Password;

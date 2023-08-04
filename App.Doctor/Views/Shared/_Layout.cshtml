@@ -21,11 +21,15 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                @Html.Raw(TempData["Message"])
+                <div class="row">
+                    <div class="text-center fw-bold mt-2 mb-0">
+                        @Html.Raw(TempData["Message"])
+                    </div>
+                </div>
                 @RenderBody()
             </div>
         </main>
-       
+
         <partial name="_Footer" />
     </div>
     <script src="~/startbootstrap-sb-admin-gh-pages/js/datatables-simple-demo.js"></script>
