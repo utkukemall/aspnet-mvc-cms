@@ -4,30 +4,30 @@
     ViewData["Title"] = "Edit DepartmentPost";
 }
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="DepartmentPosts" asp-action="Edit" enctype="multipart/form-data" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="container-fluid bg-light">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 bg-white p-4 rounded">
+                <h2 class="mb-4">@ViewData["Title"]</h2>
+                <hr />
 
-            <div class="form-group">
-                <label asp-for="PostId" class="control-label"></label>
-                <select asp-for="PostId" class="form-select" asp-items="ViewBag.PostId"></select>
-            </div>
+                <form asp-controller="DepartmentPosts" asp-action="Edit" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="DepartmentId" class="control-label"></label>
-                <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.DepartmentId"></select>
-            </div>
+                    <div class="mb-3">
+                        <label asp-for="PostId" class="form-label"></label>
+                        <select asp-for="PostId" class="form-select" asp-items="ViewBag.PostId"></select>
+                    </div>
 
-            <div class="form-group ms-2 mt-2">
-                <input type="submit" value="Save Changes" class="btn btn-primary" />
+                    <div class="mb-3">
+                        <label asp-for="DepartmentId" class="form-label"></label>
+                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.DepartmentId"></select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
-<hr />
-<div>
-    <a class="btn btn-outline-dark" asp-action="Index">Back To List</a>
-</div>
-
