@@ -24,6 +24,7 @@ namespace App.API.Controllers
         public async Task<IEnumerable<PostComment>> Get()
         {
             return await _service.GetAllPostCommentsByIncludeAsync();
+
         }
 
         // GET api/<PostCommentsController>/5
@@ -54,7 +55,10 @@ namespace App.API.Controllers
 
             if (postComment != null)
             {
-                postComment = value;
+                postComment.UserId = value.UserId;
+                postComment.Comment = value.Comment;
+                postComment.IsActive = value.IsActive;
+                postComment.PostId = value.PostId;
                 _service.Update(postComment);
                 await _service.SaveAsync();
                 return Ok(postComment);
@@ -70,8 +74,14 @@ namespace App.API.Controllers
             if (postComment != null)
             {
                 _service.Delete(postComment);
-                _service.SaveAsync();
-                return Ok();
+                var response = await _service.SaveAsync();
+
+                if (response > 0)
+                {
+                    return Ok();
+
+                }
+                return Problem();
             }
             return NotFound();
         }

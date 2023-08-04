@@ -32,7 +32,7 @@ namespace App.Data
             {
                 var department = new Department
                 {
-                    Name = $"Department {i}",
+                    Name = $"Kardiyoloji {i}",
                     Description = $"Description for Department {i}",
                     // Gerekli diğer özellikler doldur.
                 };

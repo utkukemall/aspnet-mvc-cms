@@ -25,11 +25,12 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>PostId</th>
+
+
                         <th>Post.Title</th>
-                        <th>UserId</th>
+                        <th>User Name</th>
                         <th>IsActive</th>
-                        <th>Comment</th>                        
+                        <th>Comment</th>
                         <th>
                             @Html.DisplayNameFor(PostComment => PostComment.IsActive)
                         </th>
@@ -41,9 +42,8 @@
                     {
                         <tr>
                             <td>@postComment.Id</td>
-                            <td>@postComment.PostId</td>
                             <td>@postComment.Post?.Title</td>
-                            <td>@postComment.UserId</td>
+                            <td>@postComment.User?.FullName</td>
                             <td>@postComment.IsActive</td>
                             <td>@postComment.Comment</td>
                             <td>

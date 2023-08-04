@@ -1,17 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace App.Web.Mvc.Controllers
 {
 	public class DepartmentController : Controller
     {
-		//private readonly AppDbContext _dbContext;
-		
-
-        public IActionResult Index(int id, int page)
+        private readonly HttpClient _httpClient;
+        private readonly string _apiAddress = "http://localhost:5005/api/Departments";
+        public DepartmentController(HttpClient httpClient)
         {
-            return View();
+            _httpClient = httpClient;
         }
 
+        public async Task<IActionResult> Index(int id, int page)
+        {
+            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress);
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> GoDepartment(int id, int page)
+        {
+            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress +"/" + id);
+            return View(model);
+        }
         [HttpGet]
         public async Task<IActionResult> List()
         {
