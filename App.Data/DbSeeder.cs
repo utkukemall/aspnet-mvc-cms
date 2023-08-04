@@ -74,28 +74,28 @@ namespace App.Data
             var department7 = new Department
             {
                 Name = $"Allergy And Immunology",
-                Description = $"Allergies including asthma are among the most common health problems. Immuno-deficiencies are rarer but can be chronic and debilitating if not diagnosed and treated properly. If you or your child have an allergic disease or a defect in the immune system, our Allergy and Immunology Division provides optimal and tailored care for children and adults with a wide range of allergic and immunologic conditions.The Allergy and Immunology Division at American Hospital Dubai provides cutting-edge, evidence-based care to identify and treat all allergic and immunological diseases.",
+                Description = $"Allergies including asthma are among the most common health problems. Immuno-deficiencies are rarer but can be chronic and debilitating if not diagnosed and treated properly. If you or your child have an allergic disease or a defect in the immune system, our Allergy and Immunology Division provides optimal and tailored care for children and adults with a wide range of allergic and immunologic conditions",
                 // Gerekli diğer özellikler doldur.
             };
 
             var department8 = new Department
             {
                 Name = $"Anesthesiology",
-                Description = $"The word anesthesia means ‘loss of sensation’. It can involve a simple local anesthetic injection which numbs a small part of the body, such as a finger or around a tooth. It can also involve using powerful drugs which cause unconsciousness. These drugs also affect the function of the heart, the lungs, and circulation. As a result, anesthesia is only given under the close supervision of an anesthesiologist, who is trained to consider the best way to give you an effective anesthetic but also to keep you safe and well. The drugs used in anesthesia work by blocking the signals that pass along your nerves to your brain",
+                Description = $"The word anesthesia means ‘loss of sensation’. It can involve a simple local anesthetic injection which numbs a small part of the body, such as a finger or around a tooth. It can also involve using powerful drugs which cause unconsciousness. ",
                 // Gerekli diğer özellikler doldur.
             };
 
             var department9 = new Department
             {
                 Name = $"Aviation Medical Services",
-                Description = $"American Hospital Dubai provides exceptional Aviation Medical Services in Dubai with Specialist Aeromedical examiners. Our expert team of highly experienced Specialist AMEs is certified and approved to conduct special aviation medical examinations for all aviation professionals, including air traffic controllers, commercial pilots, private pilots, and the entire cabin crew. The trusted Specialist AMEs at the hospital access health and fitness for all the aeronautical personnel, ensuring they are fit to fly or can work safely in critical roles in the aviation field. We are committed to enable and facilitate patients with a comprehensive and complex range of medical services under one roof. With General Civil Aviation Authority (GCAA) certified Aeromedical Examiners at American Hospital Dubai, we are devoted to delivering excellence in all types of services we offer.",
+                Description = $"American Hospital Dubai provides exceptional Aviation Medical Services in Dubai with Specialist Aeromedical examiners. Our expert team of highly experienced Specialist AMEs is certified and approved to conduct special aviation medical examinations for all aviation professionals, including air traffic controllers, commercial pilots, private pilots, and the entire cabin crew. .",
                 // Gerekli diğer özellikler doldur.
             };
 
             var department10 = new Department
             {
                 Name = $"General Surgery",
-                Description = $"At American Hospital Dubai’s General Surgery Department, our main aim is to deliver all-inclusive surgical healthcare at the highest international standards. We are the first choice general surgery hospital in Dubai for a number of reasons. Our team of multidisciplinary, fellowship-trained, Board-certified surgeons all possess a wealth of knowledge, in addition to their specific interests within a variety of subspecialties. These include Robotic Assistant Surgery, oncological surgery for all cancer, advanced laparoscopic surgery, colorectal surgery, breast surgery, thyroid surgery, endocrine surgery and pediatric surgery.",
+                Description = $"At American Hospital Dubai’s General Surgery Department, our main aim is to deliver all-inclusive surgical healthcare at the highest international standards. We are the first choice general surgery hospital in Dubai for a number of reasons..",
                 // Gerekli diğer özellikler doldur.
             };
             context.Departments.Add(department);
