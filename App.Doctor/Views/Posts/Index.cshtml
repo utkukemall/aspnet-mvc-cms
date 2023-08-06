@@ -36,7 +36,32 @@
                         <tr>
                             <td>@post.Id</td>
                             <td>@post.Title</td>
-                            <td>@post.Content</td>
+                            <td>
+                                @if (post.Content.Length > 100)
+                                {
+                                    <span>@post.Content.Substring(0, 100)...</span>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#contentModal_@post.Id">Read More</a>
+                                    <div class="modal fade" id="contentModal_@post.Id" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="contentModalLabel">@post.Title</h5>
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @post.Content
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    @post.Content
+                                }
+                            </td>
                             <td>@post.Comments?.Count</td>
                             <td>
                                 <img src="/Images/@post.Image" alt="" class="img-fluid rounded-circle" style="max-height:75px;" />

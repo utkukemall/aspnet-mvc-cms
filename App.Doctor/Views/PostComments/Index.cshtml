@@ -27,7 +27,6 @@
                         <th>Id</th>
                         <th>Post.Title</th>
                         <th>User Name</th>
-                        <th>IsActive</th>
                         <th>Comment</th>
                         <th>@Html.DisplayNameFor(PostComment => PostComment.IsActive)</th>
                         <th>Actions</th>
@@ -40,8 +39,33 @@
                             <td>@postComment.Id</td>
                             <td>@postComment.Post?.Title</td>
                             <td>@postComment.User?.FullName</td>
-                            <td>@postComment.IsActive</td>
-                            <td>@postComment.Comment</td>
+                            <td>
+                                @if (postComment.Comment.Length > 100)
+                                {
+                                    <span>@postComment.Comment.Substring(0, 100)...</span>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#descriptionModal_@postComment.Id">Read More</a>
+                                    <div class="modal fade" id="descriptionModal_@postComment.Id" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="descriptionModalLabel">@postComment.User?.FullName</h5>
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @postComment.Comment
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    @postComment.Comment
+                                }
+                            </td>
+                            
                             <td>
                                 @Html.DisplayFor(PostComment => postComment.IsActive)
                             </td>

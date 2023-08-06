@@ -330,7 +330,7 @@ namespace App.Data
                 PostId = 1, // Bu örnekte PostId'leri 1'den 10'a kadar ekledik.
             };
 
-            context.DepartmentPosts.Add(departmentPost)
+            context.DepartmentPosts.Add(departmentPost);
             context.SaveChanges();
         }
 

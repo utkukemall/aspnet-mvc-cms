@@ -23,10 +23,8 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>DepartmentId</th>
                         <th>Departments</th>
                         <th>Post</th>
-                        <th>PostId</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -35,9 +33,7 @@
                     {
                         <tr>
                             <td>@departmentPost.Id</td>
-                            <td>@departmentPost.DepartmentId</td>
                             <td>@(departmentPost.Departments?.Name)</td>
-                            <td>@departmentPost.PostId</td>
                             <td>@(departmentPost.Post?.Title)</td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@departmentPost.Id">Edit</a> |

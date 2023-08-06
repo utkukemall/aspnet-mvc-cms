@@ -35,8 +35,34 @@
                         <tr>
                             <td>@departments.Id</td>
                             <td>@departments.Name</td>
-                            <td>@departments.Description</td>
-                            <td><img src="/Images/@departments.Image" class="img-fluid" style="max-height" /></td>
+                            <td>
+                                @if (departments.Description.Length > 100)
+                                {
+                                    <span>@departments.Description.Substring(0, 100)...</span>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#descriptionModal_@departments.Id">Read More</a>
+                                    <div class="modal fade" id="descriptionModal_@departments.Id" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="descriptionModalLabel">@departments.Name</h5>
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @departments.Description
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    @departments.Description
+                                }
+                            </td>
+
+                            <td><img src="/Images/@departments.Image" class="img-fluid rounded-circle" style="max-height: 75px;" /></td>
                             <td>
                                 <a class="btn btn-primary" asp-controller="Departments" asp-action="Edit" asp-route-id="@departments.Id">Edit</a> |
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal_@departments.Id">
