@@ -1,9 +1,8 @@
-﻿using App.Data.Entity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using App.Data.Entity;
 
-namespace App.Admin.Controllers
+namespace App.Doctor.Controllers
 {
     public class DoctorsController : Controller
     {
@@ -71,7 +70,7 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, Doctors collection)
         {
-            var response = await _httpClient.PutAsJsonAsync<Doctors>((_apiAddress + "/" + id), collection);
+            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
             if (response.IsSuccessStatusCode)
             {

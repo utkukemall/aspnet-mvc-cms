@@ -1,7 +1,6 @@
 ﻿using App.Data.Entity;
 using App.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -52,7 +51,7 @@ namespace App.API.Controllers
             {
                 mainSetting.Value = value.Value;
                 mainSetting.Name = value.Name;
-             
+
                 _service.Update(mainSetting);
                 await _service.SaveAsync();
                 return Ok();

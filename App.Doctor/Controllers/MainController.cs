@@ -1,6 +1,7 @@
-﻿using App.Doctor.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using App.Data.Entity;
+using App.Doctor.Models;
 
 namespace App.Doctor.Controllers
 {

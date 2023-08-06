@@ -1,18 +1,13 @@
-﻿using App.Admin.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using App.Data.Entity;
+using App.Admin.Models;
 
 namespace App.Admin.Controllers
 {
-    public class HomeController : Controller
+    //deneme
+    public class MainController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             return View();

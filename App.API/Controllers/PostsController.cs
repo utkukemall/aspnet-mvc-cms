@@ -57,7 +57,7 @@ namespace App.API.Controllers
             if (mainModel != null)
             {
                 mainModel.Title = value.Title;
-                mainModel.Content= value.Content;
+                mainModel.Content = value.Content;
                 mainModel.Image = value.Image;
 
                 _service.Update(mainModel);

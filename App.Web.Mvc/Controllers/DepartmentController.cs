@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Web.Mvc.Controllers
 {
-	public class DepartmentController : Controller
+    public class DepartmentController : Controller
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/Departments";
@@ -21,7 +21,7 @@ namespace App.Web.Mvc.Controllers
 
         public async Task<IActionResult> GoDepartment(int id, int page)
         {
-            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress +"/" + id);
+            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress + "/" + id);
             return View(model);
         }
         [HttpGet]
@@ -33,12 +33,12 @@ namespace App.Web.Mvc.Controllers
         }
 
 
-		//[HttpGet]
-		//public async Task<IActionResult> ListWithService([FromQuery] string? searchKey = null)
-		//{
-  //          var sonuc = await _categoryService.GetCategories(searchKey);
+        //[HttpGet]
+        //public async Task<IActionResult> ListWithService([FromQuery] string? searchKey = null)
+        //{
+        //          var sonuc = await _categoryService.GetCategories(searchKey);
 
-		//	return View(sonuc);
-		//}
-	}
+        //	return View(sonuc);
+        //}
+    }
 }

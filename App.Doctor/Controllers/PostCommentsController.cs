@@ -1,9 +1,8 @@
-﻿using App.Data.Entity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using App.Data.Entity;
 
-namespace App.Admin.Controllers
+namespace App.Doctor.Controllers
 {
     public class PostCommentsController : Controller
     {
@@ -76,7 +75,7 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, PostComment collection)
         {
-            var response = await _httpClient.PutAsJsonAsync<PostComment>((_apiAddress + "/" + id), collection);
+            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
@@ -100,7 +99,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-               var response =  await _httpClient.DeleteAsync(_apiAddress + "/" + id);
+                var response = await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
             }

@@ -1,8 +1,6 @@
 ﻿using App.Data.Entity;
 using App.Web.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.ComponentModel.DataAnnotations;
 
 namespace App.Web.Mvc.Controllers
 {

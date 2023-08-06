@@ -5,21 +5,23 @@
 }
 
 
-<div class="container-fluid">
-    <h1 class="mt-4 ">Department Posts List</h1>
-    <a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="DepartmentPosts" asp-action="Create">Create New Department Post</a>
-    <div class="card mb-4">
-        <div class="card-body text-center bg-dark text-bg-dark">
-            <p class="fw-bold text-bg-dark"><i> You can see all department posts in this area...</i> </p>
-        </div>
+<h1 class="mt-4 ">Department Posts List</h1>
+<a class="btn btn-outline-success mt-2 ms-1 mb-2" asp-controller="DepartmentPosts" asp-action="Create">Create New Department Post</a>
+<div class="card mb-4">
+    <div class="card-body text-center bg-dark text-bg-dark">
+        <p class="fw-bold text-bg-dark"><i> You can see all department posts in this area...</i> </p>
     </div>
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Department Posts DataTable
-        </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            Department Posts
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -28,6 +30,14 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Departments</th>
+                        <th>Post</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
                 <tbody>
                     @foreach (var departmentPost in Model)
                     {
@@ -47,6 +57,7 @@
             </table>
         </div>
     </div>
+
 </div>
 @foreach (var departmentPost in Model)
 {

@@ -77,9 +77,9 @@ namespace App.API.Controllers
             Page mainModel = await _service.FindAsync(id);
 
             _service.Delete(mainModel);
-            var response =   await _service.SaveAsync();
+            var response = await _service.SaveAsync();
 
-            if (response>0)
+            if (response > 0)
             {
                 return Ok();
             }

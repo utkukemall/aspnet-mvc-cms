@@ -1,11 +1,9 @@
-﻿using App.Data.Entity;
-using App.Web.Mvc.Models;
+﻿using App.Admin.Models;
+using App.Data.Entity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
-namespace App.Web.Mvc.Controllers
+namespace App.Admin.Controllers
 {
     public class AuthController : Controller
     {
@@ -100,8 +98,8 @@ namespace App.Web.Mvc.Controllers
             {
                 var userAccess = new List<Claim>
                 {
-//new Claim(ClaimTypes.Email,account.Email),
-//new Claim()
+                    //new Claim(ClaimTypes.Email,account.Email),
+                    //new Claim()
 
                 };
             }

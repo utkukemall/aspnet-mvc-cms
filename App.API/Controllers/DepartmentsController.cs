@@ -1,7 +1,6 @@
 ﻿using App.Data.Entity;
 using App.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 namespace App.API.Controllers
 {

@@ -1,9 +1,8 @@
 ﻿using App.Admin.Utils;
-using App.Data.Entity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using App.Data.Entity;
 
-namespace App.Admin.Controllers
+namespace App.Doctor.Controllers
 {
     public class DepartmentsController : Controller
     {
@@ -48,7 +47,7 @@ namespace App.Admin.Controllers
                 if (Image is not null)
                 {
                     collection.Image = await FileHelper.FileLoaderAsync(Image);
-                   
+
                 }
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
@@ -94,7 +93,7 @@ namespace App.Admin.Controllers
                 collection.Image = await FileHelper.FileLoaderAsync(Image);
             }
 
-            var response = await _httpClient.PutAsJsonAsync((_apiAddress+"/"+id),collection);
+            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
             if (response.IsSuccessStatusCode)
             {

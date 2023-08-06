@@ -1,5 +1,4 @@
 using App.Data;
-using App.Data.Entity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -68,7 +67,7 @@ using (var scope = app.Services.CreateScope())
     if (!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
     {
         await db.EnsureCreatedAsync();
-       
+
     }
 }
 
