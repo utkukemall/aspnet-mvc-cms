@@ -96,26 +96,43 @@ namespace App.Admin.Controllers
             }
             else
             {
-                var userAccess = new List<Claim>
+
+                if (account.RoleId == 1)
                 {
-                    //new Claim(ClaimTypes.Email,account.Email),
-                    //new Claim()
+                    var userAccess = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, account.Email),
+                        new Claim(ClaimTypes.Role, account.Role.RoleName)
 
-                };
+                    };
+
+                    var userIdentity = new ClaimsIdentity(userAccess, "Login");
+
+
+                    ClaimsPrincipal claims = new(userIdentity);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "You have not permitted!");
+                    return View(loginModel);
+                }
+
+
             }
-            return RedirectToAction("Index", "Home");
-            return View(loginModel);
-
-
-
-
-
-
-        }
-
-        public IActionResult ForgotPassword()
-        {
             return View();
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
