@@ -140,7 +140,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Alparslan KOBAK",
-                City = $"Arizona",
+                City = $"Istanbul",
                 Phone = $"9874561230",
                 Specialty = $"Cardiology",
                 Email = "kobak@webmvc.com",
@@ -267,14 +267,134 @@ namespace App.Data
 
             var patient = new Patient
             {
-                Diagnosis = $"Brain Damage",
+                Diagnosis = $"Blurred Vision",
                 RoleId = 3,
-                FullName = $"Hakkı Bulut",
+                FullName = $"Hakkı BULUT",
                 City = $"Konya",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
                 DoctorId = 1
+            };
+
+            var patient2 = new Patient
+            {
+                Diagnosis = $"Chest Pain",
+                RoleId = 3,
+                FullName = $"Aylin YILMAZ",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 2
+            };
+
+            var patient3 = new Patient
+            {
+                Diagnosis = $"Toothache",
+                RoleId = 3,
+                FullName = $"Emre KAYA",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 3
+            };
+            
+            var patient4 = new Patient
+            {
+                Diagnosis = $"",
+                RoleId = 3,
+                FullName = $"Elif SAHIN",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 4
+            };
+               
+            var patient5 = new Patient
+            {
+                Diagnosis = $"Brain Damage",
+                RoleId = 3,
+                FullName = $"Burak ARSLAN",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 5
+            };
+                  
+            var patient6 = new Patient
+            {
+                Diagnosis = $"",
+                RoleId = 3,
+                FullName = $"Deniz KAYAN",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 6
+            };
+                  
+            var patient7 = new Patient
+            {
+                Diagnosis = $"",
+                RoleId = 3,
+                FullName = $"Fırat DEMIR",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 7
+            };
+                  
+            var patient8 = new Patient
+            {
+                Diagnosis = $"",
+                RoleId = 3,
+                FullName = $"Gizem YILDIRIM",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 8
+            };
+                     
+            var patient9 = new Patient
+            {
+                Diagnosis = $"Brain Damage",
+                RoleId = 3,
+                FullName = $"Ipek AKSOY",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 9
+            };
+                      
+            var patient10 = new Patient
+            {
+                Diagnosis = $"Brain Damage",
+                RoleId = 3,
+                FullName = $"Lale PAK",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 10
+            };
+                       
+            var patient11 = new Patient
+            {
+                Diagnosis = $"Brain Damage",
+                RoleId = 3,
+                FullName = $"Pelin KURT",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
+                Password = "123123",
+                DoctorId = 11
             };
 
             context.Patients.Add(patient);
