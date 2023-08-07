@@ -257,6 +257,16 @@ namespace App.Data
             };
 
             context.Doctors.Add(doctor);
+            context.Doctors.Add(doctor2);
+            context.Doctors.Add(doctor3);
+            context.Doctors.Add(doctor4);
+            context.Doctors.Add(doctor5);
+            context.Doctors.Add(doctor6);
+            context.Doctors.Add(doctor7);
+            context.Doctors.Add(doctor8);
+            context.Doctors.Add(doctor9);
+            context.Doctors.Add(doctor10);
+            context.Doctors.Add(doctor11);
             context.SaveChanges();
         }
 
@@ -270,7 +280,7 @@ namespace App.Data
                 Diagnosis = $"Vision Problems",
                 RoleId = 3,
                 FullName = $"Hakkı BULUT",
-                City = $"Konya",
+                City = $"Arizona",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -282,7 +292,7 @@ namespace App.Data
                 Diagnosis = $"Chest Palpitations",
                 RoleId = 3,
                 FullName = $"Aylin YILMAZ",
-                City = $"Konya",
+                City = $"Istanbul",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -294,7 +304,7 @@ namespace App.Data
                 Diagnosis = $"Tooth Extraction",
                 RoleId = 3,
                 FullName = $"Emre KAYA",
-                City = $"Konya",
+                City = $"Izmir",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -306,7 +316,7 @@ namespace App.Data
                 Diagnosis = $"Feverish Toddler",
                 RoleId = 3,
                 FullName = $"Elif SAHIN",
-                City = $"Konya",
+                City = $"Ankara",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -318,7 +328,7 @@ namespace App.Data
                 Diagnosis = $"Chronic Cough",
                 RoleId = 3,
                 FullName = $"Burak ARSLAN",
-                City = $"Konya",
+                City = $"Istanbul",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -330,7 +340,7 @@ namespace App.Data
                 Diagnosis = $"Irregular Periods",
                 RoleId = 3,
                 FullName = $"Deniz KAYAN",
-                City = $"Konya",
+                City = $"Istanbul",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -342,7 +352,7 @@ namespace App.Data
                 Diagnosis = $"Allergic Reaction",
                 RoleId = 3,
                 FullName = $"Fırat DEMIR",
-                City = $"Konya",
+                City = $"Eskisehir",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -354,7 +364,7 @@ namespace App.Data
                 Diagnosis = $"Surgical Sedation",
                 RoleId = 3,
                 FullName = $"Gizem YILDIRIM",
-                City = $"Konya",
+                City = $"Bursa",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -366,7 +376,7 @@ namespace App.Data
                 Diagnosis = $"Pilot Checkup",
                 RoleId = 3,
                 FullName = $"Ipek AKSOY",
-                City = $"Konya",
+                City = $"Bursa",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -378,7 +388,7 @@ namespace App.Data
                 Diagnosis = $"Appendectomy Surgery",
                 RoleId = 3,
                 FullName = $"Lale PAK",
-                City = $"Konya",
+                City = $"Eskisehir",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -390,7 +400,7 @@ namespace App.Data
                 Diagnosis = $"Sleep Disorder",
                 RoleId = 3,
                 FullName = $"Pelin KURT",
-                City = $"Konya",
+                City = $"Warsaw",
                 Phone = $"09008008080",
                 Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
@@ -398,6 +408,16 @@ namespace App.Data
             };
 
             context.Patients.Add(patient);
+            context.Patients.Add(patient2);
+            context.Patients.Add(patient3);
+            context.Patients.Add(patient4);
+            context.Patients.Add(patient5);
+            context.Patients.Add(patient6);
+            context.Patients.Add(patient7);
+            context.Patients.Add(patient8);
+            context.Patients.Add(patient9);
+            context.Patients.Add(patient10);
+            context.Patients.Add(patient11);
             context.SaveChanges();
         }
 
