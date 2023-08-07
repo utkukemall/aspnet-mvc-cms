@@ -35,7 +35,7 @@ namespace App.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync([FromBody] Patient value)
         {
-            value.RoleId = 2;
+            value.RoleId = 3;
             await _service.AddAsync(value);
             var response = await _service.SaveAsync();
             if (response > 0)
