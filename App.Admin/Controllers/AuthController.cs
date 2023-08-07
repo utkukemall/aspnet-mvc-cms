@@ -119,7 +119,7 @@ namespace App.Admin.Controllers
 
                     await HttpContext.SignInAsync(claimsPrincipal);
 
-                    return RedirectToAction("/Main/Index");
+                    return RedirectToAction("Index","Main");
                 }
                 else
                 {
