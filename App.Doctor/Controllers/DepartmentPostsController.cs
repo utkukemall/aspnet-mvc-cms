@@ -1,9 +1,12 @@
 ﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace App.Doctor.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DepartmentPostsController : Controller
     {
         private readonly HttpClient _httpClient;

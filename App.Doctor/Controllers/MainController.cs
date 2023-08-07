@@ -2,9 +2,12 @@
 using System.Diagnostics;
 using App.Data.Entity;
 using App.Doctor.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace App.Doctor.Controllers
 {
+    [Authorize(Roles = "Doctor")]
     //deneme
     public class MainController : Controller
     {

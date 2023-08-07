@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using App.Data.Entity;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace App.Doctor.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PostCommentsController : Controller
     {
         private readonly HttpClient _httpClient;
