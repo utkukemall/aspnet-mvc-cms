@@ -1,5 +1,6 @@
 ﻿using App.Admin.Models;
 using App.Data.Entity;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -109,7 +110,11 @@ namespace App.Admin.Controllers
                     var userIdentity = new ClaimsIdentity(userAccess, "Login");
 
 
-                    ClaimsPrincipal claims = new(userIdentity);
+                    ClaimsPrincipal claimsPrincipal = new(userIdentity);
+
+                    await HttpContext.SignInAsync(claimsPrincipal);
+
+                    return Redirect("/Main");
                 }
                 else
                 {
@@ -119,7 +124,7 @@ namespace App.Admin.Controllers
 
 
             }
-            return View();
+       
 
 
 
