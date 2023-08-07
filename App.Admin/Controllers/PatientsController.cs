@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using App.Data.Entity;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace App.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PatientsController : Controller
     {
         private readonly HttpClient _httpClient;

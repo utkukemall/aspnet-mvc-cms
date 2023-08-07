@@ -103,7 +103,7 @@ namespace App.Admin.Controllers
                     var userAccess = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, account.Email),
-                        new Claim(ClaimTypes.Role, account.Role.RoleName)
+                        new Claim(ClaimTypes.Role, "Admin")
 
                     };
 
@@ -114,7 +114,7 @@ namespace App.Admin.Controllers
 
                     await HttpContext.SignInAsync(claimsPrincipal);
 
-                    return Redirect("/Main");
+                    return Redirect("/Main/Index");
                 }
                 else
                 {
