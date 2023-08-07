@@ -52,7 +52,7 @@ namespace App.Admin.Controllers
                     var add = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
 
                     if (add.IsSuccessStatusCode)
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Main", "Home");
                     else
                         ModelState.AddModelError("", "An error occurred while registering the user.");
                 }
@@ -119,7 +119,7 @@ namespace App.Admin.Controllers
 
                     await HttpContext.SignInAsync(claimsPrincipal);
 
-                    return RedirectToAction("/Index");
+                    return RedirectToAction("/Main/Index");
                 }
                 else
                 {
