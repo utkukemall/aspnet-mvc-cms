@@ -9,5 +9,7 @@ namespace App.Admin.Models
 
         [Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.Password), MaxLength(100, ErrorMessage = "The {0} cannot exceed 100 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
         public string Password { get; set; }
+
+        public string? ReturnUrl { get; set; }
     }
 }
