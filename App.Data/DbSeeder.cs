@@ -267,7 +267,7 @@ namespace App.Data
 
             var patient = new Patient
             {
-                Diagnosis = $"Blurred Vision",
+                Diagnosis = $"Vision Problems",
                 RoleId = 3,
                 FullName = $"Hakkı BULUT",
                 City = $"Konya",
@@ -279,7 +279,7 @@ namespace App.Data
 
             var patient2 = new Patient
             {
-                Diagnosis = $"Chest Pain",
+                Diagnosis = $"Chest Palpitations",
                 RoleId = 3,
                 FullName = $"Aylin YILMAZ",
                 City = $"Konya",
@@ -291,7 +291,7 @@ namespace App.Data
 
             var patient3 = new Patient
             {
-                Diagnosis = $"Toothache",
+                Diagnosis = $"Tooth Extraction",
                 RoleId = 3,
                 FullName = $"Emre KAYA",
                 City = $"Konya",
@@ -303,7 +303,7 @@ namespace App.Data
             
             var patient4 = new Patient
             {
-                Diagnosis = $"",
+                Diagnosis = $"Feverish Toddler",
                 RoleId = 3,
                 FullName = $"Elif SAHIN",
                 City = $"Konya",
@@ -315,7 +315,7 @@ namespace App.Data
                
             var patient5 = new Patient
             {
-                Diagnosis = $"Brain Damage",
+                Diagnosis = $"Chronic Cough",
                 RoleId = 3,
                 FullName = $"Burak ARSLAN",
                 City = $"Konya",
@@ -327,7 +327,7 @@ namespace App.Data
                   
             var patient6 = new Patient
             {
-                Diagnosis = $"",
+                Diagnosis = $"Irregular Periods",
                 RoleId = 3,
                 FullName = $"Deniz KAYAN",
                 City = $"Konya",
@@ -339,7 +339,7 @@ namespace App.Data
                   
             var patient7 = new Patient
             {
-                Diagnosis = $"",
+                Diagnosis = $"Allergic Reaction",
                 RoleId = 3,
                 FullName = $"Fırat DEMIR",
                 City = $"Konya",
@@ -351,7 +351,7 @@ namespace App.Data
                   
             var patient8 = new Patient
             {
-                Diagnosis = $"",
+                Diagnosis = $"Surgical Sedation",
                 RoleId = 3,
                 FullName = $"Gizem YILDIRIM",
                 City = $"Konya",
@@ -363,7 +363,7 @@ namespace App.Data
                      
             var patient9 = new Patient
             {
-                Diagnosis = $"Brain Damage",
+                Diagnosis = $"Pilot Checkup",
                 RoleId = 3,
                 FullName = $"Ipek AKSOY",
                 City = $"Konya",
@@ -375,7 +375,7 @@ namespace App.Data
                       
             var patient10 = new Patient
             {
-                Diagnosis = $"Brain Damage",
+                Diagnosis = $"Appendectomy Surgery",
                 RoleId = 3,
                 FullName = $"Lale PAK",
                 City = $"Konya",
@@ -387,7 +387,7 @@ namespace App.Data
                        
             var patient11 = new Patient
             {
-                Diagnosis = $"Brain Damage",
+                Diagnosis = $"Sleep Disorder",
                 RoleId = 3,
                 FullName = $"Pelin KURT",
                 City = $"Konya",
