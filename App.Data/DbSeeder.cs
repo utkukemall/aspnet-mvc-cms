@@ -98,6 +98,13 @@ namespace App.Data
                 Description = $"At American Hospital Dubai’s General Surgery Department, our main aim is to deliver all-inclusive surgical healthcare at the highest international standards. We are the first choice general surgery hospital in Dubai for a number of reasons..",
                 // Gerekli diğer özellikler doldur.
             };
+
+            var department11 = new Department
+            {
+                Name = $"Psychiatrist",
+                Description = $"A psychiatrist is a medical doctor who specializes in the diagnosis, treatment, and prevention of mental illnesses and emotional disorders. Their primary focus is on understanding the complex interplay between a person's psychological, emotional, and physiological factors to provide comprehensive mental healthcare.",
+                // Gerekli diğer özellikler doldur.
+            };
             context.Departments.Add(department);
             context.Departments.Add(department2);
             context.Departments.Add(department3);
@@ -108,6 +115,7 @@ namespace App.Data
             context.Departments.Add(department8);
             context.Departments.Add(department9);
             context.Departments.Add(department10);
+            context.Departments.Add(department11);
 
 
             context.SaveChanges();
@@ -119,13 +127,133 @@ namespace App.Data
             var doctor = new Doctors
             {
                 RoleId = 2,
-                FullName = $"Alexandar James",
+                FullName = $"Alexandar JAMES",
                 City = $"Arizona",
                 Phone = $"09008008080",
-                Specialty = $"Orthopedic Surgary",
+                Specialty = $"Opthomology",
                 Email = GenerateRandomEmail($"Doctor", "mvccms.com"),
                 Password = "123123",
+                DepartmentId = 1
+            };
+
+            var doctor2 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Alparslan KOBAK",
+                City = $"Arizona",
+                Phone = $"9874561230",
+                Specialty = $"Cardiology",
+                Email = "kobak@webmvc.com",
+                Password = "123456",
                 DepartmentId = 2
+            };
+
+            var doctor3 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Kadir ALTINAY",
+                City = $"Warsaw",
+                Phone = $"9874563210",
+                Specialty = $"Psychiatrist",
+                Email = "altinay@webmvc.com",
+                Password = "123456",
+                DepartmentId = 11
+            };
+
+            var doctor4 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Utku Kemal CICEK",
+                City = $"Bursa",
+                Phone = $"9999999999",
+                Specialty = $"Aviation Medical Services",
+                Email = "cicek@webmvc.com",
+                Password = "393939",
+                DepartmentId = 9
+            };
+            
+            var doctor5 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Serkan BILSEL",
+                City = $"Izmir",
+                Phone = $"2134567890",
+                Specialty = $"Dental Care",
+                Email = "bilsel@webmvc.com",
+                Password = "123456",
+                DepartmentId = 3
+            };
+              
+            var doctor6 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Gökhan TURKMEN",
+                City = $"Ankara",
+                Phone = $"7896541230",
+                Specialty = $"Child Care",
+                Email = "turkmen@webmvc.com",
+                Password = "123456",
+                DepartmentId = 4
+            };
+                          
+            var doctor7 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Muharrem INAN",
+                City = $"Istanbul",
+                Phone = $"9876549840",
+                Specialty = $"Pulmology",
+                Email = "inan@webmvc.com",
+                Password = "123456",
+                DepartmentId = 5
+            };
+                            
+            var doctor8 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Ilker SARIKAYA",
+                City = $"Istanbul",
+                Phone = $"7897894563",
+                Specialty = $"Gynecology",
+                Email = "sarikaya@webmvc.com",
+                Password = "123456",
+                DepartmentId = 6
+            };
+                              
+            var doctor9 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Haydar ARAS",
+                City = $"Eskisehir",
+                Phone = $"9879871350",
+                Specialty = $"Allergy And Immunology",
+                Email = "aras@webmvc.com",
+                Password = "123456",
+                DepartmentId = 7
+            };
+                                 
+            var doctor10 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Ozlem OYMAK",
+                City = $"Bursa",
+                Phone = $"1597532580",
+                Specialty = $"Anesthesiology",
+                Email = "oymak@webmvc.com",
+                Password = "123456",
+                DepartmentId = 8
+            };
+                                       
+            var doctor11 = new Doctors
+            {
+                RoleId = 2,
+                FullName = $"Serdar YALMAN",
+                City = $"Eskisehir",
+                Phone = $"7538521594",
+                Specialty = $"General Surgery",
+                Email = "yalman@webmvc.com",
+                Password = "123456",
+                DepartmentId = 10
             };
 
             context.Doctors.Add(doctor);
