@@ -20,6 +20,7 @@ namespace App.Doctor.Controllers
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             var model = await _httpClient.GetFromJsonAsync<List<Patient>>(_apiAddress);
+
             return View(model);
         }
 

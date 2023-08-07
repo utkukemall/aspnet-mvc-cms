@@ -46,14 +46,12 @@ namespace App.API.Controllers
 
             if (mainUser != null)
             {
-                mainUser.RoleId = value.RoleId;
                 mainUser.Image = value.Image;
                 mainUser.FullName = value.FullName;
                 mainUser.Email = value.Email;
                 mainUser.Password = value.Password;
                 mainUser.City = value.City;
                 mainUser.Phone = value.Phone;
-                mainUser.Role = value.Role;
                 _service.Update(mainUser);
                 var response = await _service.SaveAsync();
                 if (response > 0)
