@@ -1,12 +1,7 @@
 ﻿using App.Data.Abstract;
 using App.Data.Entity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Data.Concrete
 {
@@ -19,7 +14,7 @@ namespace App.Data.Concrete
 
         public async Task<List<PostComment>> GetAllPostCommentsByIncludeAsync()
         {
-            return await _context.PostComments.Include(p=> p.User).Include(p=> p.Post).ToListAsync();
+            return await _context.PostComments.Include(p => p.User).Include(p => p.Post).ToListAsync();
         }
 
         public async Task<PostComment> GetPostCommentByIncludeAsync(int id)

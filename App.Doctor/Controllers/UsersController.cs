@@ -1,16 +1,15 @@
-﻿using App.Data.Entity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using App.Data.Entity;
 
-namespace App.Admin.Controllers
+namespace App.Doctor.Controllers
 {
     public class UsersController : Controller
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/Users";
         private readonly string _apiRoleAddress = "http://localhost:5005/api/Roles";
-       
+
 
         public UsersController(HttpClient httpClient)
         {
@@ -21,7 +20,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Index()
         {
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
-          
+
             var model = await _httpClient.GetFromJsonAsync<List<Patient>>(_apiAddress);
             return View(model);
         }
@@ -36,7 +35,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Create()
         {
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
-        
+
             return View();
         }
 
@@ -99,7 +98,7 @@ namespace App.Admin.Controllers
                 ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
-    
+
             return View(collection);
         }
 
@@ -107,7 +106,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
-         
+
             var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + id);
             return View(model);
         }
@@ -117,14 +116,14 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, User collection)
         {
-            var response = await _httpClient.PutAsJsonAsync<User>((_apiAddress + "/" + id), collection);
+            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
-        
+
             return RedirectToAction(nameof(Index));
         }
 

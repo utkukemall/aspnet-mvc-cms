@@ -1,5 +1,4 @@
 ﻿using App.Data;
-using App.Data.Entity;
 using App.Service.Abstract;
 using App.Service.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +47,7 @@ using (var scope = app.Services.CreateScope())
 
     var db = dbContext.Database;
 
-    if (!await db.CanConnectAsync()) 
+    if (!await db.CanConnectAsync())
     {
         await db.EnsureCreatedAsync();
         DbSeeder.Seed(dbContext);

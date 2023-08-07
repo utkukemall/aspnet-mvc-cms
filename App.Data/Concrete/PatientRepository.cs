@@ -1,12 +1,7 @@
 ﻿using App.Data.Abstract;
 using App.Data.Entity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Data.Concrete
 {
@@ -23,7 +18,7 @@ namespace App.Data.Concrete
 
         public async Task<Patient> GetPatientByIncludeAsync(int id)
         {
-            return await _context.Patients.Include(p=> p.Doctor).Include(d => d.Role).FirstOrDefaultAsync(p=> p.Id == id);
+            return await _context.Patients.Include(p => p.Doctor).Include(d => d.Role).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<List<Patient>> GetSomePatientsByIncludeAsync(Expression<Func<Patient, bool>> expression)

@@ -1,12 +1,8 @@
-﻿using App.Admin.Utils;
-using App.Data.Entity;
-using App.Web.Mvc.ViewComponents;
-using Microsoft.AspNetCore.Http;
+﻿using App.Data.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Drawing.Drawing2D;
 
-namespace App.Admin.Controllers
+namespace App.Doctor.Controllers
 {
     public class DepartmentPostsController : Controller
     {
@@ -37,7 +33,7 @@ namespace App.Admin.Controllers
         {
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
-            return View(); 
+            return View();
         }
 
         // POST: DepartmentPostsController/Createz
@@ -90,7 +86,7 @@ namespace App.Admin.Controllers
 
             //    return View();
 
-            var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + id), collection);
+            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
             if (response.IsSuccessStatusCode)
             {

@@ -12,5 +12,5 @@ namespace App.Data.Entity
 
         [ForeignKey(nameof(DepartmentId))]
         public Department? Department { get; set; }
-    }    
+    }
 }

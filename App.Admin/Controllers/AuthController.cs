@@ -1,5 +1,5 @@
-﻿using App.Data.Entity;
-using App.Admin.Models;
+﻿using App.Admin.Models;
+using App.Data.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -96,28 +96,15 @@ namespace App.Admin.Controllers
             }
             else
             {
-
-                if (account.RoleId == 1)
+                var userAccess = new List<Claim>
                 {
-                    var userAccess = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Email, account.Email),
-                        new Claim(ClaimTypes.Role, account.Role.RoleName)
+                    //new Claim(ClaimTypes.Email,account.Email),
+                    //new Claim()
 
-                    };
-
-                    var userIdentity = new ClaimsIdentity(userAccess, "Login");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "You have not permitted!");
-                    return View(loginModel);
-                }
-
-              
+                };
             }
-            return View();
-           
+            return RedirectToAction("Index", "Home");
+            return View(loginModel);
 
 
 

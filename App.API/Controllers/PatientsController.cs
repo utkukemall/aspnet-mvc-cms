@@ -1,7 +1,6 @@
 ﻿using App.Data.Entity;
 using App.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,7 +38,7 @@ namespace App.API.Controllers
             value.RoleId = 2;
             await _service.AddAsync(value);
             var response = await _service.SaveAsync();
-            if (response >0)
+            if (response > 0)
             {
                 return Ok();
             }
@@ -86,7 +85,7 @@ namespace App.API.Controllers
 
             if (mainPatient != null)
             {
-                
+
 
                 _service.Delete(mainPatient);
                 var response = await _service.SaveAsync();

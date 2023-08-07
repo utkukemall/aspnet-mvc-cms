@@ -2,11 +2,11 @@
 
 namespace App.Web.Mvc.Controllers
 {
-	public class PageController : Controller
-	{
-		public IActionResult Detail(int id)
-		{
-			return View();
-		}
-	}
+    public class PageController : Controller
+    {
+        public IActionResult Detail(int id)
+        {
+            return View();
+        }
+    }
 }
