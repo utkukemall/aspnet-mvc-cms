@@ -1,4 +1,4 @@
-﻿namespace App.Admin.Utils
+﻿namespace App.Doctor.Utils
 {
     public class FileHelper
     {
