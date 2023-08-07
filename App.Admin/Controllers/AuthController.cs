@@ -78,20 +78,25 @@ namespace App.Admin.Controllers
 
 
 
-        public IActionResult Login([FromQuery] string? redirectUrl)
+        public IActionResult Login()
         {
+
+
+
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
-            var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-            var account = users?.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
+            List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+            User account = users.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
+
             if (account == null)
             {
 
                 ModelState.AddModelError("", "Login Failed!");
+                TempData["Message"] = "<div class='alert alert-danger'>Login Failed!</div>";
 
                 return View(loginModel);
             }
@@ -103,7 +108,7 @@ namespace App.Admin.Controllers
                     var userAccess = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, account.Email),
-                        new Claim(ClaimTypes.Role, account.Role.RoleName)
+                        new Claim(ClaimTypes.Role, "Admin")
 
                     };
 
@@ -114,17 +119,18 @@ namespace App.Admin.Controllers
 
                     await HttpContext.SignInAsync(claimsPrincipal);
 
-                    return Redirect("/Main");
+                    return RedirectToAction("/Index");
                 }
                 else
                 {
                     ModelState.AddModelError("", "You have not permitted!");
+                    TempData["Message"] = "<div class='alert alert-danger'>You have not permitted!</div>";
                     return View(loginModel);
                 }
 
 
             }
-       
+
 
 
 
