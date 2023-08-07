@@ -1,11 +1,11 @@
-﻿using App.Admin.Models;
-using App.Admin.Utils;
+﻿using App.Doctor.Utils;
 using App.Data.Entity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using App.Doctor.Models;
 
-namespace App.Admin.Controllers
+namespace App.Doctor.Controllers
 {
     public class AuthController : Controller
     {
@@ -16,8 +16,8 @@ namespace App.Admin.Controllers
             _httpClient = httpClient;
         }
 
-        private readonly string _apiAddress = "http://localhost:5005/api/Users";
-        private readonly string _apiRoleAddress = "http://localhost:5005/api/Roles";
+        private readonly string _apiAddress = "http://localhost:5005/api/Doctors";
+        //private readonly string _apiRoleAddress = "http://localhost:5005/api/Roles";
 
 
         //public IActionResult Register()
@@ -79,7 +79,7 @@ namespace App.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction(nameof(Login),"Auth");
+            return RedirectToAction(nameof(Login), "Auth");
         }
 
 
@@ -93,8 +93,8 @@ namespace App.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
-            List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-            User account = users.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
+            List<Doctors> users = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddress);
+            Doctors account = users.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
 
             if (account == null)
             {
@@ -107,12 +107,12 @@ namespace App.Admin.Controllers
             else
             {
 
-                if (account.RoleId == 1)
+                if (account.RoleId == 2)
                 {
                     var userAccess = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, account.Email),
-                        new Claim(ClaimTypes.Role, "Admin")
+                        new Claim(ClaimTypes.Role, "Doctor")
 
                     };
 
@@ -125,7 +125,7 @@ namespace App.Admin.Controllers
 
                     HttpContext.Session.SetInt32("userId", account.Id);
 
-                    return RedirectToAction("Index","Main");
+                    return RedirectToAction("Index", "Main");
                 }
                 else
                 {
@@ -146,7 +146,7 @@ namespace App.Admin.Controllers
             {
                 var userId = HttpContext.Session.GetInt32("userId");
 
-                User? account = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+                Doctors? account = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
 
                 return View(account);
             }
@@ -158,7 +158,7 @@ namespace App.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUser(User user, IFormFile? Image)
+        public async Task<IActionResult> UpdateUser(Doctors user, IFormFile? Image)
         {
             try
             {
@@ -169,9 +169,9 @@ namespace App.Admin.Controllers
 
                 var userId = HttpContext.Session.GetInt32("userId");
 
-                User? account = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+                Doctors? account = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
 
-                if (account!= null)
+                if (account != null)
                 {
                     if (ModelState.IsValid)
                     {
@@ -184,15 +184,15 @@ namespace App.Admin.Controllers
                             return RedirectToAction("Index", "Main");
                         }
 
-                    }                  
+                    }
                 }
             }
             catch (Exception e)
             {
 
+                ModelState.AddModelError("", "Update Failed" + e.Message);
             }
-                ModelState.AddModelError("", "Update Failed");
-            return View("UpdateUser",user);
+            return View("UpdateUser", user);
         }
     }
 }
