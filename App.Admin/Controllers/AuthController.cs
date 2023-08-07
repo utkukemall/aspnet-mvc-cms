@@ -192,9 +192,6 @@ namespace App.Admin.Controllers
                         }
 
                     }
-
-
-                  
                 }
 
             }
