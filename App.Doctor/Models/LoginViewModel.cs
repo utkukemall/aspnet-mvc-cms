@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace App.Web.Mvc.Models
+namespace App.Admin.Models
 {
     public class LoginViewModel
     {
