@@ -142,11 +142,19 @@ namespace App.Admin.Controllers
 
         public async Task<IActionResult> UpdateUser()
         {
-            var userId = HttpContext.Session.GetInt32("userId");
+            try
+            {
+                var userId = HttpContext.Session.GetInt32("userId");
 
-            User account = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+                User? account = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
 
-            return View(account);
+                return View(account);
+            }
+            catch (Exception)
+            {
+            }
+            TempData["Message"] = "<div class='alert alert-danger'>You have to log out first!</div>";
+            return RedirectToAction("Index", "Main");
         }
 
         [HttpPost]
@@ -154,7 +162,6 @@ namespace App.Admin.Controllers
         {
             try
             {
-                user.RoleId = 1;
                 if (Image is not null)
                 {
                     user.Image = await FileHelper.FileLoaderAsync(Image);
@@ -162,27 +169,13 @@ namespace App.Admin.Controllers
 
                 var userId = HttpContext.Session.GetInt32("userId");
 
-                User account = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+                User? account = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
 
                 if (account!= null)
                 {
-                    account.FullName = user.FullName;
-
-                    account.Phone = user.Phone;
-
-                    account.RoleId = 1;
-
-                    account.City = user.City;
-
-                    account.Email = user.Email;
-
-                    account.Image = user.Image;
-
-                    account.Password = user.Password;
-
                     if (ModelState.IsValid)
                     {
-                        var response = await _httpClient.PutAsJsonAsync((_apiAddress + "/" + userId), user);
+                        var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + userId, user);
 
                         if (response.IsSuccessStatusCode)
                         {
@@ -191,15 +184,14 @@ namespace App.Admin.Controllers
                             return RedirectToAction("Index", "Main");
                         }
 
-                    }
+                    }                  
                 }
-
             }
             catch (Exception e)
             {
 
-                ModelState.AddModelError("", "Update Failed" + e.Message);
             }
+                ModelState.AddModelError("", "Update Failed");
             return View("UpdateUser",user);
         }
     }

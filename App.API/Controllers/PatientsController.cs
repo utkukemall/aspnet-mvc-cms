@@ -60,7 +60,6 @@ namespace App.API.Controllers
                 mainPatient.City = value.City;
                 mainPatient.Email = value.Email;
                 mainPatient.Diagnosis = value.Diagnosis;
-                mainPatient.RoleId = 2;
                 mainPatient.DoctorId = value.DoctorId;
                 //mainPatient.Doctor = value.Doctor;
                 //mainPatient.Role = value.Role;

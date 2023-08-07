@@ -112,24 +112,19 @@ namespace App.Data
 
             context.SaveChanges();
         }
-        // admin 1 // rol id 1
-        // 2 doktor rol 1 rol 2 rol 10
-        // Patitents // rol id 3
-        // user // rol id 4
+
         private static void SeedDoctors(AppDbContext context)
         {
 
             var doctor = new Doctors
             {
-                RoleId = 2, // roller hepsi 2
-                            //  ImageId = i,
+                RoleId = 2,
                 FullName = $"Alexandar James",
                 City = $"Arizona",
-                Phone = $"123456789",
+                Phone = $"09008008080",
                 Specialty = $"Orthopedic Surgary",
-                //  Patients = SeedPatientsForDoctor,
-                Email = "alexandarjames@mvccms.com",
-                Password = "123",
+                Email = GenerateRandomEmail($"Doctor", "mvccms.com"),
+                Password = "123123",
                 DepartmentId = 2
             };
 
@@ -147,12 +142,11 @@ namespace App.Data
                 Diagnosis = $"Brain Damage",
                 RoleId = 3,
                 FullName = $"Hakkı Bulut",
-                City = $"Hakkari/Turkey",
-                Phone = $"123456789",
-                Email = "patient1@gmail.com",
+                City = $"Konya",
+                Phone = $"09008008080",
+                Email = GenerateRandomEmail($"Patient", "mvccms.com"),
                 Password = "123123",
                 DoctorId = 1
-
             };
 
             context.Patients.Add(patient);
@@ -292,7 +286,7 @@ namespace App.Data
                 Email = "admin@mvccms.com",
                 Password = "123123",
                 City = $"Istanbul",
-                Phone = $"1234567890", // Örnek telefon numarası oluşturduk.
+                Phone = $"09008008080", // Örnek telefon numarası oluşturduk.
             };
 
             var user2 = new User
@@ -300,8 +294,8 @@ namespace App.Data
                 RoleId = 4, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
                             //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
                 FullName = $"Guest",
-                Email = GenerateRandomEmail($"Guest", "Guest@mvccms.com"),
-                Password = "123",
+                Email = GenerateRandomEmail($"User", "mvccms.com"),
+                Password = "123123",
                 City = $"Bagcilar",
                 Phone = $"09008008080", // Örnek telefon numarası oluşturduk.
             };
@@ -310,8 +304,8 @@ namespace App.Data
                 RoleId = 4, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
                             //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
                 FullName = $"User",
-                Email = GenerateRandomEmail($"Guest", "User@mvccms.com"),
-                Password = "123",
+                Email = GenerateRandomEmail($"User", "mvccms.com"),
+                Password = "123123",
                 City = $"Texas",
                 Phone = $"09008008080", // Örnek telefon numarası oluşturduk.
             };
