@@ -144,7 +144,7 @@ namespace App.Doctor.Controllers
         {
             try
             {
-                var userId = HttpContext.Session.GetInt32("userId");
+                int? userId = HttpContext.Session.GetInt32("userId");
 
                 Doctors? account = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
 

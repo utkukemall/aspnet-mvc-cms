@@ -6,7 +6,7 @@ using System.Data;
 
 namespace App.Doctor.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Doctor")]
     public class PatientsController : Controller
     {
         private readonly HttpClient _httpClient;
@@ -20,11 +20,13 @@ namespace App.Doctor.Controllers
         // GET: PatientsController
         public async Task<ActionResult> Index()
         {
+            int? userId = HttpContext.Session.GetInt32("userId");
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
-            var model = await _httpClient.GetFromJsonAsync<List<Patient>>(_apiAddress);
+            var allPatients = await _httpClient.GetFromJsonAsync<List<Patient>>(_apiAddress);
+            var doctorsPatients = allPatients?.Where(p => p.DoctorId == userId).ToList();
 
-            return View(model);
+            return View(doctorsPatients);
         }
 
         // GET: PatientsController/Details/5
