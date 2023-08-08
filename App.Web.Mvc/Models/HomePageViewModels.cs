@@ -8,6 +8,7 @@ namespace App.Web.Mvc.Models
 
         public Post? post { get; set; }
 
-
+        public Appointment? Appointment { get; set; }
+        // Örnek bir HomepageVievModel içermektedir.
     }
 }

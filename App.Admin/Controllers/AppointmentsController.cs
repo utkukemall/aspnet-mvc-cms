@@ -1,0 +1,95 @@
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace App.Admin.Controllers
+{
+    
+    public class AppointmentsController : Controller
+    {
+
+        private readonly HttpClient _httpClient;
+        private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
+
+        public AppointmentsController(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        // GET: AppointmentsController
+        public async Task<ActionResult> Index()
+        {
+            var model = await _httpClient.GetFromJsonAsync<List<Appointment>>(_apiAddress);
+            return View(model);
+        }
+
+        // GET: AppointmentsController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: AppointmentsController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: AppointmentsController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AppointmentsController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: AppointmentsController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AppointmentsController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: AppointmentsController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}

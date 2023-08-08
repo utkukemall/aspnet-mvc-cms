@@ -23,7 +23,10 @@ namespace App.Data
             SeedUsers(context);
             SeedPages(context);
             SeedDepartmentPosts(context);
+            SeedAppointments(context);
         }
+
+
 
 
         private static void SeedDepartments(AppDbContext context)
@@ -171,7 +174,7 @@ namespace App.Data
                 Password = "393939",
                 DepartmentId = 9
             };
-            
+
             var doctor5 = new Doctors
             {
                 RoleId = 2,
@@ -183,7 +186,7 @@ namespace App.Data
                 Password = "123456",
                 DepartmentId = 3
             };
-              
+
             var doctor6 = new Doctors
             {
                 RoleId = 2,
@@ -195,7 +198,7 @@ namespace App.Data
                 Password = "123456",
                 DepartmentId = 4
             };
-                          
+
             var doctor7 = new Doctors
             {
                 RoleId = 2,
@@ -207,7 +210,7 @@ namespace App.Data
                 Password = "123456",
                 DepartmentId = 5
             };
-                            
+
             var doctor8 = new Doctors
             {
                 RoleId = 2,
@@ -219,7 +222,7 @@ namespace App.Data
                 Password = "123456",
                 DepartmentId = 6
             };
-                              
+
             var doctor9 = new Doctors
             {
                 RoleId = 2,
@@ -231,7 +234,7 @@ namespace App.Data
                 Password = "123456",
                 DepartmentId = 7
             };
-                                 
+
             var doctor10 = new Doctors
             {
                 RoleId = 2,
@@ -243,7 +246,7 @@ namespace App.Data
                 Password = "123456",
                 DepartmentId = 8
             };
-                                       
+
             var doctor11 = new Doctors
             {
                 RoleId = 2,
@@ -310,7 +313,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 3
             };
-            
+
             var patient4 = new Patient
             {
                 Diagnosis = $"Feverish Toddler",
@@ -322,7 +325,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 4
             };
-               
+
             var patient5 = new Patient
             {
                 Diagnosis = $"Chronic Cough",
@@ -334,7 +337,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 5
             };
-                  
+
             var patient6 = new Patient
             {
                 Diagnosis = $"Irregular Periods",
@@ -346,7 +349,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 6
             };
-                  
+
             var patient7 = new Patient
             {
                 Diagnosis = $"Allergic Reaction",
@@ -358,7 +361,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 7
             };
-                  
+
             var patient8 = new Patient
             {
                 Diagnosis = $"Surgical Sedation",
@@ -370,7 +373,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 8
             };
-                     
+
             var patient9 = new Patient
             {
                 Diagnosis = $"Pilot Checkup",
@@ -382,7 +385,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 9
             };
-                      
+
             var patient10 = new Patient
             {
                 Diagnosis = $"Appendectomy Surgery",
@@ -394,7 +397,7 @@ namespace App.Data
                 Password = "123123",
                 DoctorId = 10
             };
-                       
+
             var patient11 = new Patient
             {
                 Diagnosis = $"Sleep Disorder",
@@ -593,6 +596,24 @@ namespace App.Data
             };
 
             context.DepartmentPosts.Add(departmentPost);
+            context.SaveChanges();
+        }
+
+        private static void SeedAppointments(AppDbContext context)
+        {
+            Appointment appointment = new()
+            {
+                DepartmentId = 2,
+                DoctorId = 2,
+                AppointmentDate = new DateTime(2023, 08, 17),
+                AppointmentTime = new TimeSpan(13, 30, 00),
+                FullName = "Abuzer Coalsaler",
+                Message = "My son gived me a toxic thing. Son of a Dog!",
+                Phone = "974764233466",
+
+
+            };
+            context.Appointments.Add(appointment);
             context.SaveChanges();
         }
 
