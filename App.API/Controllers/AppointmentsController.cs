@@ -60,7 +60,7 @@ namespace App.API.Controllers
             {
                 mainModel.FullName = value.FullName;
                 mainModel.AppointmentDate = value.AppointmentDate;
-                mainModel.AppointmentTime = value.AppointmentTime;
+                mainModel.Email = value.Email;
                 mainModel.DepartmentId = value.DepartmentId;
                 mainModel.DoctorId = value.DoctorId;
                 mainModel.Message = value.Message;

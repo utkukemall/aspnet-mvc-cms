@@ -30,15 +30,15 @@
 
                 <div class="row mb-3">
                     <div class="mb-3">
-                        <label for="AppointmentDate" class="form-label">AppointmentDate</label>
-                        <textarea id="AppointmentDate" name="AppointmentDate" class="form-control" rows="5"></textarea>
+                        <label for="AppointmentDate" class="form-label">Randevu Tarihi ve Saati</label>
+                        <input type="datetime-local" id="AppointmentDate" name="AppointmentDate" class="form-control">
                         <span asp-validation-for="AppointmentDate" class="text-danger"></span>
                     </div>
-                    @*<div class="mb-3">
+                    <div class="mb-3">
                         <label for="Email" class="form-label">Email</label>
                         <input type="email" id="Email" name="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>*@
+                    </div>
                     <div class="mb-3">
                         <label for="Message" class="form-label">Message</label>
                         <textarea id="Message" name="Message" class="form-control" rows="5"></textarea>
