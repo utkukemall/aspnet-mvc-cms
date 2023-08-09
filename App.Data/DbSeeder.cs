@@ -655,7 +655,7 @@ namespace App.Data
 
 
             };
-            context.Appointments.Add(appointment3);
+            context.Appointments.Add(appointment4);
 
             context.SaveChanges();
         }
