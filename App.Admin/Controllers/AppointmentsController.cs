@@ -71,14 +71,14 @@ namespace App.Admin.Controllers
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
-            var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<Appointment>(_apiAddress + "/" + id);
             return View(model);
         }
 
         // POST: AppointmentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Patient collection)
+        public async Task<ActionResult> Edit(int id, Appointment collection)
         {
             var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
@@ -95,14 +95,14 @@ namespace App.Admin.Controllers
         // GET: AppointmentsController/Delete/5
         public async Task<ActionResult> Remove(int id)
         {
-            var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<Appointment>(_apiAddress + "/" + id);
             return View(model);
         }
 
         // POST: AppointmentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Remove(int id, Patient collection)
+        public async Task<ActionResult> Remove(int id, Appointment collection)
         {
             try
             {
