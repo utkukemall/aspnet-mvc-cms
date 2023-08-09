@@ -29,7 +29,8 @@ namespace App.Web.Mvc.Controllers
             try
             {
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
+                return RedirectToAction("Index","Home");
             }
             catch
             {
