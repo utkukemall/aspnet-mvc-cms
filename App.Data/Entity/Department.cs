@@ -19,5 +19,7 @@ namespace App.Data.Entity
 
         [MaxLength(75), DataType(DataType.ImageUrl)]
         public string? Image { get; set; }
+
+        public List<Doctors>? Doctors { get; set; }
     }
 }
