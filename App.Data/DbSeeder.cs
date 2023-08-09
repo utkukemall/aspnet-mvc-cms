@@ -614,6 +614,49 @@ namespace App.Data
 
             };
             context.Appointments.Add(appointment);
+
+            Appointment appointment2 = new()
+            {
+                DepartmentId = 11,
+                DoctorId = 3,
+                AppointmentDate = new DateTime(2023, 08, 17),
+                AppointmentTime = new TimeSpan(13, 30, 00),
+                FullName = "Tuncay Weigher",
+                Message = "I do not like bugs. Burn them all!",
+                Phone = "974764233466",
+
+
+            };
+            context.Appointments.Add(appointment2);
+
+            Appointment appointment3 = new()
+            {
+                DepartmentId = 9,
+                DoctorId = 4,
+                AppointmentDate = new DateTime(2023, 08, 17),
+                AppointmentTime = new TimeSpan(13, 30, 00),
+                FullName = "Unknown Guest",
+                Message = "I do not know what i have...",
+                Phone = "974764233466",
+
+
+            };
+            context.Appointments.Add(appointment3);
+
+            Appointment appointment4 = new()
+            {
+                DepartmentId = 3,
+                DoctorId = 5,
+                AppointmentDate = new DateTime(2023, 08, 17),
+                AppointmentTime = new TimeSpan(13, 30, 00),
+                FullName = "The Mediterranean Girl",
+                Message = "I have nothing... But Dentist is too hot...",
+                Phone = "974764233466",
+
+
+            };
+            context.Appointments.Add(appointment3);
+
             context.SaveChanges();
         }
 
