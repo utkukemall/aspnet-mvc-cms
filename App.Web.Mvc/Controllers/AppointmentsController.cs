@@ -1,6 +1,9 @@
 ﻿using App.Data.Entity;
-using Microsoft.AspNetCore.Http;
+using App.Web.Mvc.ViewComponents;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Doctors = App.Data.Entity.Doctors;
 
 namespace App.Web.Mvc.Controllers
 {
@@ -8,6 +11,8 @@ namespace App.Web.Mvc.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
+        private readonly string _apiAddressDepartments = "http://localhost:5005/api/Departments";
+        private readonly string _apiAddressDoctors = "http://localhost:5005/api/Doctors";
 
         public AppointmentsController(HttpClient httpClient)
         {
@@ -16,8 +21,22 @@ namespace App.Web.Mvc.Controllers
 
 
         // GET: AppointmentsController/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create(int? departmentId)
         {
+
+
+            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddressDepartments), "Id", "Name");
+
+
+            var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
+
+
+
+            ViewBag.DoctorId = new SelectList(doctorlist, "Id", "FullName");
+
+
+
+
             return View();
         }
 
@@ -29,15 +48,22 @@ namespace App.Web.Mvc.Controllers
             try
             {
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
-                TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
-                return RedirectToAction("Index","Home");
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
+                    return RedirectToAction("Index", "Home");
+
+                }
+                TempData["Message"] = "<div class='alert alert-success'>Error, Please Try Again! </div>";
+                return View(collection);
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Your Appointment cannot sended. Please Try Again!");
+                return View(collection);
             }
         }
 
-       
+
     }
 }
