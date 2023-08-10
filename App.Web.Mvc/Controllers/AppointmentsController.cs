@@ -27,15 +27,6 @@ namespace App.Web.Mvc.Controllers
             return View();
         }
 
-        public async Task<JsonResult> LoadDoctor(int Id)
-        {
-            var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
-
-            var newDoctors = doctorlist.Where(d => d.DepartmentId == Id).ToList();
-
-
-            return Json(new SelectList(newDoctors, "Id", "FullName"));
-        }
 
         // POST: AppointmentsController/Create
         [HttpPost]
@@ -61,6 +52,15 @@ namespace App.Web.Mvc.Controllers
             }
         }
 
+        public async Task<JsonResult> LoadDoctor(int departmentId)
+        {
+            var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
+
+            var newDoctors = doctorlist.Where(d => d.DepartmentId == departmentId).ToList();
+
+
+            return Json(new SelectList(newDoctors, "Id", "FullName"));
+        }
 
 
 
