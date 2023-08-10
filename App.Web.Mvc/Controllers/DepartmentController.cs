@@ -7,22 +7,31 @@ namespace App.Web.Mvc.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/Departments";
-        public DepartmentController(HttpClient httpClient)
+		private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
+
+		public DepartmentController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
         public async Task<IActionResult> Index(int id, int page)
         {
-            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress);
-            return View(model);
+            //var model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress);
+
+			var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
+			var model = settings?.FirstOrDefault(s => s.IsActive);
+
+			return View(model);
         }
 
 
-        public async Task<IActionResult> GoDepartment(int id, int page)
+        public async Task<IActionResult> Detail(int id, int page)
         {
-            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress + "/" + id);
-            return View(model);
+            //var model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress + "/" + id);
+
+			var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
+			var model = settings?.FirstOrDefault(s => s.IsActive);
+			return View(model);
         }
         [HttpGet]
         public async Task<IActionResult> List()

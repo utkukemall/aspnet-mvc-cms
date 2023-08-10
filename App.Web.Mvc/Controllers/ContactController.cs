@@ -1,17 +1,14 @@
 ﻿using App.Data.Entity;
-using App.Web.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Net.Http;
 
 namespace App.Web.Mvc.Controllers
 {
-    public class HomeController : Controller
-    {
+	public class ContactController : Controller
+	{
         private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
         private readonly HttpClient _httpClient;
 
-        public HomeController(HttpClient httpClient)
+        public ContactController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -21,13 +18,6 @@ namespace App.Web.Mvc.Controllers
             var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
             var model = settings?.FirstOrDefault(s => s.IsActive);
             return View(model);
-        }
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
