@@ -13,8 +13,9 @@ namespace App.Web.Mvc.Controllers
         private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
         private readonly string _apiAddressDepartments = "http://localhost:5005/api/Departments";
         private readonly string _apiAddressDoctors = "http://localhost:5005/api/Doctors";
+		private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
 
-        public AppointmentsController(HttpClient httpClient)
+		public AppointmentsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -24,8 +25,10 @@ namespace App.Web.Mvc.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddressDepartments), "Id", "Name");
-            return View();
-        }
+			var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
+			var model = settings?.FirstOrDefault(s => s.IsActive);
+			return View(model);
+		}
 
 
         // POST: AppointmentsController/Create
@@ -35,20 +38,29 @@ namespace App.Web.Mvc.Controllers
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
-                if (response.IsSuccessStatusCode)
-                {
-                    TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
-                    return RedirectToAction("Index", "Home");
+                //var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+                //if (response.IsSuccessStatusCode)
+                //{
+                //    TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
+                //    return RedirectToAction("Index", "Home");
 
-                }
-                TempData["Message"] = "<div class='alert alert-success'>Error, Please Try Again! </div>";
-                return View(collection);
+                //}
+                //TempData["Message"] = "<div class='alert alert-success'>Error, Please Try Again! </div>";
+
+				var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
+				var model = settings?.FirstOrDefault(s => s.IsActive);
+				return View(model);
+
+				//return View(collection);
             }
             catch
             {
-                ModelState.AddModelError("", "Your Appointment cannot sended. Please Try Again!");
-                return View(collection);
+				var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
+				var model = settings?.FirstOrDefault(s => s.IsActive);
+				return View(model);
+
+				//ModelState.AddModelError("", "Your Appointment cannot sended. Please Try Again!");
+    //            return View(collection);
             }
         }
 
