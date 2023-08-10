@@ -21,23 +21,20 @@ namespace App.Web.Mvc.Controllers
 
 
         // GET: AppointmentsController/Create
-        public async Task<IActionResult> Create(int? departmentId)
+        public async Task<IActionResult> Create()
         {
-
-
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddressDepartments), "Id", "Name");
+            return View();
+        }
 
-
+        public async Task<JsonResult> LoadDoctor(int departmentId)
+        {
             var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
 
+            doctorlist = doctorlist.Where(d => d.DepartmentId == departmentId).ToList();
 
 
-            ViewBag.DoctorId = new SelectList(doctorlist, "Id", "FullName");
-
-
-
-
-            return View();
+            return Json(new SelectList(doctorlist, "Id", "FullName"));
         }
 
         // POST: AppointmentsController/Create
@@ -63,6 +60,8 @@ namespace App.Web.Mvc.Controllers
                 return View(collection);
             }
         }
+
+       
 
 
     }

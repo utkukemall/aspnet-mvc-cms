@@ -22,13 +22,17 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label asp-for="DepartmentId" class="form-label">Department</label>
-                                    <select id="DepartmentId" name="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
+                                    <select id="departmentList" name="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId">
+                                        <option>Select Department</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label asp-for="DoctorId" class="form-label">Doctor</label>
-                                    <select id="DoctorId" name="DoctorId" class="form-control" asp-items="ViewBag.DoctorId"></select>
+                                    <select id="doctorList" name="DoctorId" class="form-control" asp-items="ViewBag.DoctorId">
+                                        <option value="-1">Select Doctor</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -71,6 +75,42 @@
 
                         <button class="btn btn-main btn-round-full" type="submit">Make Appoinment<i class="icofont-simple-right ml-2"></i></button>
                     </form>
+
+                    <!-- Bu noktadan sonraki script kodları ile Doktorları Poliklinik listesine göre yüklemek hedeflenir... -->
+
+                    @section Scripts{
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $("#departmentList").change(function () {
+                                    $("#doctorList").empty();
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: @Url.Action("LoadDoctor","Appointments"),
+
+                                        dataType: 'json',
+
+                                        data: { departmentId: $("#departmentList").val() },
+
+                                        success: function (doctors) {
+                                            $("#doctorList").append('<option value ="' + -1 + '">' + "Select State" + '</option>');
+
+                                            $.each(doctors, function (i, doctor) {
+                                                $("#doctorList").append('<option value="' + doctor.value + '">' + doctor.text + '</option>')
+                                            });
+                                        },
+
+                                        error: function () {
+                                            alert('Somethings going to wrong and we do not know actually... Yeah')
+                                        }
+
+                                    });
+
+                                    return false;
+                                })
+                            })
+                        </script>
+                    }
+
                 </div>
             </div>
         </div>
