@@ -119,6 +119,7 @@
     </div>
 </section> *@
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <section class="appoinment section">
     <div class="container">
@@ -204,7 +205,7 @@
                                     $("#doctorList").empty();
                                     $.ajax({
                                         type: 'GET',
-                                        url: '/Appointments/LoadDoctor',
+                                        url: 'http://localhost:5005/api/Appointments/LoadDoctor',
 
 
                                         dataType: 'json',
@@ -212,7 +213,7 @@
                                         data: { departmentId: $("#departmentList").val() },
 
                                         success: function (doctors) {
-                                            $("#doctorList").append('<option value ="' + -1 + '">' + "Select State" + '</option>');
+                                            $("#doctorList").append('<option value ="' + -1 + '">' + "Select Doctor" + '</option>');
 
                                             $.each(doctors, function (i, doctor) {
                                                 $("#doctorList").append('<option value="' + doctor.value + '">' + doctor.text + '</option>')
