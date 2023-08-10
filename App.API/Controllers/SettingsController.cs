@@ -49,9 +49,15 @@ namespace App.API.Controllers
             Setting mainSetting = await _service.FindAsync(id);
             if (mainSetting != null)
             {
-                mainSetting.Value = value.Value;
                 mainSetting.Name = value.Name;
-                
+                mainSetting.Email = value.Email;
+                mainSetting.Address = value.Address;
+                mainSetting.Phone = value.Phone;
+                mainSetting.AlpLinkedin = value.AlpLinkedin;
+                mainSetting.KadirLinkedin = value.KadirLinkedin;
+                mainSetting.UtkuLinkedin = value.UtkuLinkedin;
+                mainSetting.Image = value.Image;
+                mainSetting.IsActive = value.IsActive;
 
                 _service.Update(mainSetting);
                 await _service.SaveAsync();
@@ -64,18 +70,20 @@ namespace App.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
+            var settings = await _service.GetAllAsync();
+            if (settings.Count <= 1)
+                return BadRequest("Cannot delete the only setting available.");
+
             Setting mainSetting = await _service.FindAsync(id);
+
             if (mainSetting != null)
             {
                 _service.Delete(mainSetting);
                 var response = await _service.SaveAsync();
                 if (response > 0)
                 {
-
                     return Ok();
-
                 }
-
             }
             return Problem();
         }
