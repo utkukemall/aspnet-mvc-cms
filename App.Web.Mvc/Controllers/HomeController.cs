@@ -1,26 +1,21 @@
-﻿using App.Data.Entity;
-using App.Web.Mvc.Models;
+﻿using App.Web.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Net.Http;
 
 namespace App.Web.Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
-        private readonly HttpClient _httpClient;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(HttpClient httpClient)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _httpClient = httpClient;
+            _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
-            var model = settings?.FirstOrDefault(s => s.IsActive);
-            return View(model);
+            return View();
         }
 
 

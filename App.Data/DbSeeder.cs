@@ -27,7 +27,7 @@ namespace App.Data
         }
 
 
-        //burdayım be burdayım
+
 
         private static void SeedDepartments(AppDbContext context)
         {
@@ -523,15 +523,9 @@ namespace App.Data
 
             var setting = new Setting
             {
-                Name = $"First Setting",
-                Address = $"Karaköy / İstanbul",
-                Email = "academy@siliconmade.com",
-                Image = "",
-                IsActive = true ,
-                Phone = "+90 850 272 7454",
-                AlpLinkedin = "https://www.linkedin.com/in/alparslan-kobak-5a98831b5/",
-                UtkuLinkedin = "https://www.youtube.com/shorts/fDjMVKTFjFs",
-                KadirLinkedin = "https://www.linkedin.com/in/kadir-alt%C4%B1nay-919a66264/"                
+                Name = $"Setting Name",
+                Value = $"Setting Value",
+                // Gerekli diğer özellikleri de doldur.
             };
 
             context.Settings.Add(setting);

@@ -18,19 +18,15 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Settings DataTable
+            Settings DataTable 
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
                 <thead>
                     <tr>
-                        <th>Setting Id</th>
-                        <th>Setting Name</th>
-                        <th>Site Email</th>
-                        <th>Site Address</th>
-                        <th>Site Phone</th>
-                        <th>Site Logo</th>
-                        <th>Linkedins</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Value</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -40,27 +36,12 @@
                         <tr>
                             <td>@setting.Id</td>
                             <td>@setting.Name</td>
-                            <td>@setting.Email</td>
-                            <td>@setting.Address</td>
-                            <td>@setting.Phone</td>
-                            <td><img src="@setting.Image" alt="Logo" class="logo-img" /></td>
+                            <td>@setting.Value</td>
                             <td>
-                                <li>
-                                    <a href="@setting.AlpLinkedin" title="Alp's LinkedIn Profile"><i class="fab fa-linkedin"></i> Alparslan</a>
-                                </li>
-                                <li>
-                                    <a href="@setting.KadirLinkedin" title="Kadir's LinkedIn Profile"><i class="fab fa-linkedin"></i> Kadir</a>
-                                </li>
-                                <li>
-                                    <a href="@setting.UtkuLinkedin" title="Utku's LinkedIn Profile"><i class="fab fa-linkedin"></i> Utku</a>
-                                </li>
-                            </td>
-
-                            <td>
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@setting.Id"><i class="fas fa-edit"></i>Edit</a> |
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@setting.Id">Edit</a> |
                                 <!-- Button trigger modal for Delete -->
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal_@setting.Id">
-                                    <i class="fas fa-trash"></i> Delete
+                                    Delete
                                 </button>
                             </td>
                         </tr>

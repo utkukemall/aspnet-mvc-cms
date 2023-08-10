@@ -90,16 +90,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                var response = await _httpClient.DeleteAsync(_apiAddress + "/" + id);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                }
-                else
-                {
-                    TempData["Message"] = "<div class='alert alert-danger'>Cannot delete the only setting available.</div>";
-                }
+                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
