@@ -1,9 +1,6 @@
 ﻿using App.Data.Entity;
-using App.Web.Mvc.ViewComponents;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Doctors = App.Data.Entity.Doctors;
 
 namespace App.Web.Mvc.Controllers
 {
@@ -11,8 +8,6 @@ namespace App.Web.Mvc.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
-        private readonly string _apiAddressDepartments = "http://localhost:5005/api/Departments";
-        private readonly string _apiAddressDoctors = "http://localhost:5005/api/Doctors";
 
         public AppointmentsController(HttpClient httpClient)
         {
@@ -21,12 +16,10 @@ namespace App.Web.Mvc.Controllers
 
 
         // GET: AppointmentsController/Create
-        public async Task<IActionResult> Create()
+        public ActionResult Create()
         {
-            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddressDepartments), "Id", "Name");
             return View();
         }
-
 
         // POST: AppointmentsController/Create
         [HttpPost]
@@ -36,33 +29,15 @@ namespace App.Web.Mvc.Controllers
             try
             {
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
-                if (response.IsSuccessStatusCode)
-                {
-                    TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
-                    return RedirectToAction("Index", "Home");
-
-                }
-                TempData["Message"] = "<div class='alert alert-success'>Error, Please Try Again! </div>";
-                return View(collection);
+                TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
+                return RedirectToAction("Index","Home");
             }
             catch
             {
-                ModelState.AddModelError("", "Your Appointment cannot sended. Please Try Again!");
-                return View(collection);
+                return View();
             }
         }
 
-        public async Task<JsonResult> LoadDoctor(int departmentId)
-        {
-            var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
-
-            var newDoctors = doctorlist.Where(d => d.DepartmentId == departmentId).ToList();
-
-
-            return Json(new SelectList(newDoctors, "Id", "FullName"));
-        }
-
-
-
+       
     }
 }

@@ -13,7 +13,7 @@ namespace App.Admin.Controllers
 
         private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
         private readonly string _apiRoles = "http://localhost:5005/api/Roles";
-        private readonly string _apiDoctors = "http://localhost:5005/api/Doctors";
+        private readonly string _apiDoctorsRoles = "http://localhost:5005/api/Doctors";
         private readonly string _apiDepartments = "http://localhost:5005/api/Departments";
 
         public AppointmentsController(HttpClient httpClient)
@@ -25,7 +25,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Index()
         {
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
-            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
+            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             var model = await _httpClient.GetFromJsonAsync<List<Appointment>>(_apiAddress);
             return View(model);
@@ -35,7 +35,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Create()
         {
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
-            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
+            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             return View();
         }
@@ -60,7 +60,7 @@ namespace App.Admin.Controllers
                 ModelState.AddModelError("", "Hata oluştu : " + e.Message);
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
-            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
+            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             return View(collection);
         }
@@ -69,7 +69,7 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
-            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
+            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             var model = await _httpClient.GetFromJsonAsync<Appointment>(_apiAddress + "/" + id);
             return View(model);
@@ -87,7 +87,7 @@ namespace App.Admin.Controllers
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
-            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
+            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             return RedirectToAction(nameof(Index));
         }
