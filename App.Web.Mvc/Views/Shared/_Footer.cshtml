@@ -1,4 +1,4 @@
-﻿
+﻿@model Setting
 
 <footer class="footer section gray-bg">
 	<div class="container">
@@ -6,23 +6,28 @@
 			<div class="col-lg-4 mr-auto col-sm-6">
 				<div class="widget mb-5 mb-lg-0">
 					<div class="logo mb-4">
-						<img src="images/logo.png" alt="" class="img-fluid" >
+						<img src="@Model.Image" alt="" class="img-fluid" >
 					</div>
-					<p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
 
-					<ul class="list-inline footer-socials mt-4">
-						<li class="list-inline-item">
-							<a href="https://www.facebook.com/themefisher"><i class="icofont-facebook"></i></a>
+
+					<ul class="list-unstyled mt-4">
+						<li class="mb-3">
+							<a href="@Model.AlpLinkedin"><i class="icofont-linkedin"></i> Alparslan KOBAK</a>
 						</li>
-						<li class="list-inline-item">
-							<a href="https://twitter.com/themefisher"><i class="icofont-twitter"></i></a>
+						<li class="mb-3">
+							<a href="@Model.KadirLinkedin"><i class="icofont-linkedin"></i> Kadir ALTINAY</a>
 						</li>
-						<li class="list-inline-item">
-							<a href="https://www.pinterest.com/themefisher/"><i class="icofont-linkedin"></i></a>
+						<li class="mb-3">
+							<a href="@Model.UtkuLinkedin"><i class="icofont-linkedin"></i> Utku K. CICEK</a>
 						</li>
 					</ul>
-				</div>
+
+
+
+
 			</div>
+			</div>
+
 
 			<div class="col-lg-2 col-md-6 col-sm-6">
 				<div class="widget mb-5 mb-lg-0">
@@ -64,7 +69,7 @@
 							<i class="icofont-email mr-3"></i>
 							<span class="h6 mb-0">Support Available for 24/7</span>
 						</div>
-						<h4 class="mt-2"><a href="mailto:support@email.com">Support@email.com</a></h4>
+						<h4 class="mt-2"><a href="@Model.Email">@Model.Email</a></h4>
 					</div>
 
 					<div class="footer-contact-block">
@@ -72,7 +77,7 @@
 							<i class="icofont-support mr-3"></i>
 							<span class="h6 mb-0">Mon to Fri : 08:30 - 18:00</span>
 						</div>
-						<h4 class="mt-2"><a href="tel:+23-345-67890">+23-456-6588</a></h4>
+						<h4 class="mt-2"><a href="tel:@Model.Phone">@Model.Phone</a></h4>
 					</div>
 				</div>
 			</div>

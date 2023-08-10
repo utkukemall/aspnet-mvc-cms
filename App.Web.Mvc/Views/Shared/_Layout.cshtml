@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
 
-    <link rel="stylesheet" href="~/App.Web.Mvc.styles.css" asp-append-version="true" />
 
     <link href="~/hospitaltemplate/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
 
@@ -44,6 +43,9 @@
     <script src="~/hospitaltemplate/plugins/bootstrap/bootstrap.min.js" defer></script>
     <script src="~/hospitaltemplate/plugins/slick-carousel/slick/slick.min.js" defer></script>
     <script src="~/hospitaltemplate/plugins/shuffle/shuffle.min.js" defer></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA"></script>
+    <script src="~/hospitaltemplate/plugins/google-map/gmap.js"></script>
+    <script src="~/hospitaltemplate/js/script.js"></script>
 </body>
 </html>
