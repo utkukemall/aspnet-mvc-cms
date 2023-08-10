@@ -27,7 +27,7 @@ namespace App.Data
         }
 
 
-
+        //burdayım be burdayım
 
         private static void SeedDepartments(AppDbContext context)
         {
