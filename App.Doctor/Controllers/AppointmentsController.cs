@@ -24,10 +24,13 @@ namespace App.Admin.Controllers
         // GET: AppointmentsController
         public async Task<ActionResult> Index()
         {
+            int? userId = HttpContext.Session.GetInt32("userId");
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             var model = await _httpClient.GetFromJsonAsync<List<Appointment>>(_apiAddress);
+
+            model = model.Where(a => a.DoctorId == userId).ToList();
             return View(model);
         }
 
