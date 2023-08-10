@@ -6,10 +6,6 @@
     <title>Neova Hospital || @ViewData["Title"]</title>
     <link rel="icon" type="image/x-icon" href="~/hospitaltemplate/images/favicon.png" />
 
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
-
     <link rel="stylesheet" href="~/App.Web.Mvc.styles.css" asp-append-version="true" />
 
     <link href="~/hospitaltemplate/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
@@ -24,7 +20,7 @@
 
     <link href="~/hospitaltemplate/css/style.css" rel="stylesheet" />
 
-@*     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+
 
 </head>
 <body id="top">
@@ -34,16 +30,14 @@
         <partial name="_Header" />
 
     </header>
-    @* <div class="container-fluid">*@
-    @*<main role="main" class="pb-3">*@
 
-    @Html.Raw(TempData["Message"]) @*Html.Raw(<İçerik>) = Dilediğimiz Html ogesini şekilli ve efektli haliyle görmemizi sağlar. *@
+
+    @Html.Raw(TempData["Message"]) 
     @RenderBody()
-    @*</main>*@
-    @*  </div>*@
+
 
     <partial name="_Footer" />
-    @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+   
     <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="~/js/site.js" asp-append-version="true" defer></script>
