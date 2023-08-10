@@ -51,6 +51,7 @@ namespace App.API.Controllers
             {
                 mainSetting.Value = value.Value;
                 mainSetting.Name = value.Name;
+                
 
                 _service.Update(mainSetting);
                 await _service.SaveAsync();

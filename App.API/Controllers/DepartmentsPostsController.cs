@@ -57,6 +57,7 @@ namespace App.API.Controllers
                 mainModel.PostId = value.PostId;
                 mainModel.Post = value.Post;
 
+
                 _service.Update(mainModel);
 
                 var response = await _service.SaveAsync();

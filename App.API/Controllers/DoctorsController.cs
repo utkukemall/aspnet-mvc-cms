@@ -57,6 +57,7 @@ namespace App.API.Controllers
                 doctor.Phone = value.Phone;
                 doctor.Password = value.Password;
                 doctor.City = value.City;
+                doctor.UpdatedAt = DateTime.UtcNow;
 
                 //doctor.DepartmentId = value.DepartmentId;
                 //doctor.Department = value.Department;

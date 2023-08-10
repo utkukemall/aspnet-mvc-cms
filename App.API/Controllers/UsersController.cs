@@ -52,6 +52,7 @@ namespace App.API.Controllers
                 mainUser.Password = value.Password;
                 mainUser.City = value.City;
                 mainUser.Phone = value.Phone;
+                mainUser.UpdatedAt = DateTime.UtcNow;
                 _service.Update(mainUser);
                 var response = await _service.SaveAsync();
                 if (response > 0)
