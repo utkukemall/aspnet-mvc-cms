@@ -33,7 +33,7 @@ namespace App.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync([FromBody] User value)
         {
-            await _service.AddAsync(value);
+			await _service.AddAsync(value);
             await _service.SaveAsync();
             return Ok();
         }
@@ -53,7 +53,8 @@ namespace App.API.Controllers
                 mainUser.City = value.City;
                 mainUser.Phone = value.Phone;
                 mainUser.UpdatedAt = DateTime.UtcNow;
-                _service.Update(mainUser);
+                mainUser.RoleId = value.RoleId;
+				_service.Update(mainUser);
                 var response = await _service.SaveAsync();
                 if (response > 0)
                 {
