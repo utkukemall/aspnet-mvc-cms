@@ -13,10 +13,18 @@
             <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="mb-3">
-                    <label for="FullName" class="form-label">Full Name</label>
-                    <input type="text" id="FullName" name="FullName" class="form-control" asp-for="FullName" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
+                <div class="row mb-3">
+                    <div class="col-md-9">
+                        <label for="FullName" class="form-label">Full Name</label>
+                        <input type="text" id="FullName" name="FullName" class="form-control" asp-for="FullName" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="RoleId" class="form-label">Role</label>
+                        <select id="RoleId" name="RoleId" class="form-select" asp-items="ViewBag.RoleId">
+                            <option value="-1">Select Role</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-3">
