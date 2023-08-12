@@ -93,8 +93,8 @@ namespace App.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
-            List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-            User account = users.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
+            var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+            var account = users.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
 
             if (account == null)
             {
