@@ -57,6 +57,7 @@ namespace App.API.Controllers
                 mainModel.Title = value.Title;
                 mainModel.Content = value.Content;
                 mainModel.IsActive = value.IsActive;
+                mainModel.UpdatedAt = DateTime.UtcNow;
 
                 _service.Update(mainModel);
 

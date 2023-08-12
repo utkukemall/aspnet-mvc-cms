@@ -59,6 +59,7 @@ namespace App.API.Controllers
                 mainModel.Title = value.Title;
                 mainModel.Content = value.Content;
                 mainModel.Image = value.Image;
+                mainModel.UpdatedAt = DateTime.UtcNow;
 
                 _service.Update(mainModel);
                 var response = await _service.SaveAsync();

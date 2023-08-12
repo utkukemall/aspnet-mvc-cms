@@ -4,11 +4,15 @@ namespace App.Web.Mvc.Models
 {
     public class HomePageViewModels
     {
-        public Setting? setting { get; set; }
+        public Setting? Setting { get; set; }
 
-        public Post? post { get; set; }
+        public Post? Post { get; set; }
 
         public Appointment? Appointment { get; set; }
-        // Örnek bir HomepageVievModel içermektedir.
+
+        public Contact? Contact { get; set; }
+
+
+
     }
 }

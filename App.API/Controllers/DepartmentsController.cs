@@ -51,6 +51,7 @@ namespace App.API.Controllers
                 mainDepartment.Name = value.Name;
                 mainDepartment.Description = value.Description;
                 mainDepartment.Image = value.Image;
+               
 
                 _service.Update(mainDepartment);
                 await _service.SaveAsync();

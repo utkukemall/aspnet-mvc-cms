@@ -65,6 +65,7 @@ namespace App.API.Controllers
                 mainModel.DoctorId = value.DoctorId;
                 mainModel.Message = value.Message;
                 mainModel.Phone = value.Phone;
+                mainModel.UpdatedAt = DateTime.UtcNow;
 
                 _service.Update(mainModel);
                 var response = await _service.SaveAsync();

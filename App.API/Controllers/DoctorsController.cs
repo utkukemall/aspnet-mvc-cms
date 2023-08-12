@@ -36,8 +36,9 @@ namespace App.API.Controllers
         // POST api/<DoctorsController>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Doctors value)
-        {
-            await _service.AddAsync(value);
+		{
+			value.RoleId = 2;
+			await _service.AddAsync(value);
             await _service.SaveAsync();
             return Ok(value);
         }
@@ -57,6 +58,7 @@ namespace App.API.Controllers
                 doctor.Phone = value.Phone;
                 doctor.Password = value.Password;
                 doctor.City = value.City;
+                doctor.UpdatedAt = DateTime.UtcNow;
 
                 //doctor.DepartmentId = value.DepartmentId;
                 //doctor.Department = value.Department;

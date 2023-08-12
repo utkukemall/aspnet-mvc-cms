@@ -59,6 +59,7 @@ namespace App.API.Controllers
                 postComment.Comment = value.Comment;
                 postComment.IsActive = value.IsActive;
                 postComment.PostId = value.PostId;
+                postComment.UpdatedAt = DateTime.UtcNow;
                 _service.Update(postComment);
                 await _service.SaveAsync();
                 return Ok(postComment);

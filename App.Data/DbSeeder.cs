@@ -24,10 +24,11 @@ namespace App.Data
             SeedPages(context);
             SeedDepartmentPosts(context);
             SeedAppointments(context);
+            SeedContacts(context);
         }
 
 
-
+        //burdayım be burdayım
 
         private static void SeedDepartments(AppDbContext context)
         {
@@ -523,9 +524,15 @@ namespace App.Data
 
             var setting = new Setting
             {
-                Name = $"Setting Name",
-                Value = $"Setting Value",
-                // Gerekli diğer özellikleri de doldur.
+                Name = $"First Setting",
+                Address = $"Karaköy / İstanbul",
+                Email = "academy@siliconmade.com",
+                Image = "",
+                IsActive = true ,
+                Phone = "+90 850 272 7454",
+                AlpLinkedin = "https://www.linkedin.com/in/alparslan-kobak-5a98831b5/",
+                UtkuLinkedin = "https://www.youtube.com/shorts/fDjMVKTFjFs",
+                KadirLinkedin = "https://www.linkedin.com/in/kadir-alt%C4%B1nay-919a66264/"                
             };
 
             context.Settings.Add(setting);
@@ -659,6 +666,28 @@ namespace App.Data
 
             context.SaveChanges();
         }
+
+
+        private static void SeedContacts(AppDbContext context)
+        {
+            Contact contact = new()
+            {
+                Title = "Non of Your Businness",
+                Email = "chief@kgt.com",
+                FullName = "Lion Whitelord",
+                Message = "I gived you some stuffs. Take care of them!",
+                Phone = "974764233466",
+
+
+            };
+            context.Contacts.Add(contact);
+
+           
+           
+
+            context.SaveChanges();
+        }
+
 
         private static string GenerateRandomEmail(string name, string domain)
         {

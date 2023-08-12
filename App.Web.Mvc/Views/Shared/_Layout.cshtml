@@ -24,11 +24,12 @@
 
     <link href="~/hospitaltemplate/css/style.css" rel="stylesheet" />
 
- 
+@*     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+
 </head>
 <body id="top">
     <header>
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <partial name="_Topbar" />
         <partial name="_Header" />
 
@@ -40,8 +41,9 @@
     @RenderBody()
     @*</main>*@
     @*  </div>*@
-
+    @*Bu manevra bize 51 yıla mal olacak...*@
     <partial name="_Footer" />
+    @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
     <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="~/js/site.js" asp-append-version="true" defer></script>
@@ -51,7 +53,9 @@
     <script src="~/hospitaltemplate/plugins/slick-carousel/slick/slick.js" defer></script>
     <script src="~/hospitaltemplate/plugins/shuffle/shuffle.min.js" defer></script>
     <script src="~/hospitaltemplate/plugins/google-map/gmap.js" defer></script>
+
     <script src="~/hospitaltemplate/js/script.js" defer></script> @* defer komutu ile, sayfa yüklendikten sonra script ogelerinin yüklenmeye başlamasını sağlayabiliriz. Böylelikle sayfa, önce HTML, ardından CSS, son olarak JavaScript  "defer" yerine "async" yazarak da sayfa ile eşzamanlı hareket etmesini sağlayabiliriz. *@
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>
