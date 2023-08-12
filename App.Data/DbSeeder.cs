@@ -24,6 +24,7 @@ namespace App.Data
             SeedPages(context);
             SeedDepartmentPosts(context);
             SeedAppointments(context);
+            SeedContacts(context);
         }
 
 
@@ -665,6 +666,28 @@ namespace App.Data
 
             context.SaveChanges();
         }
+
+
+        private static void SeedContacts(AppDbContext context)
+        {
+            Contact contact = new()
+            {
+                Title = "Non of Your Businness",
+                Email = "chief@kgt.com",
+                FullName = "Lion Whitelord",
+                Message = "I gived you some stuffs. Take care of them!",
+                Phone = "974764233466",
+
+
+            };
+            context.Contacts.Add(contact);
+
+           
+           
+
+            context.SaveChanges();
+        }
+
 
         private static string GenerateRandomEmail(string name, string domain)
         {
