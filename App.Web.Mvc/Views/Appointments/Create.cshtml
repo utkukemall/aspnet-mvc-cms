@@ -1,7 +1,5 @@
 ﻿@model Appointment
 
-
-
 @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
 
 <section class="appoinment section">
@@ -114,6 +112,39 @@
                             })
                         </script>
                     }
+                   @*  @section Scripts{
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $("#departmentList").change(function () {
+                                    $("#doctorList").empty();
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: 'http://localhost:5280/Appointments/LoadDoctor',
+
+
+                                        dataType: 'Json',
+
+                                        data: { departmentId: $("#departmentList").val() },
+
+                                        success: function (doctors) {
+                                            $("#doctorList").append('<option value ="' + -1 + '">' + "Select Doctor" + '</option>');
+
+                                            $.each(doctors, function (i, doctor) {
+                                                $("#doctorList").append('<option value="' + doctor.value + '">' + doctor.text + '</option>')
+                                            });
+                                        },
+
+                                        error: function () {
+                                            alert('Somethings going to wrong and we do not know actually... Yeah')
+                                        }
+
+                                    });
+
+                                    return false;
+                                })
+                            })
+                        </script>
+                    } *@
 
                 </div>
             </div>
