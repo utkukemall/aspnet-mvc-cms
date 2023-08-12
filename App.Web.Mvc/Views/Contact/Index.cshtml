@@ -72,7 +72,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label asp-for="Contact.FullName" class="form-label">Full Name</label>
-                                <input type="text" id="contactFullName" name="contactFullName" class="form-control" />
+                                <input type="text" id="contactFullName" placeholder="Hospital Example" name="contactFullName" class="form-control" />
                                 <span asp-validation-for="Contact.FullName" class="text-danger"></span>
                             </div>
                         </div>
@@ -80,21 +80,21 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label asp-for="Contact.Email" class="form-label">Email</label>
-                                <input type="email" id="Email" name="Email" class="form-control" />
+                                <input type="email" id="Email" name="Email" placeholder="example@hospital.com" class="form-control" />
                                 <span asp-validation-for="Contact.Email" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label asp-for="Contact.Title" class="form-label">Title</label>
-                                <input type="text" id="Title" name="Title" class="form-control" />
+                                <input type="text" id="Title" name="Title" placeholder="Whats About" class="form-control" />
                                 <span asp-validation-for="Contact.Title" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label asp-for="Contact.Phone" class="form-label">Phone</label>
-                                <input type="text" id="Phone" name="Phone" class="form-control" />
+                                <input type="text" id="Phone" placeholder="+90 5434321536" name="Phone" class="form-control" />
                                 <span asp-validation-for="Contact.Phone" class="text-danger"></span>
                             </div>
                         </div>
@@ -102,12 +102,12 @@
 
                     <div class="form-group-2 mb-4">
                         <label asp-for="Contact.Message" class="form-label">Message</label>
-                        <textarea id="Message" name="Message" class="form-control" rows="5">Your Message</textarea>
+                        <textarea id="Message" name="Message" placeholder="Your Message is here..." class="form-control" rows="5"></textarea>
                         <span asp-validation-for="Contact.Message" class="text-danger"></span>
                     </div>
 
                     <div>
-                        <button class="btn btn-main btn-round-full" name="submit" type="submit">Send Messege</button>
+                        <button class="btn btn-main btn-round-full" name="submit" type="submit">Send Message</button>
                     </div>
                 </form>
             </div>
