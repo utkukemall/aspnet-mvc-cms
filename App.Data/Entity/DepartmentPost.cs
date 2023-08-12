@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using App.Data.Entity.BaseEntities;
 
 namespace App.Data.Entity
 {

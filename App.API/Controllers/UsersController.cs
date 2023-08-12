@@ -53,7 +53,10 @@ namespace App.API.Controllers
                 mainUser.City = value.City;
                 mainUser.Phone = value.Phone;
                 mainUser.UpdatedAt = DateTime.UtcNow;
+                if (value.RoleId is not null)
+                {
                 mainUser.RoleId = value.RoleId;
+                }
 				_service.Update(mainUser);
                 var response = await _service.SaveAsync();
                 if (response > 0)

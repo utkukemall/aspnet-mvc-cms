@@ -1,5 +1,5 @@
 ﻿using App.Data.Abstract;
-using App.Data.Entity;
+using App.Data.Entity.BaseEntities;
 
 namespace App.Service.Abstract
 {

@@ -1,6 +1,6 @@
 ﻿using App.Data;
 using App.Data.Concrete;
-using App.Data.Entity;
+using App.Data.Entity.BaseEntities;
 using App.Service.Abstract;
 
 namespace App.Service.Concrete

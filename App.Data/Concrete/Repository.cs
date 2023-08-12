@@ -1,5 +1,5 @@
 ﻿using App.Data.Abstract;
-using App.Data.Entity;
+using App.Data.Entity.BaseEntities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
