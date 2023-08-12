@@ -71,7 +71,7 @@ namespace App.API.Concrete
             catch (Exception ex)
             {
                 // Hata oluştuysa, genel bir hata mesajı döndür.
-                return new Tuple<int, string>(0, "Error has occured : " + ex.Message.ToString());
+                return new Tuple<int, string>(0, "Error has occured");
             }
         }
 

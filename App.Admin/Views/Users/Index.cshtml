@@ -26,7 +26,6 @@
                         <th>Id</th>
                         <th>Role</th>
                         <th>FullName</th>
-                        <th>Image</th>
                         <th>Email</th>
                         <th>Password</th>
                         <th>City</th>
@@ -35,14 +34,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
                     @foreach (var user in Model)
                     {
                         <tr>
                             <td>@user.Id</td>
                             <td>@user.Role?.RoleName</td>
                             <td>@user.FullName</td>
-                            <td> <img src="@user.Image" alt="" />    </td>
                             <td>@user.Email</td>
                             <td>@user.Password</td>
                             <td>@user.City</td>

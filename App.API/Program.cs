@@ -1,10 +1,7 @@
-﻿using App.API.Abstract;
-using App.API.Concrete;
-using App.Data;
+﻿using App.Data;
 using App.Service.Abstract;
 using App.Service.Concrete;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +29,6 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IPostCommentService, PostCommentService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
-builder.Services.AddScoped<IFileService, FileService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,28 +36,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
 }
-
-
-// app.UseStaticFiles(...) : Bu, ASP.NET Core uygulamanızın statik dosyaları (örneğin: .jpg, .png, .css, .js) sunabilmesi için gerekli bir middleware'yi ekler. Middleware, gelen HTTP isteklerini işlemek için kullanılan bir tür yazılım katmanıdır.
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    // new StaticFileOptions:  Bu, statik dosya hizmetinin nasıl çalıştırılacağını belirlemek için seçenekler sağlar. Yani bu sayede, hangi dosyaların hangi yollardan sunulacağını özelleştirebiliriz.
-
-    // FileProvider = new PhysicalFileProvider(...):  Bu, fiziksel dosya sisteminden dosyaları sağlayan bir sağlayıcı oluşturur. Bu, uygulamanızın belirtilen klasördeki dosyalara erişmesine olanak tanır.
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
-
-    //Path.Combine(builder.Environment.ContentRootPath, "Uploads"):  Bu, ContentRootPath ile "Uploads" adlı klasörü birleştirerek tam bir dosya yolu oluşturur. ContentRootPath, projenizin kök klasörüne işaret eder. Yani bu kombinasyon, projenizin kökündeki Uploads klasörüne bir yol oluşturur.
-
-    RequestPath = "/Resources"
-});
-
-
-
-
 
 app.UseAuthorization();
 

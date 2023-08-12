@@ -1,5 +1,4 @@
-﻿using App.API.Abstract;
-using App.Data.Entity;
+﻿using App.Data.Entity;
 using App.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +9,10 @@ namespace App.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _service;
-        private readonly IFileService _serviceFile;
 
-        public UsersController(IUserService service, IFileService serviceFile)
+        public UsersController(IUserService service)
         {
             _service = service;
-            _serviceFile = serviceFile;
         }
 
         // GET: api/<UsersController>
@@ -34,20 +31,9 @@ namespace App.API.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] User value)
+        public async Task<ActionResult> PostAsync([FromBody] User value)
         {
-            // Hint yazılımcı abilere göre dosya göndermek istiyorsak, [FromBody yerine [FromForm etiketi kullanmak lazım gerek...]]
-
-            if (value.ImageFile != null)
-            {
-                var fileResult = _serviceFile.SaveImage(value.ImageFile);
-
-                if (fileResult.Item1 == 1)
-                {
-                    value.Image = fileResult.Item2;
-                }
-            }
-            await _service.AddAsync(value);
+			await _service.AddAsync(value);
             await _service.SaveAsync();
             return Ok();
         }
