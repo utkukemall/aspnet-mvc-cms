@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject HttpClient _httpClient;
+@{
+    string _apiAddress = "http://localhost:5005/api/Settings";
+    var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
+
+    var setting = settings?.FirstOrDefault(s => s.IsActive);
+}
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -38,7 +45,7 @@
     @*  </div>*@
 
 
-    <partial name="_Footer" />
+    <partial name="_Footer"/>
     <script src="~/hospitaltemplate/plugins/jquery/jquery.js" defer></script>
     <script src="~/hospitaltemplate/plugins/bootstrap/bootstrap.min.js" defer></script>
     <script src="~/hospitaltemplate/plugins/slick-carousel/slick/slick.min.js" defer></script>
@@ -47,5 +54,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA"></script>
     <script src="~/hospitaltemplate/plugins/google-map/gmap.js"></script>
     <script src="~/hospitaltemplate/js/script.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

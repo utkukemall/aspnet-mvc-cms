@@ -1,4 +1,10 @@
-﻿@model Setting
+﻿@inject HttpClient _httpClient;
+@{
+	string _apiAddress = "http://localhost:5005/api/Settings";
+	var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
+
+	var setting = settings?.FirstOrDefault(s => s.IsActive);
+}
 
 <footer class="footer section gray-bg">
 	<div class="container">
@@ -6,19 +12,19 @@
 			<div class="col-lg-4 mr-auto col-sm-6">
 				<div class="widget mb-5 mb-lg-0">
 					<div class="logo mb-4">
-						<img src="@Model.Image" alt="" class="img-fluid" >
+						<img src="@setting.Image" alt="" class="img-fluid">
 					</div>
 
 
 					<ul class="list-unstyled mt-4">
 						<li class="mb-3">
-							<a href="@Model.AlpLinkedin"><i class="icofont-linkedin"></i> Alparslan KOBAK</a>
+							<a href="@setting.AlpLinkedin"><i class="icofont-linkedin"></i> Alparslan KOBAK</a>
 						</li>
 						<li class="mb-3">
-							<a href="@Model.KadirLinkedin"><i class="icofont-linkedin"></i> Kadir ALTINAY</a>
+							<a href="@setting.KadirLinkedin"><i class="icofont-linkedin"></i> Kadir ALTINAY</a>
 						</li>
 						<li class="mb-3">
-							<a href="@Model.UtkuLinkedin"><i class="icofont-linkedin"></i> Utku K. CICEK</a>
+							<a href="@setting.UtkuLinkedin"><i class="icofont-linkedin"></i> Utku K. CICEK</a>
 						</li>
 					</ul>
 
@@ -69,7 +75,7 @@
 							<i class="icofont-email mr-3"></i>
 							<span class="h6 mb-0">Support Available for 24/7</span>
 						</div>
-						<h4 class="mt-2"><a href="@Model.Email">@Model.Email</a></h4>
+						<h4 class="mt-2"><a href="@setting.Email">@setting.Email</a></h4>
 					</div>
 
 					<div class="footer-contact-block">
@@ -77,7 +83,7 @@
 							<i class="icofont-support mr-3"></i>
 							<span class="h6 mb-0">Mon to Fri : 08:30 - 18:00</span>
 						</div>
-						<h4 class="mt-2"><a href="tel:@Model.Phone">@Model.Phone</a></h4>
+						<h4 class="mt-2"><a href="tel:@setting.Phone">@setting.Phone</a></h4>
 					</div>
 				</div>
 			</div>
