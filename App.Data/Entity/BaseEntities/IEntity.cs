@@ -1,4 +1,4 @@
-﻿namespace App.Data.Entity
+﻿namespace App.Data.Entity.BaseEntities
 {
     public interface IEntity
     {
