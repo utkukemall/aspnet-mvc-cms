@@ -1,4 +1,4 @@
-using App.Data;
+ï»¿using App.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +14,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
+    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigÃ¼rasyonu iÃ§erisinde "DBConStr" appsettings.json deÃ°erini oku.
 
     options.UseSqlServer(connStr);
 });
@@ -48,8 +48,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// JWT - Token ve Cookie araþtýr.
-
+// JWT - Token ve Cookie araÃ¾tÃ½r.
+//MASTERKADIR
 //app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -60,11 +60,11 @@ app.MapControllerRoute(
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaÃ°a kalktÃ½Ã°Ã½nda, belirtilen Database'i getir.
 
     var db = dbContext.Database;
 
-    if (!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
+    if (!await db.CanConnectAsync()) // EÃ°er ilgili database'yi bulamÃ½yorsan 
     {
         await db.EnsureCreatedAsync();
 
