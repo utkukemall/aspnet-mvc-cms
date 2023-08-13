@@ -15,14 +15,14 @@ namespace App.Web.Mvc.Controllers
         }
 
         // GET: DepartmentPostController
-        public async Task<ActionResult> Index(int departmentId)
+        public async Task<ActionResult> Index(int id)
         {
             List<DepartmentPost>? model =  await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiAddress);
 
-            List<DepartmentPost>? viewModel = model?.Where(d => d.DepartmentId == departmentId).ToList();
+            List<DepartmentPost>? viewModel = model.Where(d => d.DepartmentId == id).ToList();
 
 
-            return View(model);
+            return View(viewModel);
         }
 
         // GET: DepartmentPostController/Details/5
