@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<DepartmentPost>
 
 
-@* @await Component.InvokeAsync("DepartmentPost") *@
+@foreach(DepartmentPost item in Model.OrderBy(x=> x.Post?.CreatedAt))
+{
+    // Buraya devam edilecek...
+}
