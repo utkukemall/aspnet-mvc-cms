@@ -1,7 +1,14 @@
 ﻿@model IEnumerable<Patient>
-
+@inject IConfiguration configuration;
 @{
     ViewData["Title"] = "Patient";
+
+    string getImageUrl(string fileName)
+    {
+        var apiRootPath = configuration.GetValue<string>("Api:RootUrl");
+        return $"{apiRootPath}/api/file/get?fileName={fileName}";
+    };
+
 }
 
 
@@ -61,7 +68,8 @@
                                     @patient.Role?.RoleName
                                 </td>
                                 <td>@patient.FullName</td>
-                                <td>@patient.Image</td>
+                                <td><img src="@getImageUrl(patient.Image)" class="img-fluid" /></td>
+                                @* <td>@patient.Image</td> *@
                                 <td>@patient.Email</td>
                                 <td>@patient.Diagnosis</td>
                                 <td>@patient.City</td>

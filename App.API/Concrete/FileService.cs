@@ -5,11 +5,11 @@ namespace App.API.Concrete
     public class FileService : IFileService
     {
         // IWebHostEnvironment, projenin dosya yollarına erişim sağlar.
-        private IWebHostEnvironment environment;
+        private IWebHostEnvironment _environment;
 
         public FileService(IWebHostEnvironment environment)
         {
-            this.environment = environment;
+            _environment = environment;
         }
 
         public Tuple<int, string> SaveImage(IFormFile imageFile)
@@ -17,7 +17,7 @@ namespace App.API.Concrete
             try
             {
                 // Projenin kök dizinine erişim sağlar.
-                var contentPath = this.environment.ContentRootPath;
+                var contentPath = _environment.ContentRootPath;
 
                 // Resimleri saklamak için "Uploads" adında bir klasör yolu oluştur.
                 var path = Path.Combine(contentPath, "Uploads");
@@ -80,7 +80,7 @@ namespace App.API.Concrete
             try
             {
                 // Projenin web kök dizinine erişim sağlar.
-                var wwwPath = this.environment.WebRootPath;
+                var wwwPath = this._environment.WebRootPath;
 
                 // Silinecek dosyanın tam yolu
                 var path = Path.Combine(wwwPath, "Uploads\\", imageFileName);
