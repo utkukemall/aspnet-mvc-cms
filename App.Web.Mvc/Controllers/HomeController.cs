@@ -57,15 +57,20 @@ namespace App.Web.Mvc.Controllers
 			}
 		}
 
+		[HttpGet]
 		public async Task<JsonResult> LoadDoctor(int departmentId)
         {
-            var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
-
-            var newDoctors = doctorlist?.Where(d => d.DepartmentId == departmentId).ToList();
-
-
-            return Json(new SelectList(newDoctors, "Id", "FullName"));
-        }
+			try
+			{
+				var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
+				var newDoctors = doctorlist?.Where(d => d.DepartmentId == departmentId).ToList();
+				return Json(new SelectList(newDoctors, "Id", "FullName"));
+			}
+			catch (Exception ex)
+			{
+				return Json(new { success = false, message = ex.Message });
+			}
+		}
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
