@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using App.Data.Entity;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using System.Net.Http.Json;
 
 namespace App.Admin.Controllers
 {
@@ -12,6 +13,7 @@ namespace App.Admin.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress = "http://localhost:5005/api/Doctors";
         private readonly string _apiDepartments = "http://localhost:5005/api/Departments";
+        private readonly string _apiFiles = "http://localhost:5005/api/file";
         public DoctorsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -40,11 +42,11 @@ namespace App.Admin.Controllers
         // POST: DoctorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Doctors collection)
+        public async Task<ActionResult> Create(Doctors collection, IFormFile? Image)
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection, Image);
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
