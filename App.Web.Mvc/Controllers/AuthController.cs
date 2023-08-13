@@ -1,6 +1,8 @@
 ﻿using App.Data.Entity;
 using App.Web.Mvc.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace App.Web.Mvc.Controllers
 {
@@ -19,7 +21,7 @@ namespace App.Web.Mvc.Controllers
         {
             return View();
         }
-        [HttpPost]
+
         //public async Task<IActionResult> Register(User newUser, string password2)
         //{
         //    try
@@ -63,6 +65,8 @@ namespace App.Web.Mvc.Controllers
         //    return View(newUser);
         //}
 
+
+        [HttpPost]
         public async Task<IActionResult> Register(User newUser, string password2)
         {
             try
@@ -122,7 +126,16 @@ namespace App.Web.Mvc.Controllers
 
 
 
-        public IActionResult Login(string redirectUrl)
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction(nameof(Login), "Auth");
+        }
+
+
+
+
+        public IActionResult Login()
         {
             return View();
         }
@@ -131,11 +144,49 @@ namespace App.Web.Mvc.Controllers
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-            var user = users.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
-            if (user is not null)
-                return RedirectToAction("Index", "Home");
-            ModelState.AddModelError("", "?");
-            return View(loginModel);
+            var account = users.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
+
+            if (account == null)
+            {
+
+                ModelState.AddModelError("", "Login Failed!");
+                TempData["Message"] = "<div class='alert alert-danger'>Login Failed!</div>";
+
+                return View(loginModel);
+            }
+            else
+            {
+
+                if (account.RoleId == 3)
+                {
+                    var userAccess = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, account.Email),
+                        new Claim(ClaimTypes.Role, "Patient")
+
+                    };
+
+                    var userIdentity = new ClaimsIdentity(userAccess, "Login");
+
+
+                    ClaimsPrincipal claimsPrincipal = new(userIdentity);
+
+                    await HttpContext.SignInAsync(claimsPrincipal);
+
+                    HttpContext.Session.SetInt32("userId", account.Id);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "You have not permitted!");
+                    TempData["Message"] = "<div class='alert alert-danger'>You have not permitted!</div>";
+                    return View(loginModel);
+                }
+
+
+            }
+
         }
 
         public IActionResult ForgotPassword()

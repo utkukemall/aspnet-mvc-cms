@@ -15,7 +15,7 @@ namespace App.Web.Mvc.Controllers
         }
 
         // GET: DepartmentPostController
-        public async Task<ActionResult> Index(int id)
+        public async Task<ActionResult> Index(int id) // Bu manevra bize 51 yıla mal olacak...
         {
             List<DepartmentPost>? model =  await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiAddress);
 
