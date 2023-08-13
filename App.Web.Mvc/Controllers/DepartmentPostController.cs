@@ -22,7 +22,7 @@ namespace App.Web.Mvc.Controllers
             List<DepartmentPost>? viewModel = model?.Where(d => d.DepartmentId == departmentId).ToList();
 
 
-            return View(viewModel);
+            return View(model);
         }
 
         // GET: DepartmentPostController/Details/5
