@@ -1,4 +1,6 @@
-﻿namespace App.Data.Entity
+﻿using App.Data.Entity.BaseEntities;
+
+namespace App.Data.Entity
 {
     public abstract class BaseAuditEntity : BaseEntity, IAuditEntity
     {
