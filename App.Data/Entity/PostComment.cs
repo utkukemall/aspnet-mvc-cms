@@ -23,7 +23,7 @@ namespace App.Data.Entity
         [Column(TypeName = "text"), DataType(DataType.Text)]
         public string Comment { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
     }
 }
