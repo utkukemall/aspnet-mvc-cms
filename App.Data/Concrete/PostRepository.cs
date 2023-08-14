@@ -19,10 +19,7 @@ namespace App.Data.Concrete
                 .ToListAsync();
 
             // Her bir post için comments sayısını hesaplayıp CommentsCount özelliğini güncelliyoruz
-            foreach (var post in posts)
-            {
-                post.CommentsCount = post.Comments?.Count ?? 0;
-            }
+            
 
             return posts;
         }
@@ -35,7 +32,7 @@ namespace App.Data.Concrete
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             // Comments sayısını hesaplayıp CommentsCount özelliğini güncelliyoruz
-            post.CommentsCount = post.Comments?.Count ?? 0;
+ 
 
             return post;
         }
@@ -49,10 +46,7 @@ namespace App.Data.Concrete
                 .ToListAsync();
 
             // Her bir post için comments sayısını hesaplayıp CommentsCount özelliğini güncelliyoruz
-            foreach (var post in posts)
-            {
-                post.CommentsCount = post.Comments?.Count ?? 0;
-            }
+          
 
             return posts;
         }
