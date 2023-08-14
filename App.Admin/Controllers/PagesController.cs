@@ -21,13 +21,7 @@ namespace App.Admin.Controllers
         {
             var model = await _httpClient.GetFromJsonAsync<List<Page>>(_apiAddress);
             return View(model);
-        }
-
-        // GET: PagesController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        }       
 
         // GET: PagesController/Create
         public ActionResult Create()
@@ -52,7 +46,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error : " + e.Message);
             }
             return View(collection);
         }
@@ -76,7 +70,7 @@ namespace App.Admin.Controllers
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            return View(collection);
         }
 
         // GET: PagesController/Delete/5

@@ -1,7 +1,17 @@
 ﻿@model IEnumerable<Doctors>
-
 @{
     ViewData["Title"] = "Doctors";
+}
+@inject IConfiguration configuration;
+@{
+    ViewData["Title"] = "Patient";
+
+    string getImageUrl(string fileName)
+    {
+        var apiRootPath = configuration.GetValue<string>("Api:RootUrl");
+        return $"{apiRootPath}/api/file/get?fileName={fileName}";
+    };
+
 }
 
 <div class="container-fluid">
@@ -39,7 +49,7 @@
                     {
                         <tr>
                             <td>@doctor.Id</td>
-                            <td>@doctor.FullName</td>
+                            <td><img src="@getImageUrl(doctor.Image)" class="img-fluid" />@doctor.FullName</td>
                             <td>
                                 @if (doctor.Department != null)
                                 {

@@ -13,17 +13,17 @@ namespace App.Data.Concrete
 
         public async Task<List<DepartmentPost>> GetAllDepartmentPostByIncludeAsync()
         {
-            return await _context.DepartmentPosts.Include(d => d.Departments).Include(d => d.Post).ToListAsync();
+            return await _context.DepartmentPosts.Include(d => d.Departments).Include(d => d.Post).ThenInclude(d=> d.Comments).ThenInclude(d=> d.User).ToListAsync();
         }
 
         public async Task<DepartmentPost> GetDepartmentPostByIncludeAsync(int id)
         {
-            return await _context.DepartmentPosts.Include(d => d.Departments).Include(d => d.Post).FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.DepartmentPosts.Include(d => d.Departments).Include(d => d.Post).ThenInclude(d => d.Comments).ThenInclude(d => d.User).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<List<DepartmentPost>> GetSomeDepartmentPostByIncludeAsync(Expression<Func<DepartmentPost, bool>> expression)
         {
-            return await _context.DepartmentPosts.Where(expression).Include(d => d.Departments).Include(d => d.Post).ToListAsync();
+            return await _context.DepartmentPosts.Where(expression).Include(d => d.Departments).Include(d => d.Post).ThenInclude(d => d.Comments).ThenInclude(d => d.User).ToListAsync();
         }
     }
 }

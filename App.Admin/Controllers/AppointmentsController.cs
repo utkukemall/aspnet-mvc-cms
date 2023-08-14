@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App.Admin.Controllers
@@ -79,18 +80,29 @@ namespace App.Admin.Controllers
         // POST: AppointmentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Appointment collection)
+        public async Task<ActionResult> Edit(int id, Appointment collection, string? AppointmentTime)
         {
-            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
-
-            if (response.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                if (DateTime.TryParse(AppointmentTime, out var parsedTime))
+                {
+                    collection.AppointmentDate = collection.AppointmentDate.Date + parsedTime.TimeOfDay;
+                }
+                var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                }
+                ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
+                ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
+                ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
+                return RedirectToAction(nameof(Index));
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
-            return RedirectToAction(nameof(Index));
+            return View(collection);
         }
 
         // GET: AppointmentsController/Delete/5

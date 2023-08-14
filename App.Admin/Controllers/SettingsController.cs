@@ -50,7 +50,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error : " + e.Message);
             }
             return View(collection);
         }
@@ -72,8 +72,9 @@ namespace App.Admin.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-            }
             return RedirectToAction(nameof(Index));
+            }
+            return View(collection);
         }
 
         // GET: HomeController/Delete/5

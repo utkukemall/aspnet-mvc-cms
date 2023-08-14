@@ -28,12 +28,6 @@ namespace App.Admin.Controllers
             return View(model);
         }
 
-        // GET: UsersController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
         // GET: UsersController/Create
         public async Task<ActionResult> Create()
         {
@@ -45,45 +39,6 @@ namespace App.Admin.Controllers
         // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create(User collection)
-        //{
-        //    try
-        //    {
-        //        var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-        //        var user = users.FirstOrDefault(u => u.Email == collection.Email);
-
-        //        if (user is not null)
-        //            ModelState.AddModelError("", "This Email Has Already Been Registered!");
-
-        //        var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
-
-        //        var roleFromDatabase = roles.FirstOrDefault(r => r.Id == collection.RoleId); // newUser.RoleId Her zaman Null olduğu için roleFromDatabase de null oluyor
-
-        //        //KAAA
-
-        //        if (roleFromDatabase == null)
-        //        {
-        //            roleFromDatabase = new Role
-        //            {
-        //                RoleName = "KadirAltınay" // roleFromDatabase Null olduğu için her zaman DefaultRoleName adında yeni role ekliyor.
-        //            };
-        //        }
-
-        //        collection.Role = roleFromDatabase;
-
-        //        var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        ModelState.AddModelError("", "An error occurred while registering the user.");
-        //    }
-        //    return View(collection);
-        //}
-
         public async Task<ActionResult> Create(User collection)
         {
             try
@@ -98,7 +53,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error : " + e.Message);
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
 
@@ -124,10 +79,11 @@ namespace App.Admin.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                return RedirectToAction(nameof(Index));
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
+            return View(collection);
 
-            return RedirectToAction(nameof(Index));
         }
 
         // GET: UsersController/Delete/5

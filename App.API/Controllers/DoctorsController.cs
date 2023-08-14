@@ -1,6 +1,9 @@
-﻿using App.Data.Entity;
+﻿using App.API.Abstract;
+using App.API.Concrete;
+using App.Data.Entity;
 using App.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,11 +14,17 @@ namespace App.API.Controllers
     public class DoctorsController : ControllerBase
     {
         private readonly IDoctorsService _service;
+        private readonly IFileService _environment;
 
-        public DoctorsController(IDoctorsService service)
+        public DoctorsController(IFileService environment, IDoctorsService service)
         {
+            _environment = environment;
             _service = service;
         }
+
+        private readonly string _apiFiles = "http://localhost:5005/api/file";
+
+
 
 
 
@@ -35,10 +44,10 @@ namespace App.API.Controllers
 
         // POST api/<DoctorsController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Doctors value)
-		{
-			value.RoleId = 2;
-			await _service.AddAsync(value);
+        public async Task<ActionResult> Post([FromBody] Doctors value, IFormFile? Image)
+        {
+            value.RoleId = 2;
+            await _service.AddAsync(value);
             await _service.SaveAsync();
             return Ok(value);
         }
