@@ -25,6 +25,7 @@ namespace App.Data
             SeedDepartmentPosts(context);
             SeedAppointments(context);
             SeedContacts(context);
+            SeedSubscribber(context);
         }
 
 
@@ -436,7 +437,7 @@ namespace App.Data
 
                 Title = "Advances in the Healthcare Sector",
                 Content = "The healthcare sector is continuously evolving and advancing due to innovations in science, technology, and medicine. These advancements have led to the improvement of healthcare services and treatment methods for human health. In this article, we will discuss some significant developments and innovations in the healthcare sector: Genetic and Cellular Therapies: In recent years, there have been significant advancements in genetic and cellular therapies. Gene editing technologies offer promising results for treating genetic disorders. Additionally, stem cell therapy holds great potential in the treatment of certain diseases and enhancing injury recovery.Artificial Intelligence and Data Analytics: Artificial intelligence (AI) and data analytics have revolutionized the healthcare sector. AI algorithms are being used for early disease detection, treatment planning, and patient care. Big data analytics improves the efficiency and effectiveness of healthcare services.Digital Health and Telemedicine: Digital health technologies and telemedicine services facilitate easier patient-doctor interactions and increase access to healthcare services. Remote monitoring systems and telehealth platforms are used for managing chronic diseases and providing remote patient care.Targeted Therapies: Advancements in pharmacology enable more effective and targeted treatments for diseases. Personalized medicines are tailored to individual patients' genetic characteristics and disease profiles.Robotic Surgery: Robotic surgery enhances precision and accuracy, making surgical procedures safer and more effective. This technology plays a significant role in performing complex surgeries and minimally invasive interventions.Neuromodulation Techniques: Neuromodulation involves stimulating the nervous system electrically or chemically to treat certain medical conditions. It is considered an effective method for managing chronic pain, Parkinson's disease, and epilepsy. These are just a few examples of the developments in the healthcare sector. Research and advancements in medicine and healthcare continue to progress, and we can expect even more significant breakthroughs in the future. These advancements hold the potential to improve patients' quality of life and make healthcare services more effective and accessible",
-                CommentsCount = 10,
+               
                 // Comments = SeedCommentsForPost, // Her post için rastgele yorumlar oluşturuluyor.
                 // Gerekli diğer özellikleri de doldur.
             };
@@ -756,6 +757,23 @@ namespace App.Data
 
            
            
+
+            context.SaveChanges();
+        }
+
+        private static void SeedSubscribber(AppDbContext context)
+        {
+            Subscriber subscribber = new()
+            {
+        
+                Email = "Azrail2023@gmail.com"
+               
+
+            };
+            context.Subscribbers.Add(subscribber);
+
+
+
 
             context.SaveChanges();
         }

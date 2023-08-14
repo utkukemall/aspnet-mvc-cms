@@ -10,14 +10,18 @@ namespace App.Admin.Controllers
     public class UsersController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Users";
-        private readonly string _apiRoleAddress = "http://localhost:5005/api/Roles";
+        private readonly string _apiAddress;
+        private readonly string _apiRoleAddress;
 
 
-        public UsersController(HttpClient httpClient)
+        public UsersController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Users"];
+            _apiRoleAddress = rootUrl + configuration["Api:Roles"];
         }
+
 
         // GET: UsersController
         public async Task<ActionResult> Index()

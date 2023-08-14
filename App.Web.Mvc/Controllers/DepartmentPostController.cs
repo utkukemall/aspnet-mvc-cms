@@ -8,18 +8,21 @@ namespace App.Web.Mvc.Controllers
     public class DepartmentPostController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/DepartmentsPosts";
-        public DepartmentPostController(HttpClient httpClient)
+        private readonly string _apiAddress;
+
+        public DepartmentPostController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:DepartmentsPosts"];
         }
 
         // GET: DepartmentPostController
         public async Task<ActionResult> Index(int id) // Bu manevra bize 51 yıla mal olacak...
         {
-            List<DepartmentPost>? model =  await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiAddress);
+            var model =  await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiAddress);
 
-            List<DepartmentPost>? viewModel = model.Where(d => d.DepartmentId == id).ToList();
+            var viewModel = model?.Where(d => d.DepartmentId == id).ToList();
 
 
             return View(viewModel);

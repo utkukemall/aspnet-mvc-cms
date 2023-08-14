@@ -11,13 +11,19 @@ namespace App.Admin.Controllers
     public class DoctorsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Doctors";
-        private readonly string _apiDepartments = "http://localhost:5005/api/Departments";
-        private readonly string _apiFiles = "http://localhost:5005/api/file";
-        public DoctorsController(HttpClient httpClient)
+        private readonly string _apiAddress;
+        private readonly string _apiDepartments;
+        private readonly string _apiFiles;
+
+        public DoctorsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Doctors"];
+            _apiDepartments = rootUrl + configuration["Api:Departments"];
+            _apiFiles = rootUrl + configuration["Api:File"];
         }
+
         // GET: DoctorController
         public async Task<ActionResult> Index()
         {

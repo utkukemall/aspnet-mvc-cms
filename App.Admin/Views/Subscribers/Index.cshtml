@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Subscriber>
+
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+
+
+<div class="container-fluid">
+    <h1 class="mt-4">Contacts List</h1>
+
+    <div class="card mb-4">
+        <div class="card-body text-center bg-dark text-bg-dark">
+            <p class="fw-bold text-bg-dark"><i>You can see all Subscribbers in this area...</i></p>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Contacts DataTable
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Contact in Model)
+                    {
+                        <tr>
+                            <td>@Contact.Id</td>
+                        
+                            <td>@Contact.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

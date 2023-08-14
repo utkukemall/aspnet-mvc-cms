@@ -10,13 +10,19 @@ namespace App.Admin.Controllers
     public class PatientsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Patients";
-        private readonly string _apiRoles = "http://localhost:5005/api/Roles";
-        private readonly string _apiDoctorsRoles = "http://localhost:5005/api/Doctors";
-        public PatientsController(HttpClient httpClient)
+        private readonly string _apiAddress;
+        private readonly string _apiRoles;
+        private readonly string _apiDoctorsRoles;
+
+        public PatientsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Patients"];
+            _apiRoles = rootUrl + configuration["Api:Roles"];
+            _apiDoctorsRoles = rootUrl + configuration["Api:Doctors"];
         }
+
         // GET: PatientsController
         public async Task<ActionResult> Index()
         {
