@@ -19,6 +19,7 @@ namespace App.Data
         public DbSet<Contact> Contacts { get; set; }
 
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Subscriber> Subscribbers { get; set; }
 
         public AppDbContext()
         {
