@@ -8,14 +8,17 @@ namespace App.Web.Mvc.Controllers
     public class AppointmentsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
-        private readonly string _apiAddressDepartments = "http://localhost:5005/api/Departments";
-        private readonly string _apiAddressDoctors = "http://localhost:5005/api/Doctors";
-		
+        private readonly string _apiAddress;
+        private readonly string _apiAddressDepartments;
+        private readonly string _apiAddressDoctors;
 
-		public AppointmentsController(HttpClient httpClient)
+        public AppointmentsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Appointments"];
+            _apiAddressDepartments = rootUrl + configuration["Api:Departments"];
+            _apiAddressDoctors = rootUrl + configuration["Api:Doctors"];
         }
 
         //kaaWasHere
