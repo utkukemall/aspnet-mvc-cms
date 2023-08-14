@@ -11,11 +11,13 @@ namespace App.Admin.Controllers
     public class MainController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Users";
+        private readonly string _apiAddress;
 
-        public MainController(HttpClient httpClient)
+        public MainController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Users"];
         }
 
         public async Task<IActionResult> Index()
