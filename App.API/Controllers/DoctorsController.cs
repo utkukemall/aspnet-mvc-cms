@@ -46,10 +46,6 @@ namespace App.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Doctors value, IFormFile? Image)
         {
-            if (Image is not null)
-            {
-                value.Image = _environment.
-            }
             value.RoleId = 2;
             await _service.AddAsync(value);
             await _service.SaveAsync();

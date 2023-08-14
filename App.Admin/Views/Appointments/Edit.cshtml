@@ -19,34 +19,12 @@
                         <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
-                        <label for="DepartmentId" class="form-label">Doctor</label>
+                        <label for="DepartmentId" class="form-label">Departments</label>
                         <select id="DepartmentId" name="DepartmentId" class="form-select" asp-items="ViewBag.DepartmentId" asp-for="DepartmentId"></select>
                     </div>
                     <div class="col-md-6">
                         <label for="DoctorId" class="form-label">Doctor</label>
                         <select id="DoctorId" name="DoctorId" class="form-select" asp-items="ViewBag.DoctorId" asp-for="DoctorId"></select>
-                    </div>
-                </div>
-
-        
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="AppointmentDate" class="form-label">Appointment Date and Time</label>
-                        <input type="datetime-local" id="AppointmentDate" name="AppointmentDate" class="form-control" asp-for="AppointmentDate" />
-                        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
-                    </div>
-                    
-                </div>
-
-                <div class="mb-3">
-                    <label for="Email" class="form-label">Email</label>
-                    <input type="email" id="Email" name="Email" class="form-control" asp-for="Email" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                    <div class="mb-3">
-                        <label for="Message" class="form-label">Message</label>
-                        <textarea id="Message" name="Message" class="form-control" rows="5"></textarea>
-                        <span asp-validation-for="Message" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <label for="Phone" class="form-label">Phone</label>
@@ -54,7 +32,31 @@
                         <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>
                 </div>
-               
+
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="AppointmentDate" class="form-label">Appointment Date</label>
+                        <input type="datetime" id="AppointmentDate" name="AppointmentDate" class="form-control" asp-for="AppointmentDate" />
+                        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="AppointmentTime" class="form-label">Appointment Time</label>
+                        <input type="time" id="AppointmentTime" name="AppointmentTime" class="form-control" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" id="Email" name="Email" class="form-control" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="Message" class="form-label">Message</label>
+                    <textarea id="Message" name="Message" class="form-control" rows="5" asp-for="Message"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                     <a asp-action="Index" class="btn btn-outline-dark">Back To List</a>

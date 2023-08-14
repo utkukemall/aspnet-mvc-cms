@@ -101,8 +101,9 @@ namespace App.Admin.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-            }
             return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
 
         // GET: DepartmentsController/Delete/5

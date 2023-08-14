@@ -98,7 +98,7 @@ namespace App.Admin.Controllers
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
-            return RedirectToAction(nameof(Index));
+            return View();
         }
 
         // GET: DepartmentPostsController/Delete/5

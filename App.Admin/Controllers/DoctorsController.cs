@@ -46,7 +46,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection, Image);
+                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
@@ -56,7 +56,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error : " + e.Message);
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             return View(collection);
