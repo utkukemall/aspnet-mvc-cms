@@ -26,13 +26,7 @@ namespace App.Admin.Controllers
             return View(model);
         }
 
-        // GET: DoctorController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
-        // GET: DoctorController/Create
         public async Task<ActionResult> Create()
         {
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
@@ -80,19 +74,13 @@ namespace App.Admin.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                return RedirectToAction(nameof(Index));
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
-            return RedirectToAction(nameof(Index));
+            return View(collection);
         }
 
-        // GET: DoctorController/Delete/5
-        //public async Task<ActionResult> Remove(int? id)
-        //{
-        //    var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
-        //    return View(model);
-        //}
 
-        // POST: DoctorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Remove(int id)

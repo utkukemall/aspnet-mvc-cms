@@ -18,6 +18,7 @@ namespace App.Data.Entity
         [Display(Name = "Appointment Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        [Required(ErrorMessage = "The {0} field cannot be left blank!")]
         public DateTime AppointmentDate { get; set; }
 
         [Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.EmailAddress), EmailAddress, Column(TypeName = "varchar(200)"), MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]

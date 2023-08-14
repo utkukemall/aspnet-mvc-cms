@@ -24,12 +24,6 @@ namespace App.Admin.Controllers
             return View(model);
         }
 
-        // GET: PostsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: PostsController/Create
         public async Task<ActionResult> Create()
         {
@@ -52,7 +46,7 @@ namespace App.Admin.Controllers
             }
             catch
             {
-                ModelState.AddModelError("", "Hata Oluştu!");
+                ModelState.AddModelError("", "Error");
             }
             ViewBag.UserId = new SelectList(await _httpClient.GetFromJsonAsync<List<User>>(_apiUsers), "Id", "Email");
             return View(collection);
@@ -75,8 +69,9 @@ namespace App.Admin.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-            }
             return RedirectToAction(nameof(Index));
+            }
+            return View(collection);
         }
 
         // GET: PostsController/Delete/5

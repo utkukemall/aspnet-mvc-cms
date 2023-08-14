@@ -48,14 +48,12 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] DepartmentPost value)
         {
-            DepartmentPost mainModel = await _service.GetDepartmentPostByIncludeAsync(id);
+            var mainModel = await _service.GetDepartmentPostByIncludeAsync(id);
 
             if (mainModel != null)
             {
-                mainModel.Departments = value.Departments;
                 mainModel.DepartmentId = value.DepartmentId;
                 mainModel.PostId = value.PostId;
-                mainModel.Post = value.Post;
 
 
                 _service.Update(mainModel);
