@@ -8,12 +8,25 @@ using System.Data;
 namespace App.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    //deneme
     public class MainController : Controller
     {
-        public IActionResult Index()
+        private readonly HttpClient _httpClient;
+        private readonly string _apiAddress = "http://localhost:5005/api/Users";
+
+        public MainController(HttpClient httpClient)
         {
-            return View();
+            _httpClient = httpClient;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            int? userId = HttpContext.Session.GetInt32("userId");
+            if (userId != null)
+            {
+            var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+                return View(model);
+            }
+            return RedirectToAction("Logout", "Auth");
         }
 
         public IActionResult Privacy()
