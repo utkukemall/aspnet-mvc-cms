@@ -50,11 +50,22 @@ namespace App.Doctor.Controllers
         {
             try
             {
+                int? doctorId =  HttpContext.Session.GetInt32("userId");
+
+                if (doctorId != null)
+                {
+                    collection.DoctorId = doctorId;
+                }
+                else
+                {
+                    TempData["Message"] = "<div class='alert alert-danger'>You need to Re login First...</div>";
+                    return RedirectToAction(nameof(Index));
+                }
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index),"Main");
 
                 }
             }
