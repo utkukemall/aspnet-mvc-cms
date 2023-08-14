@@ -15,8 +15,8 @@ namespace App.Data.Entity
         [MaxLength(75), DataType(DataType.ImageUrl)]
         public string? Image { get; set; }
 
-        [DataType(DataType.Text), Column(TypeName = "nvarchar(100)"), MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
-        public string FullName { get; set; } = "Guest";
+        [Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.Text), Column(TypeName = "nvarchar(100)"), MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
+        public string FullName { get; set; } // Guest kaldırıldı patlarsa eklenecek...
 
         [Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.EmailAddress), EmailAddress, Column(TypeName = "varchar(200)"), MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
         public string Email { get; set; }
