@@ -9,18 +9,23 @@ namespace App.Web.Mvc.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
-		private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
-        private readonly string _apiAddressDepartments = "http://localhost:5005/api/Departments";
-        private readonly string _apiAddressDoctors = "http://localhost:5005/api/Doctors";
         private readonly HttpClient _httpClient;
+        private readonly string _apiAddress;
+        private readonly string _apiSettingAddress;
+        private readonly string _apiAddressDepartments;
+        private readonly string _apiAddressDoctors;
 
-		public HomeController(HttpClient httpClient)
-		{
-			_httpClient = httpClient;
-		}
+        public HomeController(HttpClient httpClient, IConfiguration configuration)
+        {
+            _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Appointments"];
+            _apiSettingAddress = rootUrl + configuration["Api:Settings"];
+            _apiAddressDepartments = rootUrl + configuration["Api:Departments"];
+            _apiAddressDoctors = rootUrl + configuration["Api:Doctors"];
+        }
 
-		public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
 		{
 			
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddressDepartments), "Id", "Name");

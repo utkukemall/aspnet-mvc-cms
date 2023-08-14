@@ -9,10 +9,12 @@ namespace App.Admin.Controllers
     public class RolesController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Roles";
-        public RolesController(HttpClient httpClient)
+        private readonly string _apiAddress;
+        public RolesController(HttpClient httpClient,IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Roles"];
         }
         // GET: RolesController
         public async Task<ActionResult> Index()

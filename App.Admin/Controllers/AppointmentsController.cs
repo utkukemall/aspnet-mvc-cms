@@ -10,17 +10,20 @@ namespace App.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AppointmentsController : Controller
     {
-
         private readonly HttpClient _httpClient;
+        private readonly string _apiAddress;
+        private readonly string _apiRoles;
+        private readonly string _apiDoctors;
+        private readonly string _apiDepartments;
 
-        private readonly string _apiAddress = "http://localhost:5005/api/Appointments";
-        private readonly string _apiRoles = "http://localhost:5005/api/Roles";
-        private readonly string _apiDoctors = "http://localhost:5005/api/Doctors";
-        private readonly string _apiDepartments = "http://localhost:5005/api/Departments";
-
-        public AppointmentsController(HttpClient httpClient)
+        public AppointmentsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Appointments"];
+            _apiRoles = rootUrl + configuration["Api:Roles"];
+            _apiDoctors = rootUrl + configuration["Api:Doctors"];
+            _apiDepartments = rootUrl + configuration["Api:Departments"];
         }
 
         // GET: AppointmentsController

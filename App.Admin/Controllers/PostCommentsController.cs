@@ -10,13 +10,19 @@ namespace App.Admin.Controllers
     public class PostCommentsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/PostComments";
-        private readonly string _apiUsers = "http://localhost:5005/api/Users";
-        private readonly string _apiPosts = "http://localhost:5005/api/Posts";
-        public PostCommentsController(HttpClient httpClient)
+        private readonly string _apiAddress;
+        private readonly string _apiUsers;
+        private readonly string _apiPosts;
+
+        public PostCommentsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:PostComments"];
+            _apiUsers = rootUrl + configuration["Api:Users"];
+            _apiPosts = rootUrl + configuration["Api:Posts"];
         }
+
         // GET: PostCommentsController
         public async Task<ActionResult> Index()
         {

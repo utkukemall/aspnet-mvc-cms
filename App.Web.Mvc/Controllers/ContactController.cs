@@ -6,13 +6,16 @@ namespace App.Web.Mvc.Controllers
 {
     public class ContactController : Controller
     {
-        private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
-        private readonly string _apiAddress = "http://localhost:5005/api/Contacts";
         private readonly HttpClient _httpClient;
+        private readonly string _apiSettingAddress;
+        private readonly string _apiAddress;
 
-        public ContactController(HttpClient httpClient)
+        public ContactController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiSettingAddress = rootUrl + configuration["Api:Settings"];
+            _apiAddress = rootUrl + configuration["Api:Contacts"];
         }
 
         public async Task<IActionResult> Index()

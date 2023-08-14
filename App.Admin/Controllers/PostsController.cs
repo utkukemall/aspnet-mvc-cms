@@ -11,12 +11,17 @@ namespace App.Admin.Controllers
     public class PostsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Posts";
-        private readonly string _apiUsers = "http://localhost:5005/api/Users";
-        public PostsController(HttpClient httpClient)
+        private readonly string _apiAddress;
+        private readonly string _apiUsers;
+
+        public PostsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Posts"];
+            _apiUsers = rootUrl + configuration["Api:Users"];
         }
+
         // GET: PostsController
         public async Task<ActionResult> Index()
         {
