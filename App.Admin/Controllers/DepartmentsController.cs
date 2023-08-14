@@ -10,15 +10,14 @@ namespace App.Admin.Controllers
     public class DepartmentsController : Controller
     {
         private readonly HttpClient _httpClient;
+        private readonly string _apiAddress;
 
-        public DepartmentsController(HttpClient httpClient)
+        public DepartmentsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Departments"];
         }
-
-        private readonly string _apiAddress = "http://localhost:5005/api/Departments";
-
-
 
         // GET: DepartmentsController
         public async Task<ActionResult> Index()

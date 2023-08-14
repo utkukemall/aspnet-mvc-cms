@@ -9,13 +9,17 @@ namespace App.Admin.Controllers
     public class DepartmentPostsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress;// = "http://localhost:5005/api/DepartmentsPosts";
-        private readonly string _apiDepartments = "http://localhost:5005/api/Departments";
-        private readonly string _apiPosts = "http://localhost:5005/api/Posts";
+        private readonly string _apiAddress;
+        private readonly string _apiDepartments;
+        private readonly string _apiPosts;
+
         public DepartmentPostsController(HttpClient httpClient, IConfiguration configuration)
         {
-            _apiAddress = configuration.GetValue<string>("Api:Department:Posts");
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:DepartmentsPosts"];
+            _apiDepartments = rootUrl + configuration["Api:Departments"];
+            _apiPosts = rootUrl + configuration["Api:Posts"];
         }
 
         // GET: DepartmentPostsController

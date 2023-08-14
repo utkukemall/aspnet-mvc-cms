@@ -9,10 +9,12 @@ namespace App.Admin.Controllers
     public class SettingsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAddress = "http://localhost:5005/api/Settings";
-        public SettingsController(HttpClient httpClient)
+        private readonly string _apiAddress;
+        public SettingsController(HttpClient httpClient,IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Settings"];
         }
         // GET: HomeController
         public async Task<ActionResult> Index()

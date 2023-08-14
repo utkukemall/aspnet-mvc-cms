@@ -9,14 +9,14 @@ namespace App.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ContactsController : Controller
     {
-
         private readonly HttpClient _httpClient;
+        private readonly string _apiAddress;
 
-        private readonly string _apiAddress = "http://localhost:5005/api/Contacts";
-
-        public ContactsController(HttpClient httpClient)
+        public ContactsController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = configuration["Api:RootUrl"];
+            _apiAddress = rootUrl + configuration["Api:Contacts"];
         }
 
         // GET: ContactsController

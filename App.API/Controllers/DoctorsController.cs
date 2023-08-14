@@ -14,19 +14,11 @@ namespace App.API.Controllers
     public class DoctorsController : ControllerBase
     {
         private readonly IDoctorsService _service;
-        private readonly IFileService _environment;
 
-        public DoctorsController(IFileService environment, IDoctorsService service)
+        public DoctorsController(IDoctorsService service)
         {
-            _environment = environment;
             _service = service;
         }
-
-        private readonly string _apiFiles = "http://localhost:5005/api/file";
-
-
-
-
 
         // GET: api/<DoctorsController>
         [HttpGet]
@@ -44,7 +36,7 @@ namespace App.API.Controllers
 
         // POST api/<DoctorsController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Doctors value, IFormFile? Image)
+        public async Task<ActionResult> Post([FromBody] Doctors value)
         {
             value.RoleId = 2;
             await _service.AddAsync(value);
