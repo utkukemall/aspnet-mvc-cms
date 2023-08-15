@@ -437,12 +437,73 @@ namespace App.Data
 
                 Title = "Advances in the Healthcare Sector",
                 Content = "The healthcare sector is continuously evolving and advancing due to innovations in science, technology, and medicine. These advancements have led to the improvement of healthcare services and treatment methods for human health. In this article, we will discuss some significant developments and innovations in the healthcare sector: Genetic and Cellular Therapies: In recent years, there have been significant advancements in genetic and cellular therapies. Gene editing technologies offer promising results for treating genetic disorders. Additionally, stem cell therapy holds great potential in the treatment of certain diseases and enhancing injury recovery.Artificial Intelligence and Data Analytics: Artificial intelligence (AI) and data analytics have revolutionized the healthcare sector. AI algorithms are being used for early disease detection, treatment planning, and patient care. Big data analytics improves the efficiency and effectiveness of healthcare services.Digital Health and Telemedicine: Digital health technologies and telemedicine services facilitate easier patient-doctor interactions and increase access to healthcare services. Remote monitoring systems and telehealth platforms are used for managing chronic diseases and providing remote patient care.Targeted Therapies: Advancements in pharmacology enable more effective and targeted treatments for diseases. Personalized medicines are tailored to individual patients' genetic characteristics and disease profiles.Robotic Surgery: Robotic surgery enhances precision and accuracy, making surgical procedures safer and more effective. This technology plays a significant role in performing complex surgeries and minimally invasive interventions.Neuromodulation Techniques: Neuromodulation involves stimulating the nervous system electrically or chemically to treat certain medical conditions. It is considered an effective method for managing chronic pain, Parkinson's disease, and epilepsy. These are just a few examples of the developments in the healthcare sector. Research and advancements in medicine and healthcare continue to progress, and we can expect even more significant breakthroughs in the future. These advancements hold the potential to improve patients' quality of life and make healthcare services more effective and accessible",
-               
                 // Comments = SeedCommentsForPost, // Her post için rastgele yorumlar oluşturuluyor.
                 // Gerekli diğer özellikleri de doldur.
             };
+            var post2 = new Post
+            {
+                Title = "Revolutionizing Healthcare: Unveiling the Latest Advances",
+                Content = "The healthcare landscape is undergoing a remarkable transformation, driven by the relentless march of scientific discovery, technological prowess, and medical ingenuity. These dynamic advancements are redefining the way we approach healthcare, leading to enhanced services and novel treatment modalities that cater to the ever-evolving needs of humanity. In the pages that follow, we embark on a journey through some of the most noteworthy breakthroughs and innovations that are propelling the healthcare sector into an exhilarating future.",
+            };
+            
+            var post3 = new Post
+            {
+                Title = "Genetic and Cellular Marvels: A Glimpse into Tomorrow",
+                Content = "In recent times, the arena of genetic and cellular therapies has witnessed an extraordinary metamorphosis. The advent of gene-editing technologies has bestowed us with the potential to rectify genetic anomalies, holding the promise of curing diseases once deemed insurmountable. Simultaneously, the realm of stem cell therapy stands as a beacon of hope, showing us a path towards addressing afflictions previously deemed incurable and expediting the recovery from injuries that once posed lasting debilitation.",
+            };
+            var post4 = new Post
+            {
+                Title = "Cognitive Frontiers: AI and Data Unleashed",
+                Content = "The advent of artificial intelligence (AI) and the formidable power of data analytics have sparked a revolution that reverberates throughout the healthcare domain. Harnessing the might of AI algorithms, we now stand at the precipice of early disease detection, tailored treatment strategies, and an elevated standard of patient care. The seamless integration of vast datasets has led to a profound metamorphosis, optimizing the efficiency and efficacy of healthcare services like never before.",
+            };
+            var post5 = new Post
+            {
+                Title = "Virtual Horizons: Exploring Digital Health and Telemedicine",
+                Content = "In an age defined by interconnectedness, digital health technologies and the marvel of telemedicine have emerged as transformative game-changers. The once-daunting divide between patients and physicians has been bridged, as digital platforms enable seamless interactions, democratizing access to healthcare services. Remote patient monitoring systems, in synergy with telehealth platforms, herald a new era in the management of chronic ailments and the delivery of compassionate, remote care.",
+            };
+            var post6 = new Post
+            {
+                Title = "Bull's Eye Medicine: Precision in Every Dose",
+                Content = "Advancements in the realm of pharmacology have ushered in an era of precision-targeted therapies, a monumental shift that transcends the conventional treatment paradigms. The dawn of personalized medicine, tailored to individual genetic idiosyncrasies and distinct disease blueprints, is upon us. This tailored approach not only augments the effectiveness of treatments but also enhances patient outcomes in ways previously deemed unattainable.",
+            };
+            var post7 = new Post
+            {
+                Title = "Surgical Symphony: The Rise of Robotic Virtuosos",
+                Content = "The operating theater, once solely the realm of human hands, is now adorned with the grace of robotic precision. Robotic surgery has elevated the standards of accuracy and safety to unprecedented heights, particularly in complex procedures and minimally invasive interventions. With each controlled movement, these technological virtuosos redefine the boundaries of surgical excellence.",
+            };
+            var post8 = new Post
+            {
+                Title = "Neurological Wonders: Unveiling Neuromodulation's Potential",
+                Content = "In the arena of medical interventions, neuromodulation stands as a vanguard, unlocking new avenues of hope for individuals grappling with chronic afflictions. By delicately stimulating the nervous system through electrical or chemical means, we're unraveling innovative solutions for chronic pain, Parkinson's disease, epilepsy, and beyond. This technique marks a testament to human innovation's ability to conquer the most intricate challenges posed by the human body.",
+            };
+            var post9 = new Post
+            {
+                Title = "A Glimpse into the Future: Pioneering the Path Aheadn",
+                Content = "As we traverse the ever-unfolding landscape of medical marvels, it is clear that the journey has only just begun. The relentless pursuit of knowledge and the audacity to push boundaries continue to propel medicine forward. With each passing day, we edge closer to a future where patient well-being is augmented, healthcare becomes even more accessible, and the very fabric of human existence is interwoven with the tapestry of groundbreaking innovation." +
+                "In retrospect, these advances in the healthcare sector serve as a poignant reminder that the boundaries of human achievement are but temporary markers in an ever-expansive voyage towards progress. And as we inch towards a horizon teeming with potential, we do so with a shared anticipation for the untold wonders that lie ahead.",
+            };
+            var post10 = new Post
+            {
+                Title = "Elixir of Genetics: Unveiling a New Era",
+                Content = "The symphony of progress in the realm of genetics and cellular therapies is reaching a crescendo, offering us a glimpse into a future where the manipulation of genes holds the key to treating ailments once deemed unconquerable. The emergence of gene-editing technologies casts a radiant light on the possibility of rewriting the very code of life, a prospect that holds immense potential for eradicating hereditary disorders. Concurrently, the allure of stem cell therapy dances before us, promising novel avenues for disease management and swifter convalescence from injuries.",
+            };
+            var post11 = new Post
+            {
+                Title = "AI's Healing Touch: Crafting a Healthier Tomorrow",
+                Content = "In the annals of healthcare history, the chapter on artificial intelligence (AI) and data analytics gleams with transformative promise. With algorithms as our guide, we traverse uncharted territories, detecting diseases at their inception, devising treatment blueprints with surgical precision, and orchestrating a symphony of patient care that resonates with empathy. The marriage of colossal data streams with the prowess of AI bestows upon us a treasure trove of insights, optimizing the efficacy and efficiency of healthcare services in a manner previously deemed unattainable.",
+            };
 
             context.Posts.Add(post);
+            context.Posts.Add(post2);
+            context.Posts.Add(post3);
+            context.Posts.Add(post4);
+            context.Posts.Add(post5);
+            context.Posts.Add(post6);
+            context.Posts.Add(post7);
+            context.Posts.Add(post8);
+            context.Posts.Add(post9);
+            context.Posts.Add(post10);
+            context.Posts.Add(post11);
             context.SaveChanges();
         }
 
