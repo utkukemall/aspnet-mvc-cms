@@ -26,23 +26,41 @@
             return false;
         }
 
-        public static async Task<string> FileLoaderAsync(IFormFile ImageUrl, string filePath = "/wwwroot/Images/")
+        public static async Task<string> FileLoaderAsync(IFormFile Image, string filePath = "/wwwroot/Images/")
         {
-            if (ImageUrl == null || ImageUrl.Length <= 0)
+            if (Image == null || Image.Length <= 0)
                 return null;
 
-            string extension = Path.GetExtension(ImageUrl.FileName);
+            string extension = Path.GetExtension(Image.FileName);
             string fileName = Guid.NewGuid().ToString() + extension;
             string directory = Directory.GetCurrentDirectory() + filePath;
             string fullPath = Path.Combine(directory, fileName);
 
             using (var stream = new FileStream(fullPath, FileMode.Create))
             {
-                await ImageUrl.CopyToAsync(stream);
+                await Image.CopyToAsync(stream);
             }
 
-            return $"/images/{fileName}";
+            return $"/Images/{fileName}";
         }
+
+        public static async Task<string> FileLoaderAPI(IFormFile Image, string targetFolderPath)
+        {
+            if (Image == null || Image.Length <= 0)
+                return null;
+
+            string extension = Path.GetExtension(Image.FileName);
+            string fileName = Guid.NewGuid().ToString() + extension;
+            string fullPath = Path.Combine(targetFolderPath, fileName);
+
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                await Image.CopyToAsync(stream);
+            }
+
+            return $"/Images/{fileName}";
+        }
+
 
     }
 

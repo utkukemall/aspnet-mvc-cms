@@ -3,35 +3,32 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Web.Mvc.Controllers
 {
-	public class DoctorController : Controller
-	{
+    public class DoctorController : Controller
+    {
+        private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
+        private readonly string _apiDoctorAddress = "http://localhost:5005/api/Doctors";
         private readonly HttpClient _httpClient;
-        private readonly string _apiSettingAddress;
-        private readonly string _apiAddress;
 
-        public DoctorController(HttpClient httpClient, IConfiguration configuration)
+        public DoctorController(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            var rootUrl = configuration["Api:RootUrl"];
-            _apiSettingAddress = rootUrl + configuration["Api:Settings"];
-            _apiAddress = rootUrl + configuration["Api:Doctors"];
         }
 
         public async Task<IActionResult> Index()
-		{
-			var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
-			var model = settings?.FirstOrDefault(s => s.IsActive);
+        {
+            var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
+            ViewBag.Doctors = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorAddress);
+            var model = settings?.FirstOrDefault(s => s.IsActive);
 
-			return View(model);
-		}
+            return View(model);
+        }
 
         public async Task<IActionResult> Detail(int id)
         {
-            //var model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress + "/" + id);
-            List<Doctors> model = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddress);
+            var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
+            var model = settings?.FirstOrDefault(s => s.IsActive);
 
-            Doctors viewModel = model?.Where(d => d.Id == id).FirstOrDefault();
-            return View(viewModel);
+            return View(model);
         }
     }
 }
