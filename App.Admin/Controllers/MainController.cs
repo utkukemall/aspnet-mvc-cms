@@ -4,6 +4,7 @@ using App.Data.Entity;
 using App.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Admin.Controllers
 {
@@ -49,6 +50,8 @@ namespace App.Admin.Controllers
                 int? patientCount = userslist?.Where(d => d.RoleId == 3).Count();
                 int? userCount = userslist?.Where(d => d.RoleId == 4).Count();
 
+                var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+
                 // Fetch appointment count
                 var appointmentsList = await _httpClient.GetFromJsonAsync<List<Appointment>>(_apiAppointments);
                 int? appointmentCount = appointmentsList?.Count;
@@ -88,6 +91,11 @@ namespace App.Admin.Controllers
                 // Pass the counts to the view
                 var viewModel = new DashboardViewModel
                 {
+                    FullName = model.FullName,
+                    Email = model.Email,
+                    City = model.City,
+                    Phone = model.Phone,
+
                     DoctorCount = doctorCount,
                     PatientCount = patientCount,
                     UserCount = userCount,

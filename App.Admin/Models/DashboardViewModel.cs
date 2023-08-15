@@ -2,6 +2,10 @@
 {
     internal class DashboardViewModel
     {
+        public string? FullName { get; set; }
+        public string? Email { get; set; }
+        public string? City { get; set; }
+        public string? Phone { get; set; }
         public int? DoctorCount { get; set; }
         public int? PatientCount { get; set; }
         public int? UserCount { get; set; }
