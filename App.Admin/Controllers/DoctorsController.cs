@@ -63,6 +63,8 @@ namespace App.Admin.Controllers
 
                     string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
 
+                    string adminImagePath = await FileHelper.FileLoaderAsync(Image);
+
                     string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath);
 
                     collection.Image = imagePath;
