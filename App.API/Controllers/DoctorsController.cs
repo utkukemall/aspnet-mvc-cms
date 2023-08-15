@@ -1,9 +1,6 @@
-﻿using App.API.Abstract;
-using App.API.Concrete;
-using App.Data.Entity;
+﻿using App.Data.Entity;
 using App.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,6 +16,8 @@ namespace App.API.Controllers
         {
             _service = service;
         }
+
+
 
         // GET: api/<DoctorsController>
         [HttpGet]
@@ -60,6 +59,16 @@ namespace App.API.Controllers
                 doctor.Password = value.Password;
                 doctor.City = value.City;
                 doctor.UpdatedAt = DateTime.UtcNow;
+
+                //doctor.DepartmentId = value.DepartmentId;
+                //doctor.Department = value.Department;
+                //doctor.Patients = value.Patients;
+                //doctor.City = value.City;
+                //doctor.UpdatedAt = DateTime.UtcNow;
+                //doctor.Image=value.Image;
+                //doctor.ImageId = value.ImageId;
+                //doctor.Role = value.Role;
+                //doctor.RoleId = value.RoleId;
                 _service.Update(doctor);
                 var response = await _service.SaveAsync();
 
