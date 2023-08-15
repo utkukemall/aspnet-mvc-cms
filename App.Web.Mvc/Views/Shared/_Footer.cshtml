@@ -1,4 +1,5 @@
-﻿@inject HttpClient _httpClient;
+﻿
+@inject HttpClient _httpClient;
 @{
 	string _apiAddress = "http://localhost:5005/api/Settings";
 	var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
@@ -98,10 +99,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="subscribe-form text-lg-right mt-5 mt-lg-0">
-						<form action="#" class="subscribe">
-							<input type="text" class="form-control" placeholder="Your Email address" required="">
-							<button type="submit" class="btn btn-main-2 btn-round-full">Subscribe</button>
-						</form>
+						<partial name="_Create" />
 					</div>
 				</div>
 			</div>

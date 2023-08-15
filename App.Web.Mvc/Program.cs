@@ -12,12 +12,12 @@ builder.Services.AddHttpClient();
 
 //builder.Services.AddSession();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//{
+//    string? connStr = builder.Configuration.GetConnectionString("DBConStr"); // Builder konfigürasyonu içerisinde "DBConStr" appsettings.json deðerini oku.
 
-    options.UseSqlServer(connStr);
-});
+//    options.UseSqlServer(connStr);
+//});
 
 //builder.Services.AddScoped<ICategoryService, CategoryService>();
 
@@ -58,18 +58,18 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); // Uygulama ayaða kalktýðýnda, belirtilen Database'i getir.
 
-    var db = dbContext.Database;
+//    var db = dbContext.Database;
 
-    if (!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
-    {
-        await db.EnsureCreatedAsync();
+//    if (!await db.CanConnectAsync()) // Eðer ilgili database'yi bulamýyorsan 
+//    {
+//        await db.EnsureCreatedAsync();
 
-    }
-}
+//    }
+//}
 
 
 app.Run();
