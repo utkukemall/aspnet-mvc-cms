@@ -5,13 +5,15 @@ namespace App.Web.Mvc.Controllers
 {
     public class DoctorController : Controller
     {
-        private readonly string _apiSettingAddress = "http://localhost:5005/api/Settings";
-        private readonly string _apiDoctorAddress = "http://localhost:5005/api/Doctors";
+        private readonly string _apiSettingAddress;
+        private readonly string _apiDoctorAddress;
         private readonly HttpClient _httpClient;
 
-        public DoctorController(HttpClient httpClient)
+        public DoctorController(HttpClient httpClient, IConfiguration _configuration)
         {
             _httpClient = httpClient;
+            var rootUrl = _configuration["Api:RootUrl"];
+            _apiDoctorAddress = rootUrl + _configuration["Api:Doctors"];
         }
 
         public async Task<IActionResult> Index()
@@ -25,10 +27,11 @@ namespace App.Web.Mvc.Controllers
 
         public async Task<IActionResult> Detail(int id)
         {
-            var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
-            var model = settings?.FirstOrDefault(s => s.IsActive);
+            List<Doctors> model = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorAddress);
 
-            return View(model);
+            Doctors viewModel = model?.Where(d => d.Id == id).FirstOrDefault();
+
+            return View(viewModel);
         }
     }
 }
