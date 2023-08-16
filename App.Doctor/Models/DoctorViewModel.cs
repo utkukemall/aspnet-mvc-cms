@@ -8,7 +8,7 @@
         public string Role { get; set; }
         public int PatientCount { get; set; }
         public int AppointmentCount { get; set; }
-        public int DischargedPatientsPage { get; set; }
+        public int DischargedPatientCount { get; set; }
 
     }
 }
