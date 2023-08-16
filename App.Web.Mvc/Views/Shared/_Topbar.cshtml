@@ -1,6 +1,7 @@
 ﻿@inject HttpClient _httpClient;
+@inject IConfiguration configuration
 @{
-	string _apiAddress = "http://localhost:5005/api/Settings";
+	string _apiAddress = configuration.GetValue<string>("Api:RootUrl") + configuration.GetValue<string>("Api:Settings");
 	var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
 
 	var setting = settings?.FirstOrDefault(s => s.IsActive);

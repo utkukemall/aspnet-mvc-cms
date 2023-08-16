@@ -1,6 +1,8 @@
 ﻿@model Appointment
-
-@* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+@inject IConfiguration configuration
+@{
+    string? _apiAddress = configuration.GetValue<string>("Api:AppointmentsLoadDoctor");
+}
 
 <section class="appoinment section">
     <div class="container">
@@ -86,7 +88,7 @@
                                     $("#doctorList").empty();
                                     $.ajax({
                                         type: 'GET',
-                                        url: 'http://localhost:5280/Appointments/LoadDoctor',
+                                        url: '@_apiAddress',
 
 
                                         dataType: 'Json',
