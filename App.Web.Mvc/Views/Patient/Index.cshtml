@@ -1,0 +1,54 @@
+﻿@model Patient
+
+<style>
+    /* Genel renk tanımlamaları */
+    .color-blue {
+        color: #003366; /* Koyu buz mavisi */
+    }
+
+    .color-green {
+        color: #006400; /* Koyu yeşil */
+    }
+
+    .color-red {
+        color: #FF0000; /* Koyu kırmızı */
+    }
+
+    .emergency-phone {
+        background-color: #FF0000; /* Koyu kırmızı */
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .highlight {
+        background-color: #f2f2f2;
+        padding: 15px;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="container highlight">
+    <div class="row">
+        <div class="col-3">
+            <img src="@Model.Image" class="img-fluid rounded-2 shadow-lg border border-1 border-dark" style="max-height:75px;max-width:75px" title="@Model.FullName" alt="" />
+            <h2 class="fst-italic fw-bolder color-blue">@Model.FullName</h2>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col">
+                    <h3 class="fw-bold color-green">Diagnosis</h3>
+                    <p class="fst-italic color-blue">@Model.Diagnosis</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <img src="@Model.Doctor.Image" class="img-fluid rounded-2 shadow-lg border border-1 border-dark" style="max-height:75px;max-width:75px" title="@Model.Doctor.FullName" alt="" />
+            <h2 class="fst-italic fw-bolder color-green">@Model.Doctor.FullName</h2>
+            <div class="emergency-phone">@Model.Doctor.Phone</div>
+        </div>
+    </div>
+</div>
