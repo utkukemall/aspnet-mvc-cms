@@ -1,10 +1,11 @@
 ﻿@inject HttpClient _httpClient;
+@inject IConfiguration configuration
 @{
-    string _apiAddress = "http://localhost:5005/api/Settings";
-    var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddress);
-
-    var setting = settings?.FirstOrDefault(s => s.IsActive);
+    string _apiAddress = configuration.GetValue<string>("Api:RootUrl") + configuration.GetValue<string>("Api:Doctors");
+    int? userId2 = Context.Session.GetInt32("userId");
+    var settings = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId2);
 }
+
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
@@ -61,8 +62,8 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-@*                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Logged as: @Model.FullName</span>
-                <img src="@Model.Image" class="img-profile rounded-circle" /> *@
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Logged as: @settings.FullName</span>
+                <img src="@settings.Image" class="img-profile rounded-circle" /> 
 
             </a>
             <!-- Dropdown - User Information -->

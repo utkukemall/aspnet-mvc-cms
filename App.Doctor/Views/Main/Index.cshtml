@@ -1,4 +1,4 @@
-﻿@model User
+﻿@model DoctorViewModel
 
 <div class="row">
     <div class="col-md-6">
@@ -65,7 +65,7 @@
                         <div class="text-xs font-weight-bold text-uppercase mb-1">
                             Role
                         </div>
-                        <div class="h5 mb-0 font-weight-bold">@Model.Role?.RoleName</div>
+                        <div class="h5 mb-0 font-weight-bold">@Model.Role</div>
                     </div>
                     <div class="col-4 text-right">
                         <i class="fas fa-user-shield fa-2x"></i>
@@ -79,14 +79,14 @@
 <div class="row mt-4">
     <div class="col-md-4">
         <a asp-controller="Patients" class="btn btn-primary btn-block">Go to Patients Page</a>
-        <p class="mt-2">Currently, there are 15 patients.</p>
+        <p class="mt-2">Currently, there are @Model.PatientCount patients.</p>
     </div>
     <div class="col-md-4">
         <a asp-controller="Appointments" class="btn btn-success btn-block">Go to Appointments Page</a>
-        <p class="mt-2">You have upcoming appointments.</p>
+        <p class="mt-2">You have @Model.AppointmentCount appointments.</p>
     </div>
     <div class="col-md-4">
         <a asp-controller="DischargedPatients" class="btn btn-info btn-block">Go to Discharged Patients Page</a>
-        <p class="mt-2">View previously discharged patients.</p>
+        <p class="mt-2">View previously discharged patients.(@Model.DischargedPatientCount)</p>
     </div>
 </div>
