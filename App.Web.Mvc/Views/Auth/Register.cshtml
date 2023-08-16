@@ -20,7 +20,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
                                 </div>
-                                <form asp-action="Register" asp-controller="auth" method="post" enctype="multipart/form-data">
+                                <form asp-action="Register" asp-controller="Auth" method="post" enctype="multipart/form-data">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                     <div class="mb-3">
@@ -62,15 +62,15 @@
 
                                     <div class="d-grid gap-2">
                                         <button type="submit" class="btn btn-primary">Create Account</button>
-                                        <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
+                                     
                                     </div>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" asp-action="ForgotPassword">Forgot Password?</a>
+                                    <a class="small" asp-controller="Auth" asp-action="ForgotPassword">Forgot Password?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" asp-action="Register">Create an Account!</a>
+                                    <a class="small" asp-controller="Auth" asp-action="Login">You Have Already An Account? Login</a>
                                 </div>
                             </div>
                         </div>
