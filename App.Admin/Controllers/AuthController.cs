@@ -12,13 +12,14 @@ namespace App.Admin.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
         private readonly string _apiRoleAddress;
-
-        public AuthController(HttpClient httpClient, IConfiguration configuration)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public AuthController(HttpClient httpClient, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Users"];
             _apiRoleAddress = rootUrl + configuration["Api:Roles"];
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Logout()
@@ -106,6 +107,24 @@ namespace App.Admin.Controllers
                 if (Image is not null)
                 {
                     user.Image = await FileHelper.FileLoaderAsync(Image);
+                    string currentDirectory = Directory.GetCurrentDirectory();
+                    string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                    string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                    string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                    string DoctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
+                    string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
+                    string DoctorTargetFilePath = Path.Combine(DoctorFolderPath, Path.GetFileName(adminFullPath));
+
+                    string adminImagePath = await FileHelper.FileLoaderAsync(Image);
+                    int startIndex = adminImagePath.LastIndexOf('/') + 1;
+                    string imageTitle = adminImagePath.Substring(startIndex);
+                    string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                    string doctorimagePath = await FileHelper.FileLoaderDoctor(Image, DoctorFolderPath, imageTitle);
+                    user.Image = imagePath;
+                    if (!Directory.Exists(uiTargetFilePath))
+                    {
+                        Directory.CreateDirectory(uiTargetFilePath);
+                    }
                 }
 
                 var userId = HttpContext.Session.GetInt32("userId");
