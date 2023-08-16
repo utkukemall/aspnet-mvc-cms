@@ -37,6 +37,7 @@ namespace App.Data
             var department = new Department
             {
                 Name = $"Opthomology",
+                Image = "/Images/Opthomology.jpg",
                 Description = $"Ophthalmology, the branch of medicine that focuses on the study and treatment of disorders and diseases related to the eyes and visual system. Ophthalmologists are specialized medical professionals who diagnose and manage various eye conditions, ranging from refractive errors like nearsightedness and farsightedness to more complex issues such as cataracts, glaucoma, and retinal disorders. They use advanced diagnostic tools and surgical techniques to provide patients with the best possible care for their vision and overall eye health. Regular eye check-ups with ophthalmologists are crucial for early detection and timely treatment of eye problems, helping individuals maintain clear vision and prevent potential sight-threatening conditions.",
                 // Gerekli diğer özellikler doldur.
             };
@@ -44,6 +45,7 @@ namespace App.Data
             var department2 = new Department
             {
                 Name = $"Cardiology",
+                Image = "/Images/Cardiology.jpg",
                 Description = $"Cardiology is the medical specialty that deals with the diagnosis, treatment, and prevention of diseases and conditions related to the heart and the cardiovascular system. Cardiologists are highly trained medical professionals who focus on understanding the intricacies of heart function and its interaction with blood vessels.They use various diagnostic techniques, such as electrocardiograms (ECGs), echocardiograms, and stress tests, to assess heart health and identify potential issues. Cardiologists also manage a wide range of heart conditions, including coronary artery disease, heart failure, arrhythmias, and congenital heart defects.Treatment approaches in cardiology may include lifestyle changes, medications, minimally invasive procedures, and, in some cases, complex surgeries.",
                 // Gerekli diğer özellikler doldur.
             };
@@ -51,6 +53,7 @@ namespace App.Data
             var department3 = new Department
             {
                 Name = $"Dental Care",
+                Image = "/Images/DentalCare.jpg",
                 Description = $"Dental care involves the maintenance of oral hygiene and the prevention and treatment of dental diseases. It is a crucial aspect of overall health and well-being. Dental care encompasses various practices, such as regular dental check-ups, daily brushing, flossing, and proper nutrition to maintain healthy teeth and gums.Dentists and dental hygienists play a vital role in providing dental care services. During routine check-ups, they examine teeth and gums, clean teeth professionally, and identify any potential dental issues like cavities, gum disease, or oral infections..",
                 // Gerekli diğer özellikler doldur.
             };
@@ -58,13 +61,15 @@ namespace App.Data
             var department4 = new Department
             {
                 Name = $"Child Care",
+                Image = "/Images/ChildCare.jpg",
                 Description = $"Child care refers to the supervision and nurturing of children in their early years by caregivers, parents, or professionals. It is a crucial aspect of a child's development, ensuring their safety, well-being, and overall growth.Child care can take various forms, such as home-based care, where parents or family members look after the child, or center-based care, which includes daycare centers, nurseries, and preschools.h",
                 // Gerekli diğer özellikler doldur.
             };
 
             var department5 = new Department
             {
-                Name = $"Pulmology",
+                Name = $"Pulmonology",
+                Image = "/Images/Pulmology.jpg",
                 Description = $"Pulmonology is the medical specialty that focuses on the study and treatment of diseases and disorders related to the respiratory system. Pulmonologists are specialized physicians who diagnose and manage various respiratory conditions, including but not limited to asthma, chronic obstructive pulmonary disease (COPD), pneumonia, lung cancer, and interstitial lung diseases.They use advanced diagnostic tools such as pulmonary function tests, chest X-rays, CT scans, and bronchoscopy to assess lung health and identify specific respiratory issues..",
                 // Gerekli diğer özellikler doldur.
             };
@@ -72,6 +77,7 @@ namespace App.Data
             var department6 = new Department
             {
                 Name = $"Gynecology",
+                Image = "/Images/Gynecology.jpg",
                 Description = $"Gynecology is the medical specialty that deals with the health and well-being of the female reproductive system. Gynecologists are specialized physicians who focus on diagnosing and treating a wide range of conditions related to the female reproductive organs, including the uterus, ovaries, fallopian tubes, and breasts.These medical professionals provide essential services for women of all ages, from adolescence through menopause and beyond.",
                 // Gerekli diğer özellikler doldur.
             };
@@ -79,6 +85,7 @@ namespace App.Data
             var department7 = new Department
             {
                 Name = $"Allergy And Immunology",
+                Image = "/Images/AllergyAndImmunology.jpg",
                 Description = $"Allergies including asthma are among the most common health problems. Immuno-deficiencies are rarer but can be chronic and debilitating if not diagnosed and treated properly. If you or your child have an allergic disease or a defect in the immune system, our Allergy and Immunology Division provides optimal and tailored care for children and adults with a wide range of allergic and immunologic conditions",
                 // Gerekli diğer özellikler doldur.
             };
@@ -86,6 +93,7 @@ namespace App.Data
             var department8 = new Department
             {
                 Name = $"Anesthesiology",
+                Image = "/Images/Anesthesiology.jpg",
                 Description = $"The word anesthesia means ‘loss of sensation’. It can involve a simple local anesthetic injection which numbs a small part of the body, such as a finger or around a tooth. It can also involve using powerful drugs which cause unconsciousness. ",
                 // Gerekli diğer özellikler doldur.
             };
@@ -93,6 +101,7 @@ namespace App.Data
             var department9 = new Department
             {
                 Name = $"Aviation Medical Services",
+                Image = "/Images/AviationMedicalServices.jpg",
                 Description = $"American Hospital Dubai provides exceptional Aviation Medical Services in Dubai with Specialist Aeromedical examiners. Our expert team of highly experienced Specialist AMEs is certified and approved to conduct special aviation medical examinations for all aviation professionals, including air traffic controllers, commercial pilots, private pilots, and the entire cabin crew. .",
                 // Gerekli diğer özellikler doldur.
             };
@@ -100,6 +109,7 @@ namespace App.Data
             var department10 = new Department
             {
                 Name = $"General Surgery",
+                Image = "/Images/GeneralSurgery.jpg",
                 Description = $"At American Hospital Dubai’s General Surgery Department, our main aim is to deliver all-inclusive surgical healthcare at the highest international standards. We are the first choice general surgery hospital in Dubai for a number of reasons..",
                 // Gerekli diğer özellikler doldur.
             };
@@ -107,6 +117,7 @@ namespace App.Data
             var department11 = new Department
             {
                 Name = $"Psychiatrist",
+                Image = "/Images/Psychiatrist.jpg",
                 Description = $"A psychiatrist is a medical doctor who specializes in the diagnosis, treatment, and prevention of mental illnesses and emotional disorders. Their primary focus is on understanding the complex interplay between a person's psychological, emotional, and physiological factors to provide comprehensive mental healthcare.",
                 // Gerekli diğer özellikler doldur.
             };
@@ -132,7 +143,8 @@ namespace App.Data
             var doctor = new Doctors
             {
                 RoleId = 2,
-                FullName = $"Alexandar JAMES",
+                FullName = $"Devrani POINTER",
+                Image= "/Images/doctor1.jpg",
                 City = $"Arizona",
                 Phone = $"09008008080",
                 Specialty = $"Opthomology",
@@ -145,6 +157,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Alparslan KOBAK",
+                Image = "/Images/doctorAlparslan.jpg",
                 City = $"Istanbul",
                 Phone = $"9874561230",
                 Specialty = $"Cardiology",
@@ -157,6 +170,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Kadir ALTINAY",
+                Image = "/Images/doctorKadir.jpg",
                 City = $"Warsaw",
                 Phone = $"9874563210",
                 Specialty = $"Psychiatrist",
@@ -169,6 +183,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Utku Kemal CICEK",
+                Image = "/Images/doctorUtku.jpg",
                 City = $"Bursa",
                 Phone = $"9999999999",
                 Specialty = $"Aviation Medical Services",
@@ -181,6 +196,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Serkan BILSEL",
+                Image = "/Images/doctorSerkan.jpg",
                 City = $"Izmir",
                 Phone = $"2134567890",
                 Specialty = $"Dental Care",
@@ -192,7 +208,8 @@ namespace App.Data
             var doctor6 = new Doctors
             {
                 RoleId = 2,
-                FullName = $"Gökhan TURKMEN",
+                FullName = $"Bulent OKTAY",
+                Image = "/Images/doctorBulent.jpg",
                 City = $"Ankara",
                 Phone = $"7896541230",
                 Specialty = $"Child Care",
@@ -205,6 +222,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Muharrem INAN",
+                Image = "/Images/doctorMuharrem.jpg",
                 City = $"Istanbul",
                 Phone = $"9876549840",
                 Specialty = $"Pulmology",
@@ -217,6 +235,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Ilker SARIKAYA",
+                Image = "/Images/doctorilker.jpg",
                 City = $"Istanbul",
                 Phone = $"7897894563",
                 Specialty = $"Gynecology",
@@ -229,6 +248,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Haydar ARAS",
+                Image = "/Images/doctorHaydar.jpg",
                 City = $"Eskisehir",
                 Phone = $"9879871350",
                 Specialty = $"Allergy And Immunology",
@@ -241,6 +261,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Ozlem OYMAK",
+                Image = "/Images/doctorOzlem.jpg",
                 City = $"Bursa",
                 Phone = $"1597532580",
                 Specialty = $"Anesthesiology",
@@ -253,6 +274,7 @@ namespace App.Data
             {
                 RoleId = 2,
                 FullName = $"Serdar YALMAN",
+                Image = "/Images/doctorSerdar.jpg",
                 City = $"Eskisehir",
                 Phone = $"7538521594",
                 Specialty = $"General Surgery",
@@ -283,6 +305,7 @@ namespace App.Data
             var patient = new Patient
             {
                 Diagnosis = $"Vision Problems",
+                Image = "/Images/patient1.jpg",
                 RoleId = 3,
                 FullName = $"Hakkı BULUT",
                 City = $"Arizona",
@@ -295,6 +318,7 @@ namespace App.Data
             var patient2 = new Patient
             {
                 Diagnosis = $"Chest Palpitations",
+                Image = "/Images/patient2.jpg",
                 RoleId = 3,
                 FullName = $"Aylin YILMAZ",
                 City = $"Istanbul",
@@ -307,6 +331,7 @@ namespace App.Data
             var patient3 = new Patient
             {
                 Diagnosis = $"Tooth Extraction",
+                Image = "/Images/patient3.jpg",
                 RoleId = 3,
                 FullName = $"Emre KAYA",
                 City = $"Izmir",
@@ -319,6 +344,7 @@ namespace App.Data
             var patient4 = new Patient
             {
                 Diagnosis = $"Feverish Toddler",
+                Image = "/Images/patient4.jpg",
                 RoleId = 3,
                 FullName = $"Elif SAHIN",
                 City = $"Ankara",
@@ -331,6 +357,7 @@ namespace App.Data
             var patient5 = new Patient
             {
                 Diagnosis = $"Chronic Cough",
+                Image = "/Images/patient5.jpg",
                 RoleId = 3,
                 FullName = $"Burak ARSLAN",
                 City = $"Istanbul",
@@ -343,6 +370,7 @@ namespace App.Data
             var patient6 = new Patient
             {
                 Diagnosis = $"Irregular Periods",
+                Image = "/Images/patient6.jpg",
                 RoleId = 3,
                 FullName = $"Deniz KAYAN",
                 City = $"Istanbul",
@@ -355,6 +383,7 @@ namespace App.Data
             var patient7 = new Patient
             {
                 Diagnosis = $"Allergic Reaction",
+                Image = "/Images/patient7.jpg",
                 RoleId = 3,
                 FullName = $"Fırat DEMIR",
                 City = $"Eskisehir",
@@ -367,6 +396,7 @@ namespace App.Data
             var patient8 = new Patient
             {
                 Diagnosis = $"Surgical Sedation",
+                Image = "/Images/patient8.jpg",
                 RoleId = 3,
                 FullName = $"Gizem YILDIRIM",
                 City = $"Bursa",
@@ -379,6 +409,7 @@ namespace App.Data
             var patient9 = new Patient
             {
                 Diagnosis = $"Pilot Checkup",
+                Image = "/Images/patient9.jpg",
                 RoleId = 3,
                 FullName = $"Ipek AKSOY",
                 City = $"Bursa",
@@ -391,6 +422,7 @@ namespace App.Data
             var patient10 = new Patient
             {
                 Diagnosis = $"Appendectomy Surgery",
+                Image = "/Images/patient10.jpg",
                 RoleId = 3,
                 FullName = $"Lale PAK",
                 City = $"Eskisehir",
@@ -403,6 +435,7 @@ namespace App.Data
             var patient11 = new Patient
             {
                 Diagnosis = $"Sleep Disorder",
+                Image = "/Images/patient11.jpg",
                 RoleId = 3,
                 FullName = $"Pelin KURT",
                 City = $"Warsaw",
