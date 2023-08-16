@@ -60,5 +60,21 @@ namespace App.Admin.Utils
 
             return $"/Images/{fileName}";
         }
+        public static async Task<string> FileLoaderDoctor(IFormFile Image, string DoctorFolderPath, string imageTitle)
+        {
+            if (Image == null || Image.Length <= 0)
+                return null;
+
+            string extension = Path.GetExtension(Image.FileName);
+            string fileName = imageTitle;
+            string fullPath = Path.Combine(DoctorFolderPath, fileName);
+
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                await Image.CopyToAsync(stream);
+            }
+
+            return $"/Images/{fileName}";
+        }
     }
 }

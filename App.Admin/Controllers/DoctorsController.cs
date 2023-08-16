@@ -51,18 +51,21 @@ namespace App.Admin.Controllers
         {
             try
             {
-                if  (Image is not null)
+                if (Image is not null)
                 {
                     string currentDirectory = Directory.GetCurrentDirectory();
                     string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
                     string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
                     string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                    string DoctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
                     string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
+                    string DoctorTargetFilePath = Path.Combine(DoctorFolderPath, Path.GetFileName(adminFullPath));
 
                     string adminImagePath = await FileHelper.FileLoaderAsync(Image);
                     int startIndex = adminImagePath.LastIndexOf('/') + 1;
                     string imageTitle = adminImagePath.Substring(startIndex);
                     string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                    string doctorimagePath = await FileHelper.FileLoaderDoctor(Image, DoctorFolderPath, imageTitle);
                     collection.Image = imagePath;
                     if (!Directory.Exists(uiTargetFilePath))
                     {
@@ -104,18 +107,22 @@ namespace App.Admin.Controllers
             {
                 var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
                 bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                bool isDeletedDoctor = FileHelper.FileRemover(model.Image, true, "App.Doctor/wwwroot");
                 bool isDeleted = FileHelper.FileRemover(model.Image, false);
 
                 string currentDirectory = Directory.GetCurrentDirectory();
                 string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
                 string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
                 string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                string DoctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
                 string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
+                string DoctorTargetFilePath = Path.Combine(DoctorFolderPath, Path.GetFileName(adminFullPath));
 
                 string adminImagePath = await FileHelper.FileLoaderAsync(Image);
                 int startIndex = adminImagePath.LastIndexOf('/') + 1;
                 string imageTitle = adminImagePath.Substring(startIndex);
                 string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                string doctorimagePath = await FileHelper.FileLoaderDoctor(Image, DoctorFolderPath, imageTitle);
                 collection.Image = imagePath;
 
                 if (!Directory.Exists(uiTargetFilePath))
