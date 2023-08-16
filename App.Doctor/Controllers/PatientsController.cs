@@ -58,7 +58,7 @@ namespace App.Doctor.Controllers
         {
             try
             {
-                int? doctorId =  HttpContext.Session.GetInt32("userId");
+                int? doctorId = HttpContext.Session.GetInt32("userId");
 
                 if (doctorId != null)
                 {
@@ -94,7 +94,7 @@ namespace App.Doctor.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                    return RedirectToAction(nameof(Index),"Main");
+                    return RedirectToAction(nameof(Index), "Main");
                 }
             }
             catch (Exception e)
@@ -172,19 +172,23 @@ namespace App.Doctor.Controllers
             try
             {
                 var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
-                if (model.Image is not null)
+                if (model != null)
                 {
-                    bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
-                    bool isDeletedAdmin = FileHelper.FileRemover(model.Image, true, "App.Admin/wwwroot");
-                    bool isDeleted = FileHelper.FileRemover(model.Image, false);
+                    model.IsDischarged = true;
+                    var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, model);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
-                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
-                return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return View();
             }
+            TempData["Message"] = "<div class='alert alert-danger'>Error!</div>";
+            return RedirectToAction(nameof(Index));
         }
     }
 }

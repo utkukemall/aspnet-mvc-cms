@@ -15,7 +15,7 @@ namespace App.Doctor.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
 
-        public MainController(HttpClient httpClient,IConfiguration configuration)
+        public MainController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
@@ -27,7 +27,17 @@ namespace App.Doctor.Controllers
             if (userId != null)
             {
                 var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
-                return View(model);
+
+
+
+
+
+
+
+
+
+
+				return View(model);
             }
             return RedirectToAction("Logout", "Auth");
         }

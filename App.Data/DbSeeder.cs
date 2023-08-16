@@ -706,6 +706,7 @@ namespace App.Data
                 RoleId = 1, // Bu örnekte RoleId'leri 1'den 10'a kadar ekledik.
                             //  ImageId = i, // Bu örnekte ImageId'leri 1'den 10'a kadar ekledik.
                 FullName = $"Admin admin",
+                Image = "/Images/admin.jpg",
                 Email = "admin@mvccms.com",
                 Password = "123123",
                 City = $"Istanbul",
