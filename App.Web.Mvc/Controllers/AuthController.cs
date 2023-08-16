@@ -107,7 +107,6 @@ namespace App.Web.Mvc.Controllers
 
             if (account == null)
             {
-
                 ModelState.AddModelError("", "Login Failed!");
                 TempData["Message"] = "<div class='alert alert-danger'>Login Failed!</div>";
 

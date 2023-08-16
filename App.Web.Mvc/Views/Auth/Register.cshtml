@@ -1,4 +1,4 @@
-﻿@model LoginViewModel
+﻿@model User
 @{
     ViewData["Title"] = "Login";
 }
@@ -13,54 +13,64 @@
                     <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-login-image">
-
-
                             <img src="~/hospitaltemplate/images/drdevrani.png" width="100%" height="100%" />
                         </div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
                                 </div>
-                                <form asp-action="Login" asp-controller="Auth" class="user">
+                                <form asp-action="Register" asp-controller="auth" method="post" enctype="multipart/form-data">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                    <div class="form-group">
-                                        <input asp-for="Email" type="email" class="form-control form-control-user"
-                                               id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
+
+                                    <div class="mb-3">
+                                        <label for="FullName" class="form-label">Full Name</label>
+                                        <input type="text" id="FullName" name="FullName" class="form-control" asp-for="FullName" />
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Email" class="form-label">Email Address</label>
+                                        <input type="email" id="Email" name="Email" class="form-control" asp-for="Email" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <input asp-for="Password" type="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
+
+                                    <div class="mb-3">
+                                        <label for="Password" class="form-label">Password</label>
+                                        <input type="password" id="Password" name="Password" class="form-control" asp-for="Password" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">
-                                                Remember
-                                                Me
-                                            </label>
+
+                                    <div class="mb-3">
+                                        <label for="Image" class="form-label">Profile Image</label>
+                                        <input type="file" id="Image" name="Image" class="form-control" asp-for="Image" />
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="City" class="form-label">City</label>
+                                            <input type="text" id="City" name="City" class="form-control" />
+                                            <span asp-validation-for="City" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Phone" class="form-label">Phone</label>
+                                            <input type="text" id="Phone" name="Phone" class="form-control" />
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-info btn-user btn-block">
-                                        Logın
-                                    </button>
-                                    <hr>
-                                    <a href="#" class="btn btn-dark btn-block">
-                                        <i class="fab fa-google fa-fw"></i> Admınıstratıve Logın
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-block">
-                                        <i class="fab fa-facebook-f fa-fw"></i> Doctor Logın
-                                    </a>
+
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">Create User</button>
+                                        <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
+                                    </div>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    <a class="small" asp-action="ForgotPassword">Forgot Password?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="register.html">Create an Account!</a>
+                                    <a class="small" asp-action="Register">Create an Account!</a>
                                 </div>
                             </div>
                         </div>
