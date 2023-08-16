@@ -15,12 +15,13 @@ namespace App.Doctor.Controllers
         private readonly string _apiUserAddress;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AuthController(HttpClient httpClient, IConfiguration configuration)
+        public AuthController(HttpClient httpClient, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Doctors"];
             _apiUserAddress = rootUrl + configuration["Api:Users"];
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Logout()
@@ -90,7 +91,7 @@ namespace App.Doctor.Controllers
             {
                 int? userId = HttpContext.Session.GetInt32("userId");
 
-                User? account = await _httpClient.GetFromJsonAsync<User>(_apiUserAddress + "/" + userId);
+                var account = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
 
                 return View(account);
             }
@@ -102,7 +103,7 @@ namespace App.Doctor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUser(User user, IFormFile? Image)
+        public async Task<IActionResult> UpdateUser(Doctors user, IFormFile? Image)
         {
 
             try
@@ -111,7 +112,7 @@ namespace App.Doctor.Controllers
 
                 if (Image is not null)
                 {
-                    var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+                    var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
                     bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
                     bool isDeletedDoctor = FileHelper.FileRemover(model.Image, true, "App.Doctor/wwwroot");
                     bool isDeleted = FileHelper.FileRemover(model.Image, false);
@@ -137,22 +138,25 @@ namespace App.Doctor.Controllers
                     }
                 }
 
-                User? account = await _httpClient.GetFromJsonAsync<User>(_apiUserAddress + "/" + userId);
+                Doctors? account = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
 
                 if (account != null)
                 {
-                    if (ModelState.IsValid)
+                    user.Specialty = account.Specialty;
+                    user.DepartmentId = account.DepartmentId;
+                    user.Patients = account.Patients;
+
+
+                    var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + userId, user);
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        var response = await _httpClient.PutAsJsonAsync(_apiUserAddress + "/" + userId, user);
+                        TempData["Message"] = "<div class='alert alert-success' >Account Updated successfully... </div>";
 
-                        if (response.IsSuccessStatusCode)
-                        {
-                            TempData["Message"] = "<div class='alert alert-success' >Account Updated successfully... </div>";
-
-                            return RedirectToAction("Index", "Main");
-                        }
-
+                        return RedirectToAction("Index", "Main");
                     }
+
+
                 }
             }
             catch (Exception e)
@@ -161,7 +165,7 @@ namespace App.Doctor.Controllers
                 ModelState.AddModelError("", "Update Failed" + e.Message);
             }
             TempData["Message"] = "<div class='alert alert-danger' >Error... </div>";
-            return View();
+            return View(user);
         }
     }
 }
