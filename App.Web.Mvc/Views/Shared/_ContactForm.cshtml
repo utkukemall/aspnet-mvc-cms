@@ -10,6 +10,38 @@
 }
 @*İletişim Sayfası*@
 
+<style>
+    /* Genel 'advices' alanının stil ayarlamaları */
+    #advices {
+        background-color: #e6f8ff; /* hafif mavi bir arkaplan rengi */
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        #advices h2 {
+            color: #006666; /* başlık rengi mavi-yeşil ton */
+            border-bottom: 3px solid #006666;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        #advices .col-4 {
+            background-color: #006666;
+            color: white;
+            padding: 10px;
+            border-radius: 10px 0 0 10px;
+            margin-bottom: 20px; /* Her tavsiye arasında boşluk eklemek için */
+        }
+
+        #advices .col-8 {
+            background-color: #cce7e2; /* hafif mavi-yeşil ton */
+            padding: 10px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 20px; /* Her tavsiye arasında boşluk eklemek
+
+</style>
+
 <section class="section appoinment">
     <div class="container">
         <div class="row ps-2 pt-2">
@@ -22,7 +54,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="row">
+                <div class="row" id="advices">
                     <h2 class="fw-bold">Healthcare Advice From Our Team </h2>
                     @foreach (Page item in Model.Pages)
                     {
@@ -30,7 +62,7 @@
 
                         <div class="col-8">
                             <p>
-                               : @item.Content
+                                : @item.Content
                             </p>
                         </div>
                         <hr />
