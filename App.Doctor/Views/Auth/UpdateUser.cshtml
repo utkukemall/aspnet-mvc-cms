@@ -32,11 +32,7 @@
                 </div>
 
                 <div class="mb-3">
-                    @if (Model.Image is not null)
-                    {
-                        <img src="/Images/@Model.Image" class="img-fluid" style="max-height:100px" alt="" />
-
-                    }
+                    <img src="@Model?.Image" class="img-fluid my-2" style="max-height:100px;max-width:100px" width="100%">
                     <label for="Image" class="form-label">Profile Image</label>
                     <input type="file" id="Image" name="Image" class="form-control" asp-for="Image" />
                     <span asp-validation-for="Image" class="text-danger"></span>

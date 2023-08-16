@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using App.Doctor.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace App.Doctor.Controllers
 {
@@ -11,12 +12,15 @@ namespace App.Doctor.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
+        private readonly string _apiUserAddress;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public AuthController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Doctors"];
+            _apiUserAddress = rootUrl + configuration["Api:Users"];
         }
 
         public async Task<IActionResult> Logout()
@@ -33,8 +37,8 @@ namespace App.Doctor.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
-            List<Doctors> users = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddress);
-            Doctors account = users.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
+            var users = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddress);
+            var account = users?.Where(x => x.Email == loginModel.Email && x.Password == loginModel.Password).FirstOrDefault();
 
             if (account == null)
             {
@@ -86,7 +90,7 @@ namespace App.Doctor.Controllers
             {
                 int? userId = HttpContext.Session.GetInt32("userId");
 
-                Doctors? account = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
+                User? account = await _httpClient.GetFromJsonAsync<User>(_apiUserAddress + "/" + userId);
 
                 return View(account);
             }
@@ -98,24 +102,48 @@ namespace App.Doctor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUser(Doctors user, IFormFile? Image)
+        public async Task<IActionResult> UpdateUser(User user, IFormFile? Image)
         {
+
             try
             {
+                int? userId = HttpContext.Session.GetInt32("userId");
+
                 if (Image is not null)
                 {
-                    user.Image = await FileHelper.FileLoaderAsync(Image);
+                    var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
+                    bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                    bool isDeletedDoctor = FileHelper.FileRemover(model.Image, true, "App.Doctor/wwwroot");
+                    bool isDeleted = FileHelper.FileRemover(model.Image, false);
+
+                    string currentDirectory = Directory.GetCurrentDirectory();
+                    string DoctorFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                    string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                    string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                    string AdminFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
+                    string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(DoctorFullPath));
+                    string AdminTargetFilePath = Path.Combine(AdminFolderPath, Path.GetFileName(DoctorFullPath));
+
+                    string DoctorImagePath = await FileHelper.FileLoaderAsync(Image);
+                    int startIndex = DoctorImagePath.LastIndexOf('/') + 1;
+                    string imageTitle = DoctorImagePath.Substring(startIndex);
+                    string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                    string AdminimagePath = await FileHelper.FileLoaderAdmin(Image, AdminFolderPath, imageTitle);
+                    user.Image = imagePath;
+
+                    if (!Directory.Exists(uiTargetFilePath))
+                    {
+                        Directory.CreateDirectory(uiTargetFilePath);
+                    }
                 }
 
-                var userId = HttpContext.Session.GetInt32("userId");
-
-                Doctors? account = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + userId);
+                User? account = await _httpClient.GetFromJsonAsync<User>(_apiUserAddress + "/" + userId);
 
                 if (account != null)
                 {
                     if (ModelState.IsValid)
                     {
-                        var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + userId, user);
+                        var response = await _httpClient.PutAsJsonAsync(_apiUserAddress + "/" + userId, user);
 
                         if (response.IsSuccessStatusCode)
                         {
@@ -132,7 +160,8 @@ namespace App.Doctor.Controllers
 
                 ModelState.AddModelError("", "Update Failed" + e.Message);
             }
-            return View("UpdateUser", user);
+            TempData["Message"] = "<div class='alert alert-danger' >Error... </div>";
+            return View();
         }
     }
 }

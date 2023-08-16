@@ -85,7 +85,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                var userId = HttpContext.Session.GetInt32("userId");
+                int? userId = HttpContext.Session.GetInt32("userId");
 
                 User? account = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
 
@@ -128,7 +128,7 @@ namespace App.Admin.Controllers
                     }                  
                 }
             }
-            catch (Exception e)
+            catch
             {
 
             }
