@@ -32,7 +32,15 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="department-img">
-                   <img src="~/hospitaltemplate/images/americanlifehospital.jpg" class="img-fluid border border-1 border-dark shadow-lg" />
+                    @if (Model.Image != null)
+                    {
+                        <img src="@Model.Image" class="img-fluid border border-1 border-dark shadow-lg" />
+                    }
+                    else
+                    {
+
+                        <img src="~/hospitaltemplate/images/americanlifehospital.jpg" class="img-fluid border border-1 border-dark shadow-lg" />
+                    }
                 </div>
             </div>
         </div>

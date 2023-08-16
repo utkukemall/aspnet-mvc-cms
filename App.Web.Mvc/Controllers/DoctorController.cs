@@ -18,9 +18,7 @@ namespace App.Web.Mvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiSettingAddress);
-            ViewBag.Doctors = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorAddress);
-            var model = settings?.FirstOrDefault(s => s.IsActive);
+            List<Doctors> model = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorAddress);
 
             return View(model);
         }
