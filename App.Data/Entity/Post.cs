@@ -15,13 +15,19 @@ namespace App.Data.Entity
 
         [Column(TypeName = "ntext"), DataType(DataType.Text)]
         public string Content { get; set; }
+        
+        public List<PostComment>? Comments { get; set; }
+
         public int CommentsCount
         {
             get
             {
+                if (Comments == null)
+                {
+                    return 0;
+                }
                 return Comments.Count;
             }
         }
-        public List<PostComment>? Comments { get; set; }
     }
 }
