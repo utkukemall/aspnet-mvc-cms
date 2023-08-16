@@ -9,7 +9,7 @@ namespace App.Data.Entity
         public string? Diagnosis { get; set; }
 
         [Display(Name ="Is Discharged?")]
-        public bool IsDischarged { get; set; }
+        public bool IsDischarged { get; set; } = false;
 
 
         public int? DoctorId { get; set; }
