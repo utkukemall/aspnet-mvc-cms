@@ -59,6 +59,7 @@ namespace App.API.Controllers
                 mainPatient.Phone = value.Phone;
                 mainPatient.City = value.City;
                 mainPatient.Email = value.Email;
+                mainPatient.IsDischarged = value.IsDischarged;
                 mainPatient.Diagnosis = value.Diagnosis;
                 mainPatient.DoctorId = value.DoctorId;
                 mainPatient.UpdatedAt = DateTime.UtcNow;
