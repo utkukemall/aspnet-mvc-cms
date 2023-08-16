@@ -26,7 +26,6 @@
                         <th>Image</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -63,8 +62,6 @@
                                     @departments.Description
                                 }
                             </td>
-
-                            <td><img src="/Images/@departments.Image" class="img-fluid rounded-circle" style="max-height: 75px;" /></td>
                             <td>
                                 <div class="d-flex">
                                     <a class="btn btn-primary me-1" asp-action="Edit" asp-route-id="@departments.Id"><i class="fas fa-edit"></i> Edit</a>

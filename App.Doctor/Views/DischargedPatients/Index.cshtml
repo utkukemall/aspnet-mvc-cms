@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Patient>
+@* @inject IConfiguration configuration; *@
+@{
+    ViewData["Title"] = "Discharged Patient";
+
+    // string getImageUrl(string fileName)
+    // {
+    //     var apiRootPath = configuration.GetValue<string>("Api:RootUrl");
+    //     return $"{apiRootPath}/api/file/get?fileName={fileName}";
+    // };
+
+}
+
+
+
+
+<div class="container-fluid">
+    <h1 class="mt-4 "> Discharged Patients List</h1>
+   
+    <div class="card mb-4">
+        <div class="card-body text-center bg-dark text-bg-dark">
+            <p class="fw-bold text-bg-dark"><i> You can see all Discharged Patients in this area...</i> </p>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Role</th>
+                            <th>FullName</th>
+                            <th>Image</th>
+                            <th>Email</th>
+                            <th>Diagnosis</th>
+                            <th>City</th>
+                            <th>Phone</th>
+                            <th>Doctor</th>
+                            <th>Created At</th>
+                            <th>Last Update</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Role</th>
+                            <th>FullName</th>
+                            <th>Image</th>
+                            <th>Email</th>
+                            <th>Diagnosis</th>
+                            <th>City</th>
+                            <th>Phone</th>
+                            <th>Doctor</th>
+                            <th>Created At</th>
+                            <th>Last Update</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        @foreach (var patient in Model)
+                        {
+                            <tr>
+                                <td>@patient.Id</td>
+                                <td>
+                                    @patient.Role?.RoleName
+                                </td>
+                                <td><img src="@patient.Image" height="70" width="90" /></td>
+                                <td>@patient.FullName</td>
+                                <td>@patient.Email</td>
+                                <td>@patient.Diagnosis</td>
+                                <td>@patient.City</td>
+                                <td>@patient.Phone</td>
+                                <td>@patient.Doctor?.FullName</td>
+                                <td>
+                                    @patient.CreatedAt
+                                </td>
+                                <td>
+                                   @patient.UpdatedAt
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

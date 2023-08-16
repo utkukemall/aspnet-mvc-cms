@@ -29,10 +29,10 @@ namespace App.Doctor.Controllers
         public async Task<ActionResult> Index()
         {
             int? userId = HttpContext.Session.GetInt32("userId");
-            ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
-            ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
+            //ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
+            //ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
             var allPatients = await _httpClient.GetFromJsonAsync<List<Patient>>(_apiAddress);
-            var doctorsPatients = allPatients?.Where(p => p.DoctorId == userId).ToList();
+            var doctorsPatients = allPatients?.Where(p => p.DoctorId == userId && !p.IsDischarged).ToList();
 
             return View(doctorsPatients);
         }

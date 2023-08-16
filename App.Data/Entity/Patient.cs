@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Data.Entity
 {
@@ -7,18 +8,16 @@ namespace App.Data.Entity
 
         public string? Diagnosis { get; set; }
 
-        public Triage? TriageCode { get; set; }
+        [Display(Name ="Is Discharged?")]
+        public bool IsDischarged { get; set; }
+
 
         public int? DoctorId { get; set; }
-
 
         [ForeignKey(nameof(DoctorId))]
         public Doctors? Doctor { get; set; }
 
 
-        public enum Triage
-        {
-            Empty, Black, Green, Yellow, Red
-        }
+      
     }
 }
