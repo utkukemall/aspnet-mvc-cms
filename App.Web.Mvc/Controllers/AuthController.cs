@@ -1,7 +1,10 @@
 ﻿using App.Data.Entity;
 using App.Web.Mvc.Models;
+using App.Web.Mvc.Utils;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace App.Web.Mvc.Controllers
@@ -11,60 +14,90 @@ namespace App.Web.Mvc.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
         private readonly string _apiRoleAddress;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AuthController(HttpClient httpClient, IConfiguration configuration)
+        public AuthController(HttpClient httpClient, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Users"];
             _apiRoleAddress = rootUrl + configuration["Api:Roles"];
+            _webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
+            //ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(User newUser)
+        public async Task<IActionResult> Register(User newUser, IFormFile? Image)
         {
             try
             {
                 List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-                var user = users.FirstOrDefault(u => u.Email == newUser.Email);
-                if (user == null)
+                var existingUser = users.FirstOrDefault(u => u.Email == newUser.Email);
+
+                if (existingUser == null)
                 {
-                    //var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-                    //var user = users.FirstOrDefault(u => u.Email == newUser.Email);
+                    //var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
 
-                    if (user is not null)
-                        ModelState.AddModelError("", "This Email Has Already Been Registered!");
+                    //// "User" rolünü seçelim.
+                    //Role selectedRole = roles.FirstOrDefault(r => r.RoleName == "User");
 
-                    var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
+                    //if (selectedRole == null)
+                    //{
+                    //    ModelState.AddModelError("", "No valid role found to assign to the new user.");
+                    //    return View(newUser);
+                    //}
 
-                    // Burada, doktor, kullanıcı ve admin rollerinden birini seçelim.
-                    Role selectedRole = SelectRoleToAssign(roles);
+                    newUser.RoleId = 4;
 
-                    if (selectedRole == null)
+                    var addUserResponse = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
+
+                    if (!addUserResponse.IsSuccessStatusCode)
                     {
-                        ModelState.AddModelError("", "No valid role found to assign to the new user.");
+                        ModelState.AddModelError("", "An error occurred while registering the user.");
                         return View(newUser);
                     }
 
-                    newUser.RoleId = selectedRole.Id; // Eğer Id kullanıyorsanız RoleId'ye atayın, ya da RoleName'e göre yapıyorsanız RoleName'e atayın.
+                    if (Image is not null)
+                    {
+                        string currentDirectory = Directory.GetCurrentDirectory();
+                        string webMvcFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                        string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                        string targetFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
+                        string doctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
+                        string adminTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(webMvcFullPath));
+                        string doctorTargetFilePath = Path.Combine(doctorFolderPath, Path.GetFileName(webMvcFullPath));
 
-                    var add = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
+                        string webMvcImagePath = await FileHelper.FileLoaderAsync(Image);
+                        int startIndex = webMvcImagePath.LastIndexOf('/') + 1;
+                        string imageTitle = webMvcImagePath.Substring(startIndex);
+                        string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                        string doctorImagePath = await FileHelper.FileLoaderDoctor(Image, doctorFolderPath, imageTitle);
+                        newUser.Image = imagePath;
 
-                    if (add.IsSuccessStatusCode)
-                        return RedirectToAction("Index", "Home");
-                    else
-                        ModelState.AddModelError("", "An error occurred while registering the user.");
+                        if (!Directory.Exists(adminTargetFilePath))
+                        {
+                            Directory.CreateDirectory(adminTargetFilePath);
+                        }
+                    }
+
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "This Email Has Already Been Registered!");
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
             }
+
             return View(newUser);
         }
 
