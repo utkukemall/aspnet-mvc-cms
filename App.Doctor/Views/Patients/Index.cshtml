@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Patient>
-@inject IConfiguration configuration;
+@* @inject IConfiguration configuration; *@
 @{
     ViewData["Title"] = "Patient";
 
-    string getImageUrl(string fileName)
-    {
-        var apiRootPath = configuration.GetValue<string>("Api:RootUrl");
-        return $"{apiRootPath}/api/file/get?fileName={fileName}";
-    };
+    // string getImageUrl(string fileName)
+    // {
+    //     var apiRootPath = configuration.GetValue<string>("Api:RootUrl");
+    //     return $"{apiRootPath}/api/file/get?fileName={fileName}";
+    // };
 
 }
 
@@ -92,4 +92,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDelete(formElement) {
+        var deleteButton = formElement.querySelector('button');
+
+        if (deleteButton.innerHTML === 'Sure?') {
+            return true;
+        } else {
+            deleteButton.innerHTML = 'Sure?';
+            return false;
+        }
+    }
+</script>
 

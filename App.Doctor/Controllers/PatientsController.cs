@@ -120,8 +120,34 @@ namespace App.Doctor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, Patient collection, IFormFile? Image)
         {
-            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
+            if (Image is not null)
+            {
+                var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
+                bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                bool isDeletedDoctor = FileHelper.FileRemover(model.Image, true, "App.Doctor/wwwroot");
+                bool isDeleted = FileHelper.FileRemover(model.Image, false);
 
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string DoctorFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                string AdminFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
+                string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(DoctorFullPath));
+                string AdminTargetFilePath = Path.Combine(AdminFolderPath, Path.GetFileName(DoctorFullPath));
+
+                string DoctorImagePath = await FileHelper.FileLoaderAsync(Image);
+                int startIndex = DoctorImagePath.LastIndexOf('/') + 1;
+                string imageTitle = DoctorImagePath.Substring(startIndex);
+                string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                string AdminimagePath = await FileHelper.FileLoaderAdmin(Image, AdminFolderPath, imageTitle);
+                collection.Image = imagePath;
+
+                if (!Directory.Exists(uiTargetFilePath))
+                {
+                    Directory.CreateDirectory(uiTargetFilePath);
+                }
+            }
+            var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
@@ -145,6 +171,13 @@ namespace App.Doctor.Controllers
         {
             try
             {
+                var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
+                if (model.Image is not null)
+                {
+                    bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                    bool isDeletedAdmin = FileHelper.FileRemover(model.Image, true, "App.Admin/wwwroot");
+                    bool isDeleted = FileHelper.FileRemover(model.Image, false);
+                }
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }
