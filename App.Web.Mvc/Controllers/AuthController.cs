@@ -1,7 +1,9 @@
 ﻿using App.Data.Entity;
 using App.Web.Mvc.Models;
+using App.Web.Mvc.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace App.Web.Mvc.Controllers
@@ -11,39 +13,102 @@ namespace App.Web.Mvc.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
         private readonly string _apiRoleAddress;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AuthController(HttpClient httpClient, IConfiguration configuration)
+        public AuthController(HttpClient httpClient, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Users"];
             _apiRoleAddress = rootUrl + configuration["Api:Roles"];
+            _webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Register()
+        public async Task<IActionResult> RegisterAsync()
         {
+            ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(User newUser)
+        //public async Task<IActionResult> Register(User newUser, IFormFile? Image)
+        //{
+        //    try
+        //    {
+        //        List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+        //        var user = users.FirstOrDefault(u => u.Email == newUser.Email);
+        //        if ( user==null)
+        //        {
+        //            if (user is not null)
+        //                ModelState.AddModelError("", "This Email Has Already Been Registered!");
+
+        //            var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
+
+        //            // Burada, doktor, kullanıcı ve admin rollerinden birini seçelim.
+        //            Role selectedRole = SelectRoleToAssign(roles);
+
+        //            if (selectedRole == null)
+        //            {
+        //                ModelState.AddModelError("", "No valid role found to assign to the new user.");
+        //                return View(newUser);
+        //            }
+
+        //            newUser.RoleId = selectedRole.Id; // Eğer Id kullanıyorsanız RoleId'ye atayın, ya da RoleName'e göre yapıyorsanız RoleName'e atayın.
+
+        //            var add = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
+        //            if (Image is not null)
+        //            {
+        //                string currentDirectory = Directory.GetCurrentDirectory();
+        //                string WebMvcFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+        //                string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+        //                string targetFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
+        //                string DoctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
+        //                string AdminTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(WebMvcFullPath));
+        //                string DoctorTargetFilePath = Path.Combine(DoctorFolderPath, Path.GetFileName(WebMvcFullPath));
+
+        //                string WebMvcImagePath = await FileHelper.FileLoaderAsync(Image);
+        //                int startIndex = WebMvcImagePath.LastIndexOf('/') + 1;
+        //                string imageTitle = WebMvcImagePath.Substring(startIndex);
+        //                string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+        //                string doctorimagePath = await FileHelper.FileLoaderDoctor(Image, DoctorFolderPath, imageTitle);
+        //                user.Image = imagePath;
+        //                if (!Directory.Exists(AdminTargetFilePath))
+        //                {
+        //                    Directory.CreateDirectory(AdminTargetFilePath);
+        //                }
+        //            }
+        //            var response = await _httpClient.PostAsJsonAsync(_apiAddress, user);
+        //            if (response.IsSuccessStatusCode)
+        //            {
+        //                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+        //                return RedirectToAction(nameof(Index));
+
+        //            }
+        //            if (add.IsSuccessStatusCode)
+        //                return RedirectToAction("Index", "Home");
+        //            else
+        //                ModelState.AddModelError("", "An error occurred while registering the user.");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError("", ex.Message);
+        //    }
+        //    return View(newUser);
+        //}
+        public async Task<IActionResult> Register(User newUser, IFormFile? Image)
         {
             try
             {
                 List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-                var user = users.FirstOrDefault(u => u.Email == newUser.Email);
-                if ( user==null)
+                var existingUser = users.FirstOrDefault(u => u.Email == newUser.Email);
+
+                if (existingUser == null)
                 {
-                    //var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-                    //var user = users.FirstOrDefault(u => u.Email == newUser.Email);
-
-                    if (user is not null)
-                        ModelState.AddModelError("", "This Email Has Already Been Registered!");
-
                     var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
 
-                    // Burada, doktor, kullanıcı ve admin rollerinden birini seçelim.
-                    Role selectedRole = SelectRoleToAssign(roles);
+                    // "User" rolünü seçelim.
+                    Role selectedRole = roles.FirstOrDefault(r => r.RoleName == "User");
 
                     if (selectedRole == null)
                     {
@@ -51,33 +116,61 @@ namespace App.Web.Mvc.Controllers
                         return View(newUser);
                     }
 
-                    newUser.RoleId = selectedRole.Id; // Eğer Id kullanıyorsanız RoleId'ye atayın, ya da RoleName'e göre yapıyorsanız RoleName'e atayın.
+                    newUser.RoleId = selectedRole.Id;
 
-                    var add = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
+                    var addUserResponse = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
 
-                    if (add.IsSuccessStatusCode)
-                        return RedirectToAction("Index", "Home");
-                    else
+                    if (!addUserResponse.IsSuccessStatusCode)
+                    {
                         ModelState.AddModelError("", "An error occurred while registering the user.");
+                        return View(newUser);
+                    }
+
+                    if (Image is not null)
+                    {
+                        string currentDirectory = Directory.GetCurrentDirectory();
+                        string webMvcFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                        string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                        string targetFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
+                        string doctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
+                        string adminTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(webMvcFullPath));
+                        string doctorTargetFilePath = Path.Combine(doctorFolderPath, Path.GetFileName(webMvcFullPath));
+
+                        string webMvcImagePath = await FileHelper.FileLoaderAsync(Image);
+                        int startIndex = webMvcImagePath.LastIndexOf('/') + 1;
+                        string imageTitle = webMvcImagePath.Substring(startIndex);
+                        string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                        string doctorImagePath = await FileHelper.FileLoaderDoctor(Image, doctorFolderPath, imageTitle);
+                        newUser.Image = imagePath;
+
+                        if (!Directory.Exists(adminTargetFilePath))
+                        {
+                            Directory.CreateDirectory(adminTargetFilePath);
+                        }
+                    }
+
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "This Email Has Already Been Registered!");
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
             }
+
             return View(newUser);
         }
+
+
+
 
         // Belirtilen üç rol (doktor, kullanıcı ve admin) arasından birini seçen yardımcı fonksiyon.
         private Role SelectRoleToAssign(List<Role> roles)
         {
-            // Burada, belirtilen üç rol arasından birini seçmek için kendi kriterlerinize göre bir seçim yapabilirsiniz.
-            // Örneğin, rastgele bir rol seçmek için aşağıdaki gibi yapabilirsiniz:
-            // Random random = new Random();
-            // int randomIndex = random.Next(0, roles.Count);
-            // return roles[randomIndex];
-
-            // Varsayılan olarak, doktor rolünü döndürelim:
             return roles.FirstOrDefault(r => r.RoleName == "doktor");
         }
 
