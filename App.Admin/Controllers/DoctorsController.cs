@@ -153,6 +153,7 @@ namespace App.Admin.Controllers
                 if (model.Image is not null)
                 {
                     bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                    bool isDeletedDoctor = FileHelper.FileRemover(model.Image, true, "App.Doctor/wwwroot");
                     bool isDeleted = FileHelper.FileRemover(model.Image, false);
                 }
                var response = await _httpClient.DeleteAsync(_apiAddress + "/" + id);
