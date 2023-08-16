@@ -2,6 +2,7 @@
 using App.Web.Mvc.Models;
 using App.Web.Mvc.Utils;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
@@ -24,13 +25,13 @@ namespace App.Web.Mvc.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> RegisterAsync()
+        public async Task<IActionResult> Register()
         {
-            ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
+            //ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress), "Id", "RoleName");
             return View();
         }
 
-        [HttpPost]      
+        [HttpPost]
         public async Task<IActionResult> Register(User newUser, IFormFile? Image)
         {
             try
@@ -40,18 +41,18 @@ namespace App.Web.Mvc.Controllers
 
                 if (existingUser == null)
                 {
-                    var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
+                    //var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
 
-                    // "User" rolünü seçelim.
-                    Role selectedRole = roles.FirstOrDefault(r => r.RoleName == "User");
+                    //// "User" rolünü seçelim.
+                    //Role selectedRole = roles.FirstOrDefault(r => r.RoleName == "User");
 
-                    if (selectedRole == null)
-                    {
-                        ModelState.AddModelError("", "No valid role found to assign to the new user.");
-                        return View(newUser);
-                    }
+                    //if (selectedRole == null)
+                    //{
+                    //    ModelState.AddModelError("", "No valid role found to assign to the new user.");
+                    //    return View(newUser);
+                    //}
 
-                    newUser.RoleId = selectedRole.Id;
+                    newUser.RoleId = 4;
 
                     var addUserResponse = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
 
@@ -76,7 +77,7 @@ namespace App.Web.Mvc.Controllers
                         string imageTitle = webMvcImagePath.Substring(startIndex);
                         string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
                         string doctorImagePath = await FileHelper.FileLoaderDoctor(Image, doctorFolderPath, imageTitle);
-                        newUser.Image = imagePath; 
+                        newUser.Image = imagePath;
 
                         if (!Directory.Exists(adminTargetFilePath))
                         {
@@ -85,7 +86,7 @@ namespace App.Web.Mvc.Controllers
                     }
 
                     TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -126,6 +127,10 @@ namespace App.Web.Mvc.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+
+
+
 
         public IActionResult Login()
         {
