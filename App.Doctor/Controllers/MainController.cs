@@ -27,7 +27,17 @@ namespace App.Doctor.Controllers
             if (userId != null)
             {
                 var model = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId);
-                return View(model);
+
+
+
+
+
+
+
+
+
+
+				return View(model);
             }
             return RedirectToAction("Logout", "Auth");
         }

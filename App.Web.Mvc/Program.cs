@@ -10,6 +10,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddSession();
+
 //builder.Services.AddSession();
 
 //builder.Services.AddDbContext<AppDbContext>(options =>
@@ -30,12 +32,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     k.Cookie.MaxAge = TimeSpan.FromDays(1);
 });
 
-builder.Services.AddAuthorization(p =>
-{
-    p.AddPolicy("AdminPolicy", c => c.RequireClaim("Role", "Admin"));
-    p.AddPolicy("DoctorPolicy", c => c.RequireClaim("Role", "Doctor"));
-    p.AddPolicy("UserPolicy", c => c.RequireClaim("Role", "User"));
-});
+//builder.Services.AddAuthorization(p =>
+//{
+//    p.AddPolicy("AdminPolicy", c => c.RequireClaim("Role", "Admin"));
+//    p.AddPolicy("DoctorPolicy", c => c.RequireClaim("Role", "Doctor"));
+//    p.AddPolicy("UserPolicy", c => c.RequireClaim("Role", "User"));
+//});
 
 var app = builder.Build();
 
@@ -47,6 +49,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 // JWT - Token ve Cookie araþtýr.
 //MASTERKADIR

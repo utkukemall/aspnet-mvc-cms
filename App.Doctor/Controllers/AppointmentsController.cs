@@ -1,11 +1,13 @@
 ﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App.Admin.Controllers
 {
-    
+    [Authorize(Roles = "Doctor")]
+
     public class AppointmentsController : Controller
     {
 

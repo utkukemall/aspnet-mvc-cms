@@ -26,14 +26,16 @@ namespace App.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(User newUser, string password2)
+        public async Task<IActionResult> Register(User newUser)
         {
             try
             {
-                if (newUser.Password == password2)
+                List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+                var user = users.FirstOrDefault(u => u.Email == newUser.Email);
+                if ( user==null)
                 {
-                    var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-                    var user = users.FirstOrDefault(u => u.Email == newUser.Email);
+                    //var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+                    //var user = users.FirstOrDefault(u => u.Email == newUser.Email);
 
                     if (user is not null)
                         ModelState.AddModelError("", "This Email Has Already Been Registered!");
@@ -133,13 +135,29 @@ namespace App.Web.Mvc.Controllers
 
                     HttpContext.Session.SetInt32("userId", account.Id);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Patient");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "You have not permitted!");
-                    TempData["Message"] = "<div class='alert alert-danger'>You have not permitted!</div>";
-                    return View(loginModel);
+
+                    var userAccess = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, account.Email),
+                        new Claim(ClaimTypes.Role, account.Role.RoleName.ToString())
+
+                    };
+
+                    var userIdentity = new ClaimsIdentity(userAccess, "Login");
+
+
+                    ClaimsPrincipal claimsPrincipal = new(userIdentity);
+
+                    await HttpContext.SignInAsync(claimsPrincipal);
+
+                    HttpContext.Session.SetInt32("userId", account.Id);
+
+               
+                    return RedirectToAction("Index", "Home");
                 }
 
 
@@ -147,9 +165,14 @@ namespace App.Web.Mvc.Controllers
 
         }
 
+       
+
         public IActionResult ForgotPassword()
         {
             return View();
         }
+
+
+
     }
 }

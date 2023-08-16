@@ -1,13 +1,11 @@
 ﻿using App.Data.Entity;
 using App.Web.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
-using System.Net.Http;
 
 namespace App.Web.Mvc.Controllers
 {
-	public class HomeController : Controller
+    public class HomeController : Controller
 	{
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
