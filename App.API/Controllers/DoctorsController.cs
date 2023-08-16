@@ -1,4 +1,5 @@
-﻿using App.Data.Entity;
+﻿using App.API.Utils;
+using App.Data.Entity;
 using App.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,16 +60,13 @@ namespace App.API.Controllers
                 doctor.Password = value.Password;
                 doctor.City = value.City;
                 doctor.UpdatedAt = DateTime.UtcNow;
+                doctor.DepartmentId = value.DepartmentId;
+                if (value.Image is not null)
+                {
+                    doctor.Image = value.Image;
+                }
 
-                //doctor.DepartmentId = value.DepartmentId;
-                //doctor.Department = value.Department;
-                //doctor.Patients = value.Patients;
-                //doctor.City = value.City;
-                //doctor.UpdatedAt = DateTime.UtcNow;
-                //doctor.Image=value.Image;
-                //doctor.ImageId = value.ImageId;
-                //doctor.Role = value.Role;
-                //doctor.RoleId = value.RoleId;
+
                 _service.Update(doctor);
                 var response = await _service.SaveAsync();
 

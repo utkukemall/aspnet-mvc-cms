@@ -1,23 +1,25 @@
 ﻿using Microsoft.AspNetCore.Components.Web;
 
-namespace App.Admin.Utils
+namespace App.API.Utils
 {
     public class FileHelper
     {
-        public static bool FileRemover(string? fileName, bool isUI, string filePath = "/wwwroot")
+        //public static async Task<string> FileLoaderAsync(IFormFile formFile)
+        //{
+        //    string fileName = "";
+
+        //    fileName = formFile.FileName;
+
+        //    string directory = Directory.GetCurrentDirectory() + "/wwwroot/Images/" + fileName;
+
+        //    using var stream = new FileStream(directory, FileMode.Create);
+        //    await formFile.CopyToAsync(stream);
+        //    return fileName;
+        //}
+
+        public static bool FileRemover(string fileName, string filePath = "/wwwroot/Images/")
         {
-            string directory;
-
-            if (isUI)
-            {
-                directory = Directory.GetCurrentDirectory()+ filePath+ fileName;
-                directory = directory.Replace("App.Admin", ""); // App.Admin kısmını sil
-            }
-            else
-            {
-                directory = Directory.GetCurrentDirectory() + filePath + fileName;
-            }
-
+            string directory = Directory.GetCurrentDirectory() + filePath + fileName;
             if (File.Exists(directory))
             {
                 File.Delete(directory);
@@ -59,5 +61,8 @@ namespace App.Admin.Utils
 
             return $"/Images/{fileName}";
         }
+
+
     }
+
 }

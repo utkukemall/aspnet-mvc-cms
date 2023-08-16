@@ -2,17 +2,7 @@
 @{
     ViewData["Title"] = "Doctors";
 }
-@inject IConfiguration configuration;
-@{
-    ViewData["Title"] = "Patient";
 
-    string getImageUrl(string fileName)
-    {
-        var apiRootPath = configuration.GetValue<string>("Api:RootUrl");
-        return $"{apiRootPath}/api/file/get?fileName={fileName}";
-    };
-
-}
 
 <div class="container-fluid">
     <h1 class="mt-4">Doctors List</h1>
@@ -34,6 +24,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Image</th>
                         <th>FullName</th>
                         <th>Department</th>
                         <th>Email</th>
@@ -49,7 +40,8 @@
                     {
                         <tr>
                             <td>@doctor.Id</td>
-                            <td><img src="@doctor.Image" class="img-fluid" />@doctor.FullName</td>
+                            <td><img src="@doctor.Image?" class="rounded-circle" height="70" width="70" /></td>
+                            <td>@doctor.FullName</td>
                             <td>
                                 @if (doctor.Department != null)
                                 {

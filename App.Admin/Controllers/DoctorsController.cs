@@ -43,32 +43,27 @@ namespace App.Admin.Controllers
             return View();
         }
 
+
 		// POST: DoctorController/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Doctors collection, IFormFile Image)
+        public async Task<ActionResult> Create(Doctors collection, IFormFile? Image)
         {
             try
             {
                 if  (Image is not null)
                 {
-
                     string currentDirectory = Directory.GetCurrentDirectory();
-
                     string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
-
                     string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
-
                     string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
-
                     string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
 
                     string adminImagePath = await FileHelper.FileLoaderAsync(Image);
-
-                    string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath);
-
+                    int startIndex = adminImagePath.LastIndexOf('/') + 1;
+                    string imageTitle = adminImagePath.Substring(startIndex);
+                    string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
                     collection.Image = imagePath;
-
                     if (!Directory.Exists(uiTargetFilePath))
                     {
                         Directory.CreateDirectory(uiTargetFilePath);
@@ -100,11 +95,34 @@ namespace App.Admin.Controllers
             return View(model);
         }
 
-        // POST: DoctorController/Edit/5
+        // POST:App.Admin DoctorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Doctors collection)
+        public async Task<ActionResult> Edit(int id, Doctors collection, IFormFile? Image)
         {
+            if (Image is not null)
+            {
+                var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
+                bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                bool isDeleted = FileHelper.FileRemover(model.Image, false);
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
+
+                string adminImagePath = await FileHelper.FileLoaderAsync(Image);
+                int startIndex = adminImagePath.LastIndexOf('/') + 1;
+                string imageTitle = adminImagePath.Substring(startIndex);
+                string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                collection.Image = imagePath;
+
+                if (!Directory.Exists(uiTargetFilePath))
+                {
+                    Directory.CreateDirectory(uiTargetFilePath);
+                }
+            }
+
             var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
             if (response.IsSuccessStatusCode)
@@ -123,6 +141,7 @@ namespace App.Admin.Controllers
         {
             try
             {
+
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
