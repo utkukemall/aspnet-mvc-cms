@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using App.Data.Entity;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Microsoft.AspNetCore.Hosting;
+using App.Doctor.Utils;
 
 namespace App.Doctor.Controllers
 {
@@ -12,14 +14,16 @@ namespace App.Doctor.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
         private readonly string _apiRoles;
-        private readonly string _apiDoctors ;
-        public PatientsController(HttpClient httpClient,IConfiguration configuration)
+        private readonly string _apiDoctors;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public PatientsController(HttpClient httpClient, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Patients"];
             _apiRoles = rootUrl + configuration["Api:Roles"];
             _apiDoctors = rootUrl + configuration["Api:Doctors"];
+            _webHostEnvironment = webHostEnvironment;
         }
         // GET: PatientsController
         public async Task<ActionResult> Index()
@@ -50,7 +54,7 @@ namespace App.Doctor.Controllers
         // POST: PatientsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Patient collection)
+        public async Task<ActionResult> Create(Patient collection, IFormFile? Image)
         {
             try
             {
@@ -65,12 +69,32 @@ namespace App.Doctor.Controllers
                     TempData["Message"] = "<div class='alert alert-danger'>You need to Re login First...</div>";
                     return RedirectToAction(nameof(Index));
                 }
+                if (Image is not null)
+                {
+                    string currentDirectory = Directory.GetCurrentDirectory();
+                    string DoctorFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                    string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                    string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                    string AdminFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
+                    string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(DoctorFullPath));
+                    string AdminTargetFilePath = Path.Combine(AdminFolderPath, Path.GetFileName(DoctorFullPath));
+
+                    string DoctorImagePath = await FileHelper.FileLoaderAsync(Image);
+                    int startIndex = DoctorImagePath.LastIndexOf('/') + 1;
+                    string imageTitle = DoctorImagePath.Substring(startIndex);
+                    string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                    string AdminimagePath = await FileHelper.FileLoaderAdmin(Image, AdminFolderPath, imageTitle);
+                    collection.Image = imagePath;
+                    if (!Directory.Exists(uiTargetFilePath))
+                    {
+                        Directory.CreateDirectory(uiTargetFilePath);
+                    }
+                }
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                     return RedirectToAction(nameof(Index),"Main");
-
                 }
             }
             catch (Exception e)
@@ -94,7 +118,7 @@ namespace App.Doctor.Controllers
         // POST: PatientsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Patient collection)
+        public async Task<ActionResult> Edit(int id, Patient collection, IFormFile? Image)
         {
             var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 

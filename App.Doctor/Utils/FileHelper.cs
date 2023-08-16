@@ -2,6 +2,28 @@
 {
     public class FileHelper
     {
+        public static bool FileRemover(string? fileName, bool isUI, string filePath = "/wwwroot")
+        {
+            string directory;
+
+            if (isUI)
+            {
+                directory = Directory.GetCurrentDirectory() + filePath + fileName;
+                directory = directory.Replace("App.Doctor", ""); 
+            }
+            else
+            {
+                directory = Directory.GetCurrentDirectory() + filePath + fileName;
+            }
+
+            if (File.Exists(directory))
+            {
+                File.Delete(directory);
+                return true;
+            }
+            return false;
+        }
+
         public static async Task<string> FileLoaderAsync(IFormFile Image, string filePath = "/wwwroot/Images/")
         {
             if (Image == null || Image.Length <= 0)
@@ -19,7 +41,7 @@
             return $"/Images/{fileName}";
         }
 
-        public static async Task<string> FileLoaderDoctor(IFormFile Image, string targetFolderPath, string imageTitle)
+        public static async Task<string> FileLoaderAPI(IFormFile Image, string targetFolderPath, string imageTitle)
         {
             if (Image == null || Image.Length <= 0)
                 return null;
@@ -35,16 +57,21 @@
 
             return $"/Images/{fileName}";
         }
-
-        public static bool FileRemover(string fileName, string filePath = "/wwwroot/Images/")
+        public static async Task<string> FileLoaderAdmin(IFormFile Image, string DoctorFolderPath, string imageTitle)
         {
-            string directory = Directory.GetCurrentDirectory() + filePath + fileName;
-            if (File.Exists(directory))
+            if (Image == null || Image.Length <= 0)
+                return null;
+
+            string extension = Path.GetExtension(Image.FileName);
+            string fileName = imageTitle;
+            string fullPath = Path.Combine(DoctorFolderPath, fileName);
+
+            using (var stream = new FileStream(fullPath, FileMode.Create))
             {
-                File.Delete(directory);
-                return true;
+                await Image.CopyToAsync(stream);
             }
-            return false;
+
+            return $"/Images/{fileName}";
         }
     }
 }

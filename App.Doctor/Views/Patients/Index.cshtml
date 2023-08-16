@@ -67,9 +67,8 @@
                                 <td>
                                     @patient.Role?.RoleName
                                 </td>
+                                <td><img src="@patient.Image" height="70" width="90" /></td>
                                 <td>@patient.FullName</td>
-                                <td><img src="@getImageUrl(patient.Image)" class="img-fluid" /></td>
-                                @* <td>@patient.Image</td> *@
                                 <td>@patient.Email</td>
                                 <td>@patient.Diagnosis</td>
                                 <td>@patient.City</td>
@@ -77,7 +76,12 @@
                                 <td>@patient.Doctor?.FullName</td>
 
                                 <td>
-                                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@patient.Id">Edit</a> 
+                                    <div class="d-flex">
+                                        <a class="btn btn-primary me-1" asp-action="Edit" asp-route-id="@patient.Id"><i class="fas fa-edit"></i> Edit</a>
+                                        <form asp-action="Remove" asp-route-id="@patient.Id" method="post" onsubmit="return confirmDelete(this);">
+                                            <button type="submit" class="btn btn-danger" id="deleteButton"><i class="fas fa-trash"></i> Delete</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         }
