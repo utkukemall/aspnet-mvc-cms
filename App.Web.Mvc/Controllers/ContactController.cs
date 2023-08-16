@@ -47,7 +47,7 @@ namespace App.Web.Mvc.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error! : " + e.Message);
             }
             return View(collection);
         }

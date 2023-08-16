@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using App.Data.Entity;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App.Admin.Controllers
 {
@@ -11,12 +13,14 @@ namespace App.Admin.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiAddress;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public DepartmentsController(HttpClient httpClient, IConfiguration configuration)
+        public DepartmentsController(HttpClient httpClient, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Departments"];
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: DepartmentsController
@@ -25,12 +29,6 @@ namespace App.Admin.Controllers
             List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress);
             return View(model);
         }
-
-        // GET: DepartmentsController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
         // GET: DepartmentsController/Create
         public ActionResult Create()
@@ -48,9 +46,23 @@ namespace App.Admin.Controllers
             {
                 if (Image is not null)
                 {
-                    collection.Image = await FileHelper.FileLoaderAsync(Image);
+                    string currentDirectory = Directory.GetCurrentDirectory();
+                    string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                    string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                    string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                    string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
 
+                    string adminImagePath = await FileHelper.FileLoaderAsync(Image);
+                    int startIndex = adminImagePath.LastIndexOf('/') + 1;
+                    string imageTitle = adminImagePath.Substring(startIndex);
+                    string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                    collection.Image = imagePath;
+                    if (!Directory.Exists(uiTargetFilePath))
+                    {
+                        Directory.CreateDirectory(uiTargetFilePath);
+                    }
                 }
+
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
@@ -61,7 +73,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error! : " + e.Message);
             }
             return View();
         }
@@ -78,21 +90,27 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, Department collection, IFormFile? Image)
         {
-            //try
-            //{
-
-
-            //}
-            //catch(Exception e)
-            //{
-            //    ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
-            //}
-
-            //    return View();
-
-            if (Image != null)
+            if (Image is not null)
             {
-                collection.Image = await FileHelper.FileLoaderAsync(Image);
+                var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+                bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                bool isDeleted = FileHelper.FileRemover(model.Image, false);
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
+
+                string adminImagePath = await FileHelper.FileLoaderAsync(Image);
+                int startIndex = adminImagePath.LastIndexOf('/') + 1;
+                string imageTitle = adminImagePath.Substring(startIndex);
+                string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                collection.Image = imagePath;
+
+                if (!Directory.Exists(uiTargetFilePath))
+                {
+                    Directory.CreateDirectory(uiTargetFilePath);
+                }
             }
 
             var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
@@ -100,9 +118,9 @@ namespace App.Admin.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
-            return View();
+            return View(collection);
         }
 
         // GET: DepartmentsController/Delete/5
@@ -120,8 +138,15 @@ namespace App.Admin.Controllers
             try
             {
                 //FileHelper.FileRemover(collection.);
-                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
-                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                var response = await _httpClient.DeleteAsync(_apiAddress + "/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                }
+                else
+                {
+                    TempData["Message"] = "<div class='alert alert-danger'>This Department is being used!</div>";
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch

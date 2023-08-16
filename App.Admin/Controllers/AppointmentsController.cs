@@ -62,7 +62,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error! : " + e.Message);
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctors), "Id", "FullName");
