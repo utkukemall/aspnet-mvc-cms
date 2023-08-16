@@ -24,6 +24,12 @@
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                     <div class="mb-3">
+                                        <label for="Image" class="form-label">Profile Image</label>
+                                        <input type="file" id="Image" name="Image" class="form-control" asp-for="Image" />
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
                                         <label for="FullName" class="form-label">Full Name</label>
                                         <input type="text" id="FullName" name="FullName" class="form-control" asp-for="FullName" />
                                         <span asp-validation-for="FullName" class="text-danger"></span>
@@ -41,12 +47,6 @@
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="Image" class="form-label">Profile Image</label>
-                                        <input type="file" id="Image" name="Image" class="form-control" asp-for="Image" />
-                                        <span asp-validation-for="Image" class="text-danger"></span>
-                                    </div>
-
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="City" class="form-label">City</label>
@@ -54,14 +54,14 @@
                                             <span asp-validation-for="City" class="text-danger"></span>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="Phone" class="form-label">Phone</label>
+                                            <label asp-for="Phone" class="form-label">Phone</label>
                                             <input type="text" id="Phone" name="Phone" class="form-control" />
                                             <span asp-validation-for="Phone" class="text-danger"></span>
                                         </div>
                                     </div>
 
                                     <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-primary">Create User</button>
+                                        <button type="submit" class="btn btn-primary">Create Account</button>
                                         <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
                                     </div>
                                 </form>

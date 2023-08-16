@@ -26,14 +26,16 @@ namespace App.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(User newUser, string password2)
+        public async Task<IActionResult> Register(User newUser)
         {
             try
             {
-                if (newUser.Password == password2)
+                List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+                var user = users.FirstOrDefault(u => u.Email == newUser.Email);
+                if ( user==null)
                 {
-                    var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-                    var user = users.FirstOrDefault(u => u.Email == newUser.Email);
+                    //var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
+                    //var user = users.FirstOrDefault(u => u.Email == newUser.Email);
 
                     if (user is not null)
                         ModelState.AddModelError("", "This Email Has Already Been Registered!");

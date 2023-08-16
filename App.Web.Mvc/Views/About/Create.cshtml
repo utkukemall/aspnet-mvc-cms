@@ -139,22 +139,6 @@
         </div>
     </div>
 </section>
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6 text-center">
-                <form asp-action="Create" method="post" asp-controller="About" class="subscribe">
-                    <input type="text" class="form-control" asp-for="Email" placeholder="Your Email address">
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                    <button type="submit" class="btn btn-main-2 btn-round-full">Subscribe</button>
-                </form>
-            </div>
-            <div class="col-3"></div>
-        </div>
-    </div>
-
-</section>
 
 <section class="section awards">
     <div class="container">
@@ -200,6 +184,24 @@
         </div>
     </div>
 </section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6 text-center">
+                <form asp-action="Create" method="post" asp-controller="About" class="subscribe">
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Your Email address">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <button type="submit" class="btn btn-main-2 btn-round-full">Subscribe</button>
+                </form>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+
+</section>
+
 
 <section class="section team">
     <div class="container">
