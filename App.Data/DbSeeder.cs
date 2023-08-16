@@ -645,6 +645,56 @@ namespace App.Data
             };
 
             context.Pages.Add(page);
+
+            var page2 = new Page
+            {
+                Title = $"Dr DEVRANI Advice To",
+                Content = $"Care your health...",
+                IsActive = true, // Set IsActive based on your requirements.
+                                 // Add other necessary properties here.
+            };
+
+            context.Pages.Add(page2);
+
+            var page3 = new Page
+            {
+                Title = $"Dr ALTINAY Advice To",
+                Content = $"Most people do not really want freedom, because freedom involves responsibility, and most people are frightened of responsibility.",
+                IsActive = true, // Set IsActive based on your requirements.
+                                 // Add other necessary properties here.
+            };
+
+            context.Pages.Add(page3);
+
+            var page4 = new Page
+            {
+                Title = $"Dr KOBAK Advice To",
+                Content = $"Do you smoke? Eating junkie foods? Continue and relax... We need more patient...",
+                IsActive = true, // Set IsActive based on your requirements.
+                                 // Add other necessary properties here.
+            };
+
+            context.Pages.Add(page4);
+
+            var page5 = new Page
+            {
+                Title = $"Dr KEMAL Advice To",
+                Content = $"Just Fly, We can catch you...",
+                IsActive = true, // Set IsActive based on your requirements.
+                                 // Add other necessary properties here.
+            };
+
+            context.Pages.Add(page5);
+
+            var page6 = new Page
+            {
+                Title = $"Dr BILSEL Advice To You",
+                Content = $"If you wanna good chance in your life, Do not leave to chance on your teeth...",
+                IsActive = true, // Set IsActive based on your requirements.
+                                 // Add other necessary properties here.
+            };
+
+            context.Pages.Add(page6);
             context.SaveChanges();
         }
 

@@ -1,5 +1,4 @@
-﻿@{
-}
+﻿@model IEnumerable<Doctors>
 
 <section class="page-title bg-1">
     <div class="overlay"></div>
@@ -34,51 +33,33 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="d-flex flex-wrap text-center justify-content-center">
+                @foreach (Doctors item in Model)
+                {
 
-        <div class="col-12 text-center  mb-5">
-            <div class="btn-group btn-group-toggle " data-toggle="buttons">
-                <label class="btn active ">
-                    <input type="radio" name="shuffle-filter" value="all" checked="checked" />All Department
-                </label>
-                <label class="btn ">
-                    <input type="radio" name="shuffle-filter" value="cat1" />Cardiology
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="cat2" />Dental
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="cat3" />Neurology
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="cat4" />Medicine
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="cat5" />Pediatric
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="cat6" />Traumatology
-                </label>
-            </div>
-        </div>
-        @foreach (var item in ViewBag.Doctors as List<Doctors>)
-        {
+                    <div class="card border border-1 border-radius-2 border-dark m-3 shadow" style="width: 18rem;">
+                        <a asp-controller="Doctor" asp-action="Detail" asp-route-id="@item.Id" target="_blank">
+                            @if (item.Image != null)
+                            {
+                                <img src="@item.Image" title="@item.FullName" class="card-img-top"  alt="...">
 
-            <div class="row shuffle-wrapper portfolio-gallery">
-                <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item">
-                    <div class="position-relative doctor-inner-box">
-                        <div class="doctor-profile">
-                            <div class="doctor-img">
-                                <img src="@item.Image" class="img-fluid w-100">
-                            </div>
-                        </div>
-                        <div class="content mt-3">
-                            <h4 class="mb-0"><a href="doctor-single.html">@item.FullName</a></h4>
-                            <p>@item.Department.Name</p>
+                            }
+                            else
+                            {
+                                <img src="/HospitalTemplate/images/team-young-specialist-doctors-standing-corridor-hospital.jpg" title="@item.FullName"  class="card-img-top" alt="...">
+                            }
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.FullName</h5>
+                            <p class="card-text">@item.Specialty</p>
+                            <a class="btn btn-info" asp-controller="Doctor" asp-action="Detail" asp-route-id="@item.Id" target="_blank"> Go See Doctor </a>
                         </div>
                     </div>
-                </div>
+                }
             </div>
-        }
+        </div>
+
     </div>
 </section>
 <!-- /portfolio -->
@@ -89,7 +70,7 @@
                 <div class="cta-content">
                     <div class="divider mb-4"></div>
                     <h2 class="mb-5 text-lg">We are pleased to offer you the <span class="title-color">chance to have the healthy</span></h2>
-                    <a href="appoinment.html" class="btn btn-main-2 btn-round-full">Get appoinment<i class="icofont-simple-right  ml-2"></i></a>
+                    <a asp-controller="Appointments" asp-action="Create" class="btn btn-main-2 btn-round-full">Get appoinment<i class="icofont-simple-right  ml-2"></i></a>
                 </div>
             </div>
         </div>

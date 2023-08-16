@@ -12,7 +12,7 @@ namespace App.Web.Mvc.Models
 
         public Contact? Contact { get; set; }
 
-
+        public IEnumerable<Page>? Pages { get; set; }
 
     }
 }

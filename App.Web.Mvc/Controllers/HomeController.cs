@@ -14,6 +14,7 @@ namespace App.Web.Mvc.Controllers
         private readonly string _apiSettingAddress;
         private readonly string _apiAddressDepartments;
         private readonly string _apiAddressDoctors;
+        private readonly string _apiAddressPages;
 
         public HomeController(HttpClient httpClient, IConfiguration configuration)
         {
@@ -23,59 +24,65 @@ namespace App.Web.Mvc.Controllers
             _apiSettingAddress = rootUrl + configuration["Api:Settings"];
             _apiAddressDepartments = rootUrl + configuration["Api:Departments"];
             _apiAddressDoctors = rootUrl + configuration["Api:Doctors"];
+            _apiAddressPages = rootUrl + configuration["Api:Pages"];
         }
 
         public async Task<IActionResult> Index()
 		{
-			
-            ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddressDepartments), "Id", "Name");
 
-			return View();
+			//ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddressDepartments), "Id", "Name");
+
+			HomePageViewModels home = new()
+			{
+				Pages = await _httpClient.GetFromJsonAsync<List<Page>>(_apiAddressPages)
+			};
+
+			return View(home);
 		}
 
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Create(Appointment collection)
-		{
-			try
-			{
-				var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
-				if (response.IsSuccessStatusCode)
-				{
-					TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
-					return RedirectToAction("Index", "Home");
+		//[HttpPost]
+		//[ValidateAntiForgeryToken]
+		//public async Task<ActionResult> Create(Appointment collection)
+		//{
+		//	try
+		//	{
+		//		var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+		//		if (response.IsSuccessStatusCode)
+		//		{
+		//			TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
+		//			return RedirectToAction("Index", "Home");
 
-				}
-				TempData["Message"] = "<div class='alert alert-success'>Error, Please Try Again! </div>";
-
-
+		//		}
+		//		TempData["Message"] = "<div class='alert alert-success'>Error, Please Try Again! </div>";
 
 
-				return View(collection);
-			}
-			catch
-			{
 
 
-				ModelState.AddModelError("", "Your Appointment cannot sended. Please Try Again!");
-				return View(collection);
-			}
-		}
+		//		return View(collection);
+		//	}
+		//	catch
+		//	{
 
-		[HttpGet]
-		public async Task<JsonResult> LoadDoctor(int departmentId)
-        {
-			try
-			{
-				var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
-				var newDoctors = doctorlist?.Where(d => d.DepartmentId == departmentId).ToList();
-				return Json(new SelectList(newDoctors, "Id", "FullName"));
-			}
-			catch (Exception ex)
-			{
-				return Json(new { success = false, message = ex.Message });
-			}
-		}
+
+		//		ModelState.AddModelError("", "Your Appointment cannot sended. Please Try Again!");
+		//		return View(collection);
+		//	}
+		//}
+
+		//[HttpGet]
+		//public async Task<JsonResult> LoadDoctor(int departmentId)
+  //      {
+		//	try
+		//	{
+		//		var doctorlist = await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiAddressDoctors);
+		//		var newDoctors = doctorlist?.Where(d => d.DepartmentId == departmentId).ToList();
+		//		return Json(new SelectList(newDoctors, "Id", "FullName"));
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return Json(new { success = false, message = ex.Message });
+		//	}
+		//}
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

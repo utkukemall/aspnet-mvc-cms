@@ -32,6 +32,11 @@ namespace App.Web.Mvc.Controllers
 			return View();
 		}
 
+        public IActionResult Thanks()
+        {
+
+            return View();
+        }
 
         // POST: AppointmentsController/Create
         [HttpPost]
@@ -43,8 +48,8 @@ namespace App.Web.Mvc.Controllers
                 var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["Message"] = "<div class='alert alert-success'>Your Appointment has been created... Thank you for choosing us</div>";
-                    return RedirectToAction("Index", "Home");
+                    
+                    return RedirectToAction("Thanks","Appointments");
 
                 }
                 TempData["Message"] = "<div class='alert alert-success'>Error, Please Try Again! </div>";
