@@ -33,7 +33,7 @@ namespace App.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync([FromBody] User value)
         {
-			await _service.AddAsync(value);
+            await _service.AddAsync(value);
             await _service.SaveAsync();
             return Ok();
         }
@@ -46,18 +46,19 @@ namespace App.API.Controllers
 
             if (mainUser != null)
             {
-                mainUser.Image = value.Image;
-                mainUser.FullName = value.FullName;
                 mainUser.Email = value.Email;
                 mainUser.Password = value.Password;
                 mainUser.City = value.City;
                 mainUser.Phone = value.Phone;
                 mainUser.UpdatedAt = DateTime.UtcNow;
+                mainUser.FullName = value.FullName;
+                if (value.Image is not null)
+                    mainUser.Image = value.Image;
                 if (value.RoleId is not null)
                 {
-                mainUser.RoleId = value.RoleId;
+                    mainUser.RoleId = value.RoleId;
                 }
-				_service.Update(mainUser);
+                _service.Update(mainUser);
                 var response = await _service.SaveAsync();
                 if (response > 0)
                 {

@@ -10,7 +10,7 @@
 
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form asp-controller="Settings" asp-action="Edit" method="post">
+            <form asp-controller="Settings" asp-action="Edit" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
                     <label for="Name" class="form-label">Name</label>
@@ -47,9 +47,10 @@
                     <input type="text" id="UtkuLinkedin" name="UtkuLinkedin" class="form-control" asp-for="UtkuLinkedin" />
                     <span asp-validation-for="UtkuLinkedin" class="text-danger"></span>
                 </div>
+                <img src="@Model.Image" class="img-fluid my-2" width="100%">
                 <div class="mb-3">
                     <label for="Image" class="form-label">Image</label>
-                    <input type="text" id="Image" name="Image" class="form-control" asp-for="Image" />
+                    <input type="file" id="Image" name="Image" class="form-control" asp-for="Image" />
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
                 <div class="form-check mb-3">

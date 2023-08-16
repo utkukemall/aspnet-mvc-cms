@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using App.Data.Entity;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace App.Admin.Utils
 {

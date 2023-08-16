@@ -62,7 +62,8 @@ namespace App.API.Controllers
                 mainPatient.Diagnosis = value.Diagnosis;
                 mainPatient.DoctorId = value.DoctorId;
                 mainPatient.UpdatedAt = DateTime.UtcNow;
-
+                if (value.Image is not null)
+                    mainPatient.Image = value.Image;
                 _service.Update(mainPatient);
                 var response = await _service.SaveAsync();
                 if (response > 0)

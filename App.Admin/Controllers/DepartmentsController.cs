@@ -26,7 +26,7 @@ namespace App.Admin.Controllers
         // GET: DepartmentsController
         public async Task<ActionResult> Index()
         {
-            List<Department> model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress);
+            var model = await _httpClient.GetFromJsonAsync<List<Department>>(_apiAddress);
             return View(model);
         }
 
@@ -95,6 +95,7 @@ namespace App.Admin.Controllers
                 var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
                 bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
                 bool isDeleted = FileHelper.FileRemover(model.Image, false);
+
                 string currentDirectory = Directory.GetCurrentDirectory();
                 string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
                 string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
@@ -137,7 +138,12 @@ namespace App.Admin.Controllers
         {
             try
             {
-                //FileHelper.FileRemover(collection.);
+                var model = await _httpClient.GetFromJsonAsync<Department>(_apiAddress + "/" + id);
+                if (model.Image is not null)
+                {
+                    bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                    bool isDeleted = FileHelper.FileRemover(model.Image, false);
+                }
                 var response = await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 if (response.IsSuccessStatusCode)
                 {

@@ -44,14 +44,15 @@ namespace App.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Department value)
         {
-            Department mainDepartment = await _service.FindAsync(id);
+            var mainDepartment = await _service.FindAsync(id);
 
             if (mainDepartment != null)
             {
                 mainDepartment.Name = value.Name;
                 mainDepartment.Description = value.Description;
-                mainDepartment.Image = value.Image;
-               
+                if (value.Image is not null)
+                    mainDepartment.Image = value.Image;
+
 
                 _service.Update(mainDepartment);
                 await _service.SaveAsync();

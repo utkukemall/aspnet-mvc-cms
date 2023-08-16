@@ -105,6 +105,7 @@ namespace App.Admin.Controllers
                 var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
                 bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
                 bool isDeleted = FileHelper.FileRemover(model.Image, false);
+
                 string currentDirectory = Directory.GetCurrentDirectory();
                 string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
                 string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
@@ -141,13 +142,24 @@ namespace App.Admin.Controllers
         {
             try
             {
-
-                await _httpClient.DeleteAsync(_apiAddress + "/" + id);
+                var model = await _httpClient.GetFromJsonAsync<Doctors>(_apiAddress + "/" + id);
+                if (model.Image is not null)
+                {
+                    bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                    bool isDeleted = FileHelper.FileRemover(model.Image, false);
+                }
+               var response = await _httpClient.DeleteAsync(_apiAddress + "/" + id);
+                if (response.IsSuccessStatusCode)
+                {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
                 return RedirectToAction(nameof(Index));
+                }
+                TempData["Message"] = "<div class='alert alert-danger'>This doctor is being using!</div>";
+                return View();
             }
             catch
             {
+                TempData["Message"] = "<div class='alert alert-danger'>Error!</div>";
                 return View();
             }
         }

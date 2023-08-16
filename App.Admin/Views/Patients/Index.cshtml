@@ -26,8 +26,8 @@
                     <tr>
                         <th>Id</th>
                         <th>Role</th>
-                        <th>FullName</th>
                         <th>Image</th>
+                        <th>FullName</th>
                         <th>Email</th>
                         <th>Diagnosis</th>
                         <th>City</th>
@@ -44,8 +44,8 @@
                             <td>
                                 @patient.Role?.RoleName
                             </td>
+                            <td><img src="@patient.Image" height="70" width="90" /></td>
                             <td>@patient.FullName</td>
-                            <td>@patient.Image</td>
                             <td>@patient.Email</td>
                             <td>@patient.Diagnosis</td>
                             <td>@patient.City</td>

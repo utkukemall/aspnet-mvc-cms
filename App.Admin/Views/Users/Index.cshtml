@@ -25,6 +25,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Role</th>
+                        <th>Image</th>
                         <th>FullName</th>
                         <th>Email</th>
                         <th>Password</th>
@@ -39,6 +40,7 @@
                         <tr>
                             <td>@user.Id</td>
                             <td>@user.Role?.RoleName</td>
+                            <td><img src="@user.Image" height="70" width="70"/></td>
                             <td>@user.FullName</td>
                             <td>@user.Email</td>
                             <td>@user.Password</td>

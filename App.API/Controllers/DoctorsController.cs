@@ -62,9 +62,7 @@ namespace App.API.Controllers
                 doctor.UpdatedAt = DateTime.UtcNow;
                 doctor.DepartmentId = value.DepartmentId;
                 if (value.Image is not null)
-                {
                     doctor.Image = value.Image;
-                }
 
 
                 _service.Update(doctor);

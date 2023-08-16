@@ -56,8 +56,9 @@ namespace App.API.Controllers
                 mainSetting.AlpLinkedin = value.AlpLinkedin;
                 mainSetting.KadirLinkedin = value.KadirLinkedin;
                 mainSetting.UtkuLinkedin = value.UtkuLinkedin;
-                mainSetting.Image = value.Image;
                 mainSetting.IsActive = value.IsActive;
+                if (value.Image is not null)
+                    mainSetting.Image = value.Image;
 
                 _service.Update(mainSetting);
                 await _service.SaveAsync();

@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Image</th>
                         <th>Title</th>
                         <th>Content</th>
                         <th>Comments</th>
@@ -35,6 +36,7 @@
                     {
                         <tr>
                             <td>@post.Id</td>
+                            <td><img src="@post.Image" height="70" width="90" /></td>
                             <td>@post.Title</td>
                             <td>
                                 @if (post.Content.Length > 100)
@@ -62,7 +64,7 @@
                                     @post.Content
                                 }
                             </td>
-                            <td>@post.Comments?.Count</td>
+                            <td>@post.CommentsCount</td>
                             <td>
                                 <img src="/Images/@post.Image" alt="" class="img-fluid rounded-circle" style="max-height:75px;" />
                             </td>

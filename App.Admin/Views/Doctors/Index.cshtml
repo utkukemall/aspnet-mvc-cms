@@ -40,7 +40,7 @@
                     {
                         <tr>
                             <td>@doctor.Id</td>
-                            <td><img src="@doctor.Image?" class="rounded-circle" height="70" width="70" /></td>
+                            <td><img src="@doctor.Image" height="70" width="90"/></td>
                             <td>@doctor.FullName</td>
                             <td>
                                 @if (doctor.Department != null)
@@ -50,7 +50,7 @@
                                 }
                                 else
                                 {
-                                   <div class="alert alert-danger" >Add a Department Please! </div>
+                                    <div class="alert alert-danger">Add a Department Please! </div>
                                 }
                             </td>
                             <td>@doctor.Email</td>

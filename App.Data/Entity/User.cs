@@ -32,8 +32,5 @@ namespace App.Data.Entity
 
         [Required(ErrorMessage = "The {0} field cannot be left blank!"), DataType(DataType.PhoneNumber), Column(TypeName = "nvarchar(20)"), MaxLength(20, ErrorMessage = "The {0} cannot exceed 20 characters."), MinLength(10, ErrorMessage = "The {0} must be at least 10 characters.")]
         public string Phone { get; set; }
-
-        [NotMapped]
-        public IFormFile? ImageFile { get; set; }
     }
 }

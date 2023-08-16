@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using App.Data.Entity;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using App.Admin.Utils;
 
 namespace App.Admin.Controllers
 {
@@ -13,14 +14,16 @@ namespace App.Admin.Controllers
         private readonly string _apiAddress;
         private readonly string _apiRoles;
         private readonly string _apiDoctorsRoles;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PatientsController(HttpClient httpClient, IConfiguration configuration)
+        public PatientsController(HttpClient httpClient, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClient;
             var rootUrl = configuration["Api:RootUrl"];
             _apiAddress = rootUrl + configuration["Api:Patients"];
             _apiRoles = rootUrl + configuration["Api:Roles"];
             _apiDoctorsRoles = rootUrl + configuration["Api:Doctors"];
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: PatientsController
@@ -31,12 +34,6 @@ namespace App.Admin.Controllers
             var model = await _httpClient.GetFromJsonAsync<List<Patient>>(_apiAddress);
             return View(model);
         }
-
-        // GET: PatientsController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
         // GET: PatientsController/Create
         public async Task<ActionResult> Create()
@@ -49,22 +46,37 @@ namespace App.Admin.Controllers
         // POST: PatientsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Patient collection)
+        public async Task<ActionResult> Create(Patient collection, IFormFile? Image)
         {
-            try
+            if (Image is not null)
             {
-                var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
-                if (response.IsSuccessStatusCode)
-                {
-                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                    return RedirectToAction(nameof(Index));
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
 
+                string adminImagePath = await FileHelper.FileLoaderAsync(Image);
+                int startIndex = adminImagePath.LastIndexOf('/') + 1;
+                string imageTitle = adminImagePath.Substring(startIndex);
+                string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                collection.Image = imagePath;
+                if (!Directory.Exists(uiTargetFilePath))
+                {
+                    Directory.CreateDirectory(uiTargetFilePath);
                 }
             }
-            catch (Exception e)
+            
+
+            var response = await _httpClient.PostAsJsonAsync(_apiAddress, collection);
+            if (response.IsSuccessStatusCode)
             {
-                ModelState.AddModelError("", "Error : " + e.Message);
+                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                return RedirectToAction(nameof(Index));
+
             }
+
+
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
             return View(collection);
@@ -82,14 +94,37 @@ namespace App.Admin.Controllers
         // POST: PatientsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Patient collection)
+        public async Task<ActionResult> Edit(int id, Patient collection, IFormFile? Image)
         {
+            if (Image is not null)
+            {
+                var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
+                bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                bool isDeleted = FileHelper.FileRemover(model.Image, false);
+
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string adminFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
+                string targetFolderPath = Path.Combine(projectBasePath, "App.Web.Mvc", "wwwroot", "Images");
+                string uiTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(adminFullPath));
+
+                string adminImagePath = await FileHelper.FileLoaderAsync(Image);
+                int startIndex = adminImagePath.LastIndexOf('/') + 1;
+                string imageTitle = adminImagePath.Substring(startIndex);
+                string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
+                collection.Image = imagePath;
+
+                if (!Directory.Exists(uiTargetFilePath))
+                {
+                    Directory.CreateDirectory(uiTargetFilePath);
+                }
+            }
             var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
             if (response.IsSuccessStatusCode)
             {
                 TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
             ViewBag.RoleId = new SelectList(await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoles), "Id", "RoleName");
             ViewBag.DoctorId = new SelectList(await _httpClient.GetFromJsonAsync<List<Doctors>>(_apiDoctorsRoles), "Id", "FullName");
@@ -110,6 +145,12 @@ namespace App.Admin.Controllers
         {
             try
             {
+                var model = await _httpClient.GetFromJsonAsync<Patient>(_apiAddress + "/" + id);
+                if (model.Image is not null)
+                {
+                    bool isDeletedUI = FileHelper.FileRemover(model.Image, true, "App.Web.Mvc/wwwroot");
+                    bool isDeleted = FileHelper.FileRemover(model.Image, false);
+                }
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }

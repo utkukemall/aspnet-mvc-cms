@@ -59,7 +59,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Hata oluştu : " + e.Message);
+                ModelState.AddModelError("", "Error : " + e.Message);
             }
             ViewBag.DepartmentId = new SelectList(await _httpClient.GetFromJsonAsync<List<Department>>(_apiDepartments), "Id", "Name");
             ViewBag.PostId = new SelectList(await _httpClient.GetFromJsonAsync<List<Post>>(_apiPosts), "Id", "Title");
@@ -81,18 +81,6 @@ namespace App.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, DepartmentPost collection)
         {
-            //try
-            //{
-
-
-            //}
-            //catch(Exception e)
-            //{
-            //    ModelState.AddModelError("", "Hata Oluştu : " + e.Message);
-            //}
-
-            //    return View();
-
             var response = await _httpClient.PutAsJsonAsync(_apiAddress + "/" + id, collection);
 
             if (response.IsSuccessStatusCode)
@@ -119,7 +107,6 @@ namespace App.Admin.Controllers
         {
             try
             {
-                //FileHelper.FileRemover(collection.);
                 await _httpClient.DeleteAsync(_apiAddress + "/" + id);
                 return RedirectToAction(nameof(Index));
             }

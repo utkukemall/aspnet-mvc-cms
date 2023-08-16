@@ -10,7 +10,7 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form asp-action="Edit" method="post">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -23,7 +23,7 @@
                         <select id="DoctorId" name="DoctorId" class="form-select" asp-items="ViewBag.DoctorId" asp-for="DoctorId"></select>
                     </div>
                 </div>
-
+                <img src="@Model.Image" class="img-fluid my-2" width="100%">
                 <div class="mb-3">
                     <label for="Image" class="form-label">Image</label>
                     <input type="file" id="Image" name="Image" class="form-control" asp-for="Image" />
