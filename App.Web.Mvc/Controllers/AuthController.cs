@@ -32,7 +32,7 @@ namespace App.Web.Mvc.Controllers
             {
                 List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
                 var user = users.FirstOrDefault(u => u.Email == newUser.Email);
-                if ( user==null)
+                if (user == null)
                 {
                     //var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
                     //var user = users.FirstOrDefault(u => u.Email == newUser.Email);
@@ -81,17 +81,20 @@ namespace App.Web.Mvc.Controllers
             return roles.FirstOrDefault(r => r.RoleName == "doktor");
         }
 
-
-
-
-
-
-
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await HttpContext.SignOutAsync();
-            return RedirectToAction(nameof(Login), "Auth");
+            try
+            {
+                HttpContext.Session.Remove("userId");
+                HttpContext.Session.Remove("userGuid");
+            }
+            catch
+            {
+                HttpContext.Session.Clear();
+            }
+            return RedirectToAction("Index", "Home");
         }
+
 
 
 
@@ -156,7 +159,7 @@ namespace App.Web.Mvc.Controllers
 
                     HttpContext.Session.SetInt32("userId", account.Id);
 
-               
+
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -165,7 +168,7 @@ namespace App.Web.Mvc.Controllers
 
         }
 
-       
+
 
         public IActionResult ForgotPassword()
         {
