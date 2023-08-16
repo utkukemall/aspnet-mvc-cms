@@ -25,50 +25,6 @@ namespace App.Web.Mvc.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> Register(User newUser, string password2)
-        //{
-        //    try
-        //    {
-        //        if (newUser.Password == password2)
-        //        {
-        //            var users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-        //            var user = users.FirstOrDefault(u => u.Email == newUser.Email);
-
-        //            if (user is not null)
-        //                ModelState.AddModelError("", "This Email Has Already Been Registered!");
-
-        //            var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
-
-        //            var roleFromDatabase = roles.FirstOrDefault(r => r.Id == newUser.RoleId); // newUser.RoleId Her zaman Null olduğu için roleFromDatabase de null oluyor
-
-        //            //KAAA
-
-        //            if (roleFromDatabase == null)
-        //            {
-        //                roleFromDatabase = new Role
-        //                {
-        //                    RoleName = "DefaultRoleName" // roleFromDatabase Null olduğu için her zaman DefaultRoleName adında yeni role ekliyor.
-        //                };
-        //            }
-
-        //            newUser.Role = roleFromDatabase; 
-
-        //            var add = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
-
-        //            if (add.IsSuccessStatusCode)
-        //                return RedirectToAction("Index", "Home");
-        //            else
-        //                ModelState.AddModelError("", "An error occurred while registering the user.");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("", ex.Message);
-        //    }
-        //    return View(newUser);
-        //}
-
-
         [HttpPost]
         public async Task<IActionResult> Register(User newUser, string password2)
         {
