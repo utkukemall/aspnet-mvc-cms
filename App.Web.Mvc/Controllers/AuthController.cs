@@ -30,72 +30,7 @@ namespace App.Web.Mvc.Controllers
             return View();
         }
 
-        [HttpPost]
-        //public async Task<IActionResult> Register(User newUser, IFormFile? Image)
-        //{
-        //    try
-        //    {
-        //        List<User> users = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-        //        var user = users.FirstOrDefault(u => u.Email == newUser.Email);
-        //        if ( user==null)
-        //        {
-        //            if (user is not null)
-        //                ModelState.AddModelError("", "This Email Has Already Been Registered!");
-
-        //            var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
-
-        //            // Burada, doktor, kullanıcı ve admin rollerinden birini seçelim.
-        //            Role selectedRole = SelectRoleToAssign(roles);
-
-        //            if (selectedRole == null)
-        //            {
-        //                ModelState.AddModelError("", "No valid role found to assign to the new user.");
-        //                return View(newUser);
-        //            }
-
-        //            newUser.RoleId = selectedRole.Id; // Eğer Id kullanıyorsanız RoleId'ye atayın, ya da RoleName'e göre yapıyorsanız RoleName'e atayın.
-
-        //            var add = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
-        //            if (Image is not null)
-        //            {
-        //                string currentDirectory = Directory.GetCurrentDirectory();
-        //                string WebMvcFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
-        //                string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
-        //                string targetFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
-        //                string DoctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
-        //                string AdminTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(WebMvcFullPath));
-        //                string DoctorTargetFilePath = Path.Combine(DoctorFolderPath, Path.GetFileName(WebMvcFullPath));
-
-        //                string WebMvcImagePath = await FileHelper.FileLoaderAsync(Image);
-        //                int startIndex = WebMvcImagePath.LastIndexOf('/') + 1;
-        //                string imageTitle = WebMvcImagePath.Substring(startIndex);
-        //                string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
-        //                string doctorimagePath = await FileHelper.FileLoaderDoctor(Image, DoctorFolderPath, imageTitle);
-        //                user.Image = imagePath;
-        //                if (!Directory.Exists(AdminTargetFilePath))
-        //                {
-        //                    Directory.CreateDirectory(AdminTargetFilePath);
-        //                }
-        //            }
-        //            var response = await _httpClient.PostAsJsonAsync(_apiAddress, user);
-        //            if (response.IsSuccessStatusCode)
-        //            {
-        //                TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-        //                return RedirectToAction(nameof(Index));
-
-        //            }
-        //            if (add.IsSuccessStatusCode)
-        //                return RedirectToAction("Index", "Home");
-        //            else
-        //                ModelState.AddModelError("", "An error occurred while registering the user.");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("", ex.Message);
-        //    }
-        //    return View(newUser);
-        //}
+        [HttpPost]      
         public async Task<IActionResult> Register(User newUser, IFormFile? Image)
         {
             try
@@ -165,29 +100,32 @@ namespace App.Web.Mvc.Controllers
             return View(newUser);
         }
 
-
-
-
         // Belirtilen üç rol (doktor, kullanıcı ve admin) arasından birini seçen yardımcı fonksiyon.
         private Role SelectRoleToAssign(List<Role> roles)
         {
+            // Burada, belirtilen üç rol arasından birini seçmek için kendi kriterlerinize göre bir seçim yapabilirsiniz.
+            // Örneğin, rastgele bir rol seçmek için aşağıdaki gibi yapabilirsiniz:
+            // Random random = new Random();
+            // int randomIndex = random.Next(0, roles.Count);
+            // return roles[randomIndex];
+
+            // Varsayılan olarak, doktor rolünü döndürelim:
             return roles.FirstOrDefault(r => r.RoleName == "doktor");
         }
 
-
-
-
-
-
-
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await HttpContext.SignOutAsync();
-            return RedirectToAction(nameof(Login), "Auth");
+            try
+            {
+                HttpContext.Session.Remove("userId");
+                HttpContext.Session.Remove("userGuid");
+            }
+            catch
+            {
+                HttpContext.Session.Clear();
+            }
+            return RedirectToAction("Index", "Home");
         }
-
-
-
 
         public IActionResult Login()
         {
@@ -249,7 +187,7 @@ namespace App.Web.Mvc.Controllers
 
                     HttpContext.Session.SetInt32("userId", account.Id);
 
-               
+
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -258,7 +196,7 @@ namespace App.Web.Mvc.Controllers
 
         }
 
-       
+
 
         public IActionResult ForgotPassword()
         {
