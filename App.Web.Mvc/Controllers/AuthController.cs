@@ -76,7 +76,7 @@ namespace App.Web.Mvc.Controllers
                         string imageTitle = webMvcImagePath.Substring(startIndex);
                         string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
                         string doctorImagePath = await FileHelper.FileLoaderDoctor(Image, doctorFolderPath, imageTitle);
-                        newUser.Image = imagePath;
+                        newUser.Image = imagePath; //çek
 
                         if (!Directory.Exists(adminTargetFilePath))
                         {
