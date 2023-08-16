@@ -1,12 +1,4 @@
-﻿@inject HttpClient _httpClient;
-@inject IConfiguration configuration
-@{
-    string _apiAddress = configuration.GetValue<string>("Api:RootUrl") + configuration.GetValue<string>("Api:Users");
-    int? userId2 = Context.Session.GetInt32("userId");
-    List<User> UserList = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
-
-    User? mainUser = UserList.FirstOrDefault(u=> u.Id == userId2);
-}
+﻿
 
 @******** Header   *********@
 
@@ -14,7 +6,7 @@
     <div class="container">
         <a class="navbar-brand" asp-controller="Home" asp-action="Index">
             <img src="~/hospitaltemplate/images/logo.png" />
-
+            
         </a>
 
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
@@ -26,7 +18,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="About" asp-action="Create">About</a></li>
-                @*    <li class="nav-item"><a class="nav-link" asp-controller="Services">Services</a></li> *@
+             @*    <li class="nav-item"><a class="nav-link" asp-controller="Services">Services</a></li> *@
 
                 <!-- Polikliniklerin listelendiği ve hizmetlere gidildiği kısım -->
 
@@ -34,12 +26,12 @@
                     <a class="nav-link dropdown-toggle" asp-controller="Department" id="dropdown05" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Departments <i class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                        @*   <li><a class="dropdown-item" asp-controller="Department" asp-action="Index">All Services</a></li> *@
+                      @*   <li><a class="dropdown-item" asp-controller="Department" asp-action="Index">All Services</a></li> *@
                         @await Component.InvokeAsync("DepartmentsServices")
                     </ul>
                 </li>
 
-
+              
 
                 <!-- Doktorların Polikliniklere Göre Listelendiği Kısım -->
 
@@ -47,7 +39,7 @@
                     <a class="nav-link dropdown-toggle" asp-controller="Doctor" id="dropdown03" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Our Team Members<i class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item" asp-controller="Doctor" asp-action="Index">Doctors</a></li>
+                                <li><a class="dropdown-item" asp-controller="Doctor" asp-action="Index">Doctors</a></li>
                         @await Component.InvokeAsync("Doctors")
                     </ul>
                 </li>
@@ -65,23 +57,9 @@
 
                     </ul>
                 </li>
-
+               
                 <li class="nav-item"><a class="nav-link" asp-controller="contact" asp-action="Index">Contact</a></li>
-                @if (mainUser != null && mainUser.RoleId == 3)
-                {
-                    <li class="nav-item"><a class="nav-link" asp-controller="Patient" asp-action="Index">My Health</a></li>
-
-                    <li class="nav-item"><a class="nav-link btn btn-outline-danger" asp-controller="Auth" asp-action="Logout">Logout</a></li>
-                }
-                else if (mainUser != null)
-                {
-                    <li class="nav-item"><a class="nav-link btn btn-outline-danger" asp-controller="Auth" asp-action="Logout">Logout</a></li>
-                }
-                else
-                {
-
-                    <li class="nav-item"><a class="nav-link" asp-controller="Auth" asp-action="Login">Login</a></li>
-                }
+                <li class="nav-item"><a class="nav-link" asp-controller="Auth" asp-action="Login">Login</a></li>
             </ul>
         </div>
     </div>
