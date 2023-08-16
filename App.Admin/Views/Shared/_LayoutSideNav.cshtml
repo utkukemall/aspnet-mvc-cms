@@ -1,4 +1,11 @@
-﻿<div id="layoutSidenav">
+﻿@inject HttpClient _httpClient;
+@inject IConfiguration configuration
+@{
+    string _apiAddress = configuration.GetValue<string>("Api:RootUrl") + configuration.GetValue<string>("Api:Users");
+    int? userId2 = Context.Session.GetInt32("userId");
+    var settings = await _httpClient.GetFromJsonAsync<User>(_apiAddress + "/" + userId2);
+}
+<div id="layoutSidenav">
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
@@ -56,13 +63,18 @@
                     </a>
                     <a class="nav-link" asp-controller="Subscribers" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                        Subscribbers
+                        Subscribers
                     </a>
                 </div>
 
                 <div class="sb-sidenav-footer">
                     <div class="small">Welcome</div>
-                    Logged as: Hospital Admin
+                    Logged as: @settings?.FullName
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">
+                        <img src="@settings.Image" alt="" width="100%"height="100%"/>
+                    </div>
                 </div>
             </div>
         </nav>
