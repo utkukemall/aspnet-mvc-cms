@@ -41,16 +41,6 @@ namespace App.Web.Mvc.Controllers
 
                 if (existingUser == null)
                 {
-                    //var roles = await _httpClient.GetFromJsonAsync<List<Role>>(_apiRoleAddress);
-
-                    //// "User" rolünü seçelim.
-                    //Role selectedRole = roles.FirstOrDefault(r => r.RoleName == "User");
-
-                    //if (selectedRole == null)
-                    //{
-                    //    ModelState.AddModelError("", "No valid role found to assign to the new user.");
-                    //    return View(newUser);
-                    //}
 
                     newUser.RoleId = 4;
 
@@ -65,28 +55,27 @@ namespace App.Web.Mvc.Controllers
                     if (Image is not null)
                     {
                         string currentDirectory = Directory.GetCurrentDirectory();
-                        string webMvcFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
+                        string mvcFullPath = _webHostEnvironment.WebRootPath + "\\Images\\";
                         string projectBasePath = Directory.GetParent(currentDirectory).Parent.FullName + "\\aspnet-mvc-cms\\";
                         string targetFolderPath = Path.Combine(projectBasePath, "App.Admin", "wwwroot", "Images");
-                        string doctorFolderPath = Path.Combine(projectBasePath, "App.Doctor", "wwwroot", "Images");
-                        string adminTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(webMvcFullPath));
-                        string doctorTargetFilePath = Path.Combine(doctorFolderPath, Path.GetFileName(webMvcFullPath));
+                        string adminTargetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(mvcFullPath));
 
-                        string webMvcImagePath = await FileHelper.FileLoaderAsync(Image);
-                        int startIndex = webMvcImagePath.LastIndexOf('/') + 1;
-                        string imageTitle = webMvcImagePath.Substring(startIndex);
+                        string mvcImagePath = await FileHelper.FileLoaderAsync(Image);
+                        int startIndex = mvcImagePath.LastIndexOf('/') + 1;
+                        string imageTitle = mvcImagePath.Substring(startIndex);
                         string imagePath = await FileHelper.FileLoaderAPI(Image, targetFolderPath, imageTitle);
-                        string doctorImagePath = await FileHelper.FileLoaderDoctor(Image, doctorFolderPath, imageTitle);
                         newUser.Image = imagePath;
-
                         if (!Directory.Exists(adminTargetFilePath))
                         {
                             Directory.CreateDirectory(adminTargetFilePath);
                         }
                     }
-
-                    TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
-                    return RedirectToAction("Index", "Home");
+                    var response = await _httpClient.PostAsJsonAsync(_apiAddress, newUser);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        TempData["Message"] = "<div class='alert alert-success'>The Job is Done Sir!</div>";
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {

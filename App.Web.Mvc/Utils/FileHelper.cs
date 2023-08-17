@@ -40,8 +40,8 @@
             }
             return $"/Images/{fileName}";
         }
-
-        public static async Task<string> FileLoaderAPI(IFormFile Image, string AdminFolderPath, string imageTitle)
+       
+        public static async Task<string> FileLoaderAdmin(IFormFile Image, string AdminFolderPath, string imageTitle)
         {
             if (Image == null || Image.Length <= 0)
                 return null;
@@ -57,14 +57,14 @@
 
             return $"/Images/{fileName}";
         }
-        public static async Task<string> FileLoaderDoctor(IFormFile Image, string DoctorFolderPath, string imageTitle)
+        public static async Task<string> FileLoaderAPI(IFormFile Image, string targetFolderPath, string imageTitle)
         {
             if (Image == null || Image.Length <= 0)
                 return null;
 
             string extension = Path.GetExtension(Image.FileName);
             string fileName = imageTitle;
-            string fullPath = Path.Combine(DoctorFolderPath, fileName);
+            string fullPath = Path.Combine(targetFolderPath, fileName);
 
             using (var stream = new FileStream(fullPath, FileMode.Create))
             {
