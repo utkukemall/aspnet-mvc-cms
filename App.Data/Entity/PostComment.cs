@@ -9,14 +9,14 @@ namespace App.Data.Entity
 
 
 
+        public int? PostId { get; set; }
 
         [ForeignKey(nameof(PostId))]
-        public int? PostId { get; set; }
         public Post? Post { get; set; }
 
-
-        [ForeignKey("User")]
         public int? UserId { get; set; }
+
+        [ForeignKey(nameof(UserId))]
         public User? User { get; set; }
 
         [DataType(DataType.Text), Column(TypeName = "nvarchar(100)"), MaxLength(200, ErrorMessage = "The {0} cannot exceed 200 characters."), MinLength(5, ErrorMessage = "The {0} must be at least 5 characters.")]
