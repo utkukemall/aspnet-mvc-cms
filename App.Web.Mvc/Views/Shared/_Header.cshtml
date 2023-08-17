@@ -5,15 +5,46 @@
     int? userId2 = Context.Session.GetInt32("userId");
     List<User> UserList = await _httpClient.GetFromJsonAsync<List<User>>(_apiAddress);
 
-    User? mainUser = UserList.FirstOrDefault(u=> u.Id == userId2);
+    User? mainUser = UserList.FirstOrDefault(u => u.Id == userId2);
+}
+@{
+    string _apiAddressSettings = configuration.GetValue<string>("Api:RootUrl") + configuration.GetValue<string>("Api:Settings");
+    var settings = await _httpClient.GetFromJsonAsync<List<Setting>>(_apiAddressSettings);
+
+    var setting = settings?.FirstOrDefault(s => s.IsActive);
 }
 
 @******** Header   *********@
+<style>
+    .brand-name {
+        font-style: italic;
+        font-weight: bold;
+        color: #333; /* Burayı markanıza uygun bir renkle değiştirebilirsiniz */
+        font-family: 'Arial', sans-serif; /* Markanıza uygun bir yazı tipi kullanabilirsiniz */
+        margin-left: 10px; /* Resim ile isim arasında bir boşluk olması için */
+    }
+</style>
 
 <nav class="navbar navbar-expand-lg navigation" id="navbar">
     <div class="container">
+       
         <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-            <img src="~/hospitaltemplate/images/logo.png" />
+            @if (setting.Image != null)
+            {
+                <img src="@setting.Image" class="img-fluid border-0 rounded-2" style="max-height:75px" />
+                <span class="brand-name">@setting.Name</span>
+            }
+            else
+            {
+                <div class="col-6">
+                    <img src="~/hospitaltemplate/images/logo.png" class="img-fluid shadow border border-1 border-dark" style="max-height:75px" />
+                </div>
+                <div class="col-6   align-self-center">
+                    <h5 id="HospitalName" class="fst-italic">@setting.Name</h5>
+                </div>
+                <img src="~/hospitaltemplate/images/logo.png" />
+
+            }
 
         </a>
 

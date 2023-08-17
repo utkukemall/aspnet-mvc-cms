@@ -619,7 +619,7 @@ namespace App.Data
 
             var setting = new Setting
             {
-                Name = $"First Setting",
+                Name = $"SAHOSPITALS",
                 Address = $"Karaköy / İstanbul",
                 Email = "academy@siliconmade.com",
                 Image = "",
