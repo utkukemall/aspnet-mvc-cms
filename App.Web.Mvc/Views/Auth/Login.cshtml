@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Login";
 }
-
+@inject IConfiguration configuration
+@{
+    string? addressDoctor = configuration.GetValue<string>("AppDoctor:RootUrl");
+    string? addressAdmin = configuration.GetValue<string>("AppAdmin:RootUrl");
+}
 
 <div class="container my-5">
     <!-- Outer Row -->
@@ -48,10 +52,10 @@
                                         Logın
                                     </button>
                                     <hr>
-                                    <a href="#" class="btn btn-dark btn-block">
+                                    <a href="@addressAdmin" class="btn btn-dark btn-block">
                                         <i class="fab fa-google fa-fw"></i> Admınıstratıve Logın
                                     </a>
-                                    <a href="#" class="btn btn-danger btn-block">
+                                    <a href="@addressDoctor" class="btn btn-danger btn-block">
                                         <i class="fab fa-facebook-f fa-fw"></i> Doctor Logın
                                     </a>
                                 </form>
