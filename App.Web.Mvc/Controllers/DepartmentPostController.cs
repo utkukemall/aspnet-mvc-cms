@@ -1,4 +1,5 @@
 ﻿using App.Data.Entity;
+using App.Web.Mvc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,29 +22,63 @@ namespace App.Web.Mvc.Controllers
         }
 
         // GET: DepartmentPostController
-        public async Task<ActionResult> Index(int id) // Bu manevra bize 51 yıla mal olacak...
+        public async Task<ActionResult> Create(int id) // Bu manevra bize 51 yıla mal olacak...
         {
-            var model =  await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiAddress);
+            List<DepartmentPost> model = await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiAddress);
 
-            var viewModel = model?.Where(d => d.DepartmentId == id).ToList();
+            List<DepartmentPost> viewModel = model?.Where(d => d.DepartmentId == id).ToList();
 
-            ViewBag.PostId = new SelectList(viewModel, "Id", "Title");
+            //ViewBag.PostId = new SelectList(viewModel, "Id", "Title");
+            DepartmentPostViewModel postModelView = new()
+            {
+                Posts = viewModel,
 
-            return View(viewModel);
+            };
+
+
+
+
+            return View(postModelView);
         }
 
         // GET: DepartmentPostController/Details/5
 
+
+
         [HttpPost]
-        public async Task<ActionResult> Create(PostComment postComment) // Bu manevra bize 51 yıla mal olacak...
+        public async Task<ActionResult> Create(DepartmentPostViewModel viewModel) // Bu manevra bize 51 yıla mal olacak...
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(_apiAddress, postComment);
+
+
+                PostComment postComment = viewModel.Comment;
+
+              
+                postComment.PostId = viewModel.Comment.PostId;
+                postComment.Email = viewModel.Comment.Email;
+                postComment.FullName = viewModel.Comment.FullName;
+      
+                postComment.Comment = viewModel.Comment.Comment;
+
+
+
+                //List<DepartmentPost> model = await _httpClient.GetFromJsonAsync<List<DepartmentPost>>(_apiAddress);
+
+                //List<DepartmentPost> viewModel = model?.Where(d => d.DepartmentId == id).ToList();
+
+                //ViewBag.PostId = new SelectList(viewModel, "Id", "Title");
+                int? userId = HttpContext.Session.GetInt32("userId");
+                if (userId != null)
+                {
+                    postComment.UserId = userId;
+                }
+
+                var response = await _httpClient.PostAsJsonAsync(_apiAddressPostComments, postComment);
                 if (response.IsSuccessStatusCode)
                 {
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
 
                 }
                 TempData["Message"] = "<div class='alert alert-danger'>Error, Please Try Again! </div>";
@@ -58,7 +93,7 @@ namespace App.Web.Mvc.Controllers
 
 
                 ModelState.AddModelError("", "Your Comment cannot sended. Please Try Again!");
-                return View(postComment);
+                return RedirectToAction("Index", "Home");
             }
         }
     }
