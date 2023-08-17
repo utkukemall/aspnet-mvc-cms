@@ -36,13 +36,10 @@
             }
             else
             {
-                <div class="col-6">
-                    <img src="~/hospitaltemplate/images/logo.png" class="img-fluid shadow border border-1 border-dark" style="max-height:75px" />
-                </div>
-                <div class="col-6   align-self-center">
-                    <h5 id="HospitalName" class="fst-italic">@setting.Name</h5>
-                </div>
+                
+           
                 <img src="~/hospitaltemplate/images/logo.png" />
+                <span class="brand-name">@setting.Name</span>
 
             }
 
@@ -89,7 +86,7 @@
                     <a class="nav-link dropdown-toggle" asp-controller="Department" id="dropdown02" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Departments Blog <i class="icofont-thin-down"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                        <li><a class="dropdown-item" asp-controller="Department" asp-action="Index">Departments</a></li>
+                       @*  <li><a class="dropdown-item" asp-controller="Department" asp-action="Index">Departments</a></li> *@
                         @await Component.InvokeAsync("Departments")
 
 
